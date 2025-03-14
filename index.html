@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Feedback Page</title>
+</head>
+<body>
+  <h1>Give Your Feedback</h1>
+  <form id="feedback-form">
+    Name: <input type="text" id="name"><br><br>
+    Feedback: <textarea id="feedback"></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+  <p id="message"></p>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = 'https://wzgchcvyzskespcfrjvi.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    // Make sure DOM is ready before accessing elements
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+        e.preventDefault()
+
+        const name = document.getElementById('name').value
+        const feedback = document.getElementById('feedback').value
+
+        // Use correct table and column names from your Supabase table
+        const { error } = await supabase.from('Feedback').insert([
+          { name, message: feedback }
+        ])
+
+        document.getElementById('message').textContent = error
+          ? `Error: ${error.message}`
+          : 'Thanks for your feedback!'
+      })
+    })
+  </script>
+</body>
+</html>
