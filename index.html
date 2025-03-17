@@ -7,10 +7,12 @@
       font-family: Arial, sans-serif;
       margin: 0;
     }
+
     nav {
       background-color: #333;
       overflow: hidden;
     }
+
     nav a {
       float: left;
       display: block;
@@ -19,24 +21,27 @@
       padding: 14px 16px;
       text-decoration: none;
     }
+
     nav a:hover {
       background-color: #575757;
     }
+
     section {
       display: none;
       padding: 20px;
     }
+
     section.active {
       display: block;
     }
 
-    /* ✅ Updated Gallery Style */
     .gallery {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 20px;
+      gap: 15px;
+      align-items: center;
     }
+
     .gallery img {
       width: 150px;
       border-radius: 8px;
@@ -48,9 +53,22 @@
       padding: 8px;
       margin-top: 8px;
     }
+
     form button {
       padding: 10px 20px;
       margin-top: 10px;
+    }
+
+    .button-group button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    blockquote {
+      font-style: italic;
+      color: #555;
+      margin-top: 30px;
     }
   </style>
 </head>
@@ -63,9 +81,23 @@
     <a href="#" onclick="showSection('gallery')">Gallery</a>
   </nav>
 
+  <!-- Updated Home Section -->
   <section id="home" class="active">
-    <h2>Welcome to My Website</h2>
-    <p>This is the home page. Enjoy your visit!</p>
+    <h1 style="font-size: 2.5em; color: #2c3e50;">Hi, I'm Shiva 👋</h1>
+    <p style="font-size: 1.2em;">Welcome to my personal space on the web. Explore feedback, gallery, and more!</p>
+
+    <div style="max-width: 600px; margin-top: 20px;">
+      <p>I’m a Data Engineer with 10+ years of experience, currently exploring Supabase, Firebase, and modern web tech. This site is where I experiment, collect feedback, and share memories.</p>
+    </div>
+
+    <div class="button-group" style="margin-top: 20px;">
+      <button onclick="showSection('feedback')">Leave Feedback</button>
+      <button onclick="showSection('gallery')">View Gallery</button>
+    </div>
+
+    <blockquote>“Keep it simple, keep it meaningful.” — My code and life mantra</blockquote>
+
+    <img src="my_photo.jpeg" alt="Shiva Photo" width="120" style="border-radius: 50%; margin-top: 20px;">
   </section>
 
   <section id="feedback">
