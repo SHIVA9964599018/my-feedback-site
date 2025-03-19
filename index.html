@@ -34,19 +34,24 @@
     section.active {
       display: block;
     }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      align-items: center;
-    }
 
-    .gallery img {
-      width: 150px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
+
+.gallery img {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 
     form input, form textarea {
       width: 100%;
