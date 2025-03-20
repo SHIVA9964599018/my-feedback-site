@@ -55,6 +55,19 @@
       padding: 8px;
     }
 
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+.photo-gallery img {
+  width: 100%;
+  max-width: 180px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
 
     .gallery img:hover {
@@ -130,7 +143,7 @@
 
   <section id="gallery">
     <h2>Photo Gallery</h2>
-    <div class="gallery">
+    <div class="photo-gallery">
       <img src="aayi_photo.jpg" alt="Image 1">
       <img src="wife_photo.jpg" alt="Image 2">
       <img src="anand_photo.jpg" alt="Image 3">
