@@ -35,44 +35,31 @@
       display: block;
     }
 
-     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px; /* reduce this from 20px to 10px or lower */
-      margin-top: 30px;
-    }
-
-    
-    .gallery img {
-      width: 100px; /* Fixed size for uniformity */
-      height: 150px; /* Maintain same height */
-      object-fit: cover; /* Crop to fit box while keeping fill */
-      border-radius: 8px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-      background-color: #f0f0f0;
-      padding: 8px;
-    }
-
-.photo-gallery {
+.gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
   gap: 20px;
-  padding: 20px;
-  justify-items: center;
-}
-.photo-gallery img {
-  width: 100%;
-  max-width: 180px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  justify-items: center; /* Center each image within its cell */
+  margin-top: 30px;
 }
 
+.gallery img {
+  width: 150px;
+  height: 220px;
+  object-fit: cover; /* Ensures all images are cropped and fill box */
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 4px;
+}
 
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
 
     form input, form textarea {
       width: 100%;
