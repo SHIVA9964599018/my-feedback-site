@@ -132,15 +132,14 @@
     }
 
     .lightbox-button {
-      font-size: 2em;
-      padding: 15px 25px;
+      font-size: 24px; /* Reduced size */
       color: white;
-      background-color: #444;
+      background: none;
       border: none;
-      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      padding: 8px; /* smaller padding */
     }
+
 
     .lightbox-button:hover {
       background-color: #666;
@@ -207,10 +206,10 @@
   <div id="lightbox">
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
     <img id="lightbox-img" />
-    <div id="lightbox-controls">
-      <button class="lightbox-button" onclick="prevImage()">⬅️ Previous</button>
-      <button class="lightbox-button" onclick="nextImage()">Next ➡️</button>
-    </div>
+  <div id="lightbox-controls">
+    <button class="lightbox-button" onclick="prevImage()">◀️</button>
+    <button class="lightbox-button" onclick="nextImage()">▶️</button>
+  </div>
   </div>
 
   <script>
