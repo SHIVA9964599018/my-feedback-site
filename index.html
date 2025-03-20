@@ -35,35 +35,40 @@
       display: block;
     }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-  margin-top: 30px;
-  padding: 10px;
-  justify-items: center;
-}
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      padding: 10px;
+    }
 
-.gallery img {
-  max-width: 150px;
-  max-height: 220px;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Show full image without cropping */
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
-  padding: 6px;
-  cursor: pointer;
-}
+    .gallery-card {
+      width: 200px;
+      height: 250px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
 
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
+    .gallery-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
 
-
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+    }
 
     form input, form textarea {
       width: 100%;
@@ -134,11 +139,19 @@
 
   <section id="gallery">
     <h2>Photo Gallery</h2>
-    <div class="gallery">
-      <img src="aayi_photo.jpg" alt="Image 1">
-      <img src="wife_photo.jpg" alt="Image 2">
-      <img src="anand_photo.jpg" alt="Image 3">
-      <img src="samarth.jpg" alt="Image 4">
+    <div class="gallery-container">
+      <div class="gallery-card">
+        <img src="aayi_photo.jpg" alt="Image 1">
+      </div>
+      <div class="gallery-card">
+        <img src="wife_photo.jpg" alt="Image 2">
+      </div>
+      <div class="gallery-card">
+        <img src="anand_photo.jpg" alt="Image 3">
+      </div>
+      <div class="gallery-card">
+        <img src="samarth.jpg" alt="Image 4">
+      </div>
     </div>
   </section>
 
@@ -186,7 +199,7 @@
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightbox-img");
 
-      document.querySelectorAll('.gallery img').forEach(img => {
+      document.querySelectorAll('.gallery-card img').forEach(img => {
         img.addEventListener('click', () => {
           lightbox.style.display = "flex";
           lightboxImg.src = img.src;
