@@ -93,20 +93,20 @@
       margin-top: 30px;
     }
 
-    #feedback-list {
+    #feedback-list, #notes-list {
       margin-top: 30px;
       padding-left: 0;
       list-style: none;
     }
 
-    #feedback-list li {
+    #feedback-list li, #notes-list li {
       background: #f4f4f4;
       padding: 12px;
       margin-bottom: 10px;
       border-radius: 8px;
     }
 
-    #feedback-list strong {
+    #feedback-list strong, #notes-list strong {
       color: #333;
     }
   </style>
@@ -118,23 +118,20 @@
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
     <a href="#" onclick="showSection('gallery')">Gallery</a>
+    <a href="#" onclick="showSection('notes')">Personal Notes</a>
   </nav>
 
   <section id="home" class="active">
     <h1 style="font-size: 2.5em; color: #2c3e50;">Hi, I'm Shiva 👋</h1>
     <p style="font-size: 1.2em;">Welcome to my personal space on the web. Explore feedback, gallery, and more!</p>
-
     <div style="max-width: 600px; margin-top: 20px;">
       <p>I’m a Data Engineer with 10+ years of experience, currently exploring Supabase, Firebase, and modern web tech. This site is where I experiment, collect feedback, and share memories.</p>
     </div>
-
     <div class="button-group" style="margin-top: 20px;">
       <button onclick="showSection('feedback')">Leave Feedback</button>
       <button onclick="showSection('gallery')">View Gallery</button>
     </div>
-
     <blockquote>“Keep it simple, keep it meaningful.” — My code and life mantra</blockquote>
-
     <img src="my_intro_photo.jpg" alt="Shiva Photo" width="180" style="border-radius: 50%; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
   </section>
 
@@ -146,7 +143,6 @@
       <button type="submit">Submit</button>
     </form>
     <p id="message"></p>
-
     <h3 style="margin-top: 40px;">Previous Feedback</h3>
     <ul id="feedback-list"></ul>
   </section>
@@ -160,25 +156,26 @@
   <section id="gallery">
     <h2>Photo Gallery</h2>
     <div class="gallery-container">
-      <div class="gallery-card">
-        <img src="aayi_photo.jpg" alt="Image 1">
-      </div>
-      <div class="gallery-card">
-        <img src="wife_photo.jpg" alt="Image 2">
-      </div>
-      <div class="gallery-card">
-        <img src="anand_photo.jpg" alt="Image 3">
-      </div>
-      <div class="gallery-card">
-        <img src="samarth.jpg" alt="Image 4">
-      </div>
-      <div class="gallery-card">
-        <img src="aliya.jpg" alt="Image 5">
-      </div>
+      <div class="gallery-card"><img src="aayi_photo.jpg" alt="Image 1"></div>
+      <div class="gallery-card"><img src="wife_photo.jpg" alt="Image 2"></div>
+      <div class="gallery-card"><img src="anand_photo.jpg" alt="Image 3"></div>
+      <div class="gallery-card"><img src="samarth.jpg" alt="Image 4"></div>
+      <div class="gallery-card"><img src="aliya.jpg" alt="Image 5"></div>
     </div>
   </section>
 
-  <!-- Lightbox -->
+  <section id="notes">
+    <h2>My Personal Notes</h2>
+    <form id="notes-form">
+      Title: <input type="text" id="note-title" required><br><br>
+      Description: <textarea id="note-description" required></textarea><br><br>
+      <button type="submit">Add Note</button>
+    </form>
+    <p id="notes-message"></p>
+    <h3 style="margin-top: 40px;">Saved Notes</h3>
+    <ul id="notes-list"></ul>
+  </section>
+
   <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
     background-color: rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:9999;">
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
@@ -198,20 +195,16 @@
     const messageBox = document.getElementById('message')
 
     async function fetchFeedbacks() {
-      const { data, error } = await supabase
-        .from('Feedback')
-        .select('*')
-        .order('id', { ascending: false })
-
-      if (error) {
-        messageBox.textContent = 'Error loading feedback: ' + error.message
-      } else {
-        feedbackList.innerHTML = ''
+      const { data, error } = await supabase.from('Feedback').select('*').order('id', { ascending: false })
+      feedbackList.innerHTML = ''
+      if (data) {
         data.forEach(entry => {
           const li = document.createElement('li')
           li.innerHTML = `<strong>${entry.name}:</strong> ${entry.message}`
           feedbackList.appendChild(li)
         })
+      } else {
+        messageBox.textContent = 'Error: ' + error.message
       }
     }
 
@@ -219,7 +212,6 @@
       e.preventDefault()
       const name = document.getElementById('name').value
       const feedback = document.getElementById('feedbackText').value
-
       const { error } = await supabase.from('Feedback').insert([{ name, message: feedback }])
       messageBox.textContent = error ? error.message : 'Thanks for your feedback!'
       if (!error) {
@@ -228,8 +220,40 @@
       }
     })
 
-    // Load feedbacks initially when page loads
     fetchFeedbacks()
+
+    // Notes functionality
+    const notesForm = document.getElementById('notes-form')
+    const notesList = document.getElementById('notes-list')
+    const notesMessage = document.getElementById('notes-message')
+
+    async function fetchNotes() {
+      const { data, error } = await supabase.from('Notes').select('*').order('id', { ascending: false })
+      notesList.innerHTML = ''
+      if (data) {
+        data.forEach(note => {
+          const li = document.createElement('li')
+          li.innerHTML = `<strong>${note.title}:</strong> ${note.description}`
+          notesList.appendChild(li)
+        })
+      } else {
+        notesMessage.textContent = 'Error: ' + error.message
+      }
+    }
+
+    notesForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const title = document.getElementById('note-title').value
+      const description = document.getElementById('note-description').value
+      const { error } = await supabase.from('Notes').insert([{ title, description }])
+      notesMessage.textContent = error ? error.message : 'Note saved successfully!'
+      if (!error) {
+        notesForm.reset()
+        fetchNotes()
+      }
+    })
+
+    fetchNotes()
   </script>
 
   <!-- Section Switcher -->
