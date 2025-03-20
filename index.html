@@ -37,22 +37,24 @@
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-     <!-- gap: 20px; -->
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust image size */
+      gap: 10px; /* Reduce space between images */
+      justify-items: center; /* Center the images horizontally */
       margin-top: 30px;
     }
+    
+    .gallery img {
+      width: 200px; /* Fixed size for uniformity */
+      height: 150px; /* Maintain same height */
+      object-fit: cover; /* Crop to fit box while keeping fill */
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      padding: 8px;
+    }
 
-.gallery img {
-  width: 50%;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  aspect-ratio: 4/3;
-  padding: 8px;
-}
 
 
     .gallery img:hover {
