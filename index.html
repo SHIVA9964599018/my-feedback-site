@@ -35,30 +35,30 @@
       display: block;
     }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
-  gap: 20px;
-  justify-items: center; /* Center each image within its cell */
-  margin-top: 30px;
-}
-
-.gallery img {
-  width: 150px;
-  height: 220px;
-  object-fit: cover; /* Ensures all images are cropped and fill box */
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  padding: 4px;
-}
-
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      margin-top: 30px;
+    }
+    
+    .gallery img {
+      width: 150px;
+      height: 220px;
+      object-fit: contain; /* ⬅️ Show full image without cropping */
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background-color: #fff; /* Or light gray to avoid weird padding color */
+      padding: 4px;
+    }
+    
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
 
 
     form input, form textarea {
