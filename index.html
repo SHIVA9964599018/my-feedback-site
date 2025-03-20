@@ -132,7 +132,7 @@
       <button onclick="showSection('gallery')">View Gallery</button>
     </div>
     <blockquote>“Keep it simple, keep it meaningful.” — My code and life mantra</blockquote>
-    <img src="my_intro_photo.jpg" alt="Shiva Photo" width="180" style="border-radius: 50%; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+    <!-- Removed image from home section -->
   </section>
 
   <section id="feedback">
@@ -222,7 +222,6 @@
 
     fetchFeedbacks()
 
-    // Notes functionality
     const notesForm = document.getElementById('notes-form')
     const notesList = document.getElementById('notes-list')
     const notesMessage = document.getElementById('notes-message')
@@ -256,7 +255,6 @@
     fetchNotes()
   </script>
 
-  <!-- Section Switcher -->
   <script>
     function showSection(sectionId) {
       document.querySelectorAll('section').forEach(section => {
@@ -266,7 +264,6 @@
     }
   </script>
 
-  <!-- Lightbox Script -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const lightbox = document.getElementById("lightbox");
