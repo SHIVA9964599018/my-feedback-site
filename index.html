@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,7 +19,8 @@
       display: block;
       color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 16px 20px;
+      font-size: 1.2em;
       text-decoration: none;
     }
 
@@ -123,24 +125,31 @@
     }
 
     #lightbox-controls {
-      margin-top: 10px;
+      margin-top: 20px;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 40px;
     }
 
     .lightbox-button {
-      font-size: 30px;
+      font-size: 2em;
+      padding: 15px 25px;
       color: white;
-      background: none;
+      background-color: #444;
       border: none;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .lightbox-button:hover {
+      background-color: #666;
     }
 
     #lightbox-img {
       max-width: 90%;
       max-height: 80%;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -199,8 +208,8 @@
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
     <img id="lightbox-img" />
     <div id="lightbox-controls">
-      <button class="lightbox-button" onclick="prevImage()">⏮️</button>
-      <button class="lightbox-button" onclick="nextImage()">⏭️</button>
+      <button class="lightbox-button" onclick="prevImage()">⬅️ Previous</button>
+      <button class="lightbox-button" onclick="nextImage()">Next ➡️</button>
     </div>
   </div>
 
