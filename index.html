@@ -92,6 +92,23 @@
       color: #555;
       margin-top: 30px;
     }
+
+    #feedback-list {
+      margin-top: 30px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    #feedback-list li {
+      background: #f4f4f4;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    #feedback-list strong {
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -129,6 +146,9 @@
       <button type="submit">Submit</button>
     </form>
     <p id="message"></p>
+
+    <h3 style="margin-top: 40px;">Previous Feedback</h3>
+    <ul id="feedback-list"></ul>
   </section>
 
   <section id="about">
@@ -152,7 +172,7 @@
       <div class="gallery-card">
         <img src="samarth.jpg" alt="Image 4">
       </div>
-        <div class="gallery-card">
+      <div class="gallery-card">
         <img src="aliya.jpg" alt="Image 5">
       </div>
     </div>
@@ -173,17 +193,43 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ'
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+    const feedbackForm = document.getElementById('feedback-form')
+    const feedbackList = document.getElementById('feedback-list')
+    const messageBox = document.getElementById('message')
+
+    async function fetchFeedbacks() {
+      const { data, error } = await supabase
+        .from('Feedback')
+        .select('*')
+        .order('id', { ascending: false })
+
+      if (error) {
+        messageBox.textContent = 'Error loading feedback: ' + error.message
+      } else {
+        feedbackList.innerHTML = ''
+        data.forEach(entry => {
+          const li = document.createElement('li')
+          li.innerHTML = `<strong>${entry.name}:</strong> ${entry.message}`
+          feedbackList.appendChild(li)
+        })
+      }
+    }
+
+    feedbackForm.addEventListener('submit', async (e) => {
       e.preventDefault()
       const name = document.getElementById('name').value
       const feedback = document.getElementById('feedbackText').value
 
       const { error } = await supabase.from('Feedback').insert([{ name, message: feedback }])
-      document.getElementById('message').textContent = error ? error.message : 'Thanks for your feedback!'
+      messageBox.textContent = error ? error.message : 'Thanks for your feedback!'
       if (!error) {
-        document.getElementById('feedback-form').reset()
+        feedbackForm.reset()
+        fetchFeedbacks()
       }
     })
+
+    // Load feedbacks initially when page loads
+    fetchFeedbacks()
   </script>
 
   <!-- Section Switcher -->
