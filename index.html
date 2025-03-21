@@ -156,61 +156,59 @@
       border-radius: 12px;
     }
     
+#weight-loss {
+  margin-left: 5%; /* Shift to the left */
+  width: 90%;
+  text-align: left;
+}
+
 .journey-table {
-  transform: scale(0.85); /* Scale down by ~50% visually */
-  transform-origin: top center;
-  display: flex;
-  flex-direction: column;
-  border: 3px solid #5A189A;
-  border-radius: 12px;
-  overflow: hidden;
-  margin: 30px auto;
-  box-shadow: 0 8px 20px rgba(90, 24, 154, 0.2);
-  width: fit-content;
+  border-collapse: collapse;
+  width: 60%; /* smaller table width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #f8f4ff;
   font-family: 'Segoe UI', sans-serif;
 }
 
-.journey-row {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 2fr 1fr 1fr;
-  border-bottom: 3px solid #ccc;
+.journey-table th, .journey-table td {
+  border: 2px solid #ccc;
+  padding: 12px;
+  text-align: center;
   height: 150px;
 }
 
-.journey-row div {
-  border-right: 3px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.journey-row div:last-child {
-  border-right: none;
-}
-
-.journey-row:last-child {
-  border-bottom: none;
-}
-
-.journey-row.header {
-  background-color: #5A189A;
+.journey-table th {
+  background-color: #6a1b9a;
   color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
-  height: 60px;
+  font-size: 18px;
 }
 
-.journey-row img {
-  max-height: 100%;
+.journey-table td img {
   max-width: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-  border: 2px solid #ddd;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
 }
+
+/* Bold, Large, and Colored Numbers */
+.journey-row:not(.header) td:nth-child(2) { /* Weight */
+  color: #1E88E5;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.journey-row:not(.header) td:nth-child(4) { /* Weekly Loss */
+  color: #43A047;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.journey-row:not(.header) td:nth-child(5) { /* Net Loss */
+  color: #F4511E;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 
   </style>
 </head>
