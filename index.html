@@ -279,5 +279,26 @@
       img.addEventListener('click', () => openLightbox(index))
     })
   </script>
+  <script>
+  let startX = 0;
+
+  lightbox.addEventListener("touchstart", function(e) {
+    startX = e.touches[0].clientX;
+  });
+
+  lightbox.addEventListener("touchend", function(e) {
+    let endX = e.changedTouches[0].clientX;
+    let diffX = startX - endX;
+
+    if (diffX > 50) {
+      // Swiped left
+      nextImage();
+    } else if (diffX < -50) {
+      // Swiped right
+      prevImage();
+    }
+  });
+</script>
+
 </body>
 </html>
