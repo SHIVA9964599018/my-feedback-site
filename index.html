@@ -156,34 +156,36 @@
       border-radius: 12px;
     }
     
-#weight-loss {
-  padding: 30px 15px;
-  background-color: #f5f5f5;
-  text-align: center;
-}
-
-.journey-container {
+.journey-table {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 10px;
 }
 
-.journey-card {
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background: white;
-  padding: 15px;
-  width: 200px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+.journey-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  background-color: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.journey-card img {
+.journey-row.header {
+  font-weight: bold;
+  background-color: #eee;
+  box-shadow: none;
+}
+
+.journey-row img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  max-width: 150px;
+  height: auto;
   border-radius: 8px;
-  margin-bottom: 10px;
 }
 
 
@@ -338,54 +340,89 @@
 </script>
 <section id="weight-loss">
   <h2>My Weight Loss Journey</h2>
-  <div class="journey-container">
-    <div class="journey-card">
-      <p><strong>Date:</strong> 18-Jan-2025</p>
-      <img src="75.50.jpg" alt="75.50 kg">
-      <p><strong>Weight:</strong> 75.50 kg</p>
+  <div class="journey-table">
+    <div class="journey-row header">
+      <div>Date</div>
+      <div>Weight</div>
+      <div>Progress Photo</div>
+      <div>Weekly Loss</div>
+      <div>Net Loss</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 25-Jan-2025</p>
-      <img src="74.35.jpg" alt="74.35 kg">
-      <p><strong>Weight:</strong> 74.35 kg</p>
+
+    <div class="journey-row">
+      <div>18-Jan-2025</div>
+      <div>75.50 kg</div>
+      <div><img src="75.50.jpg" alt="75.50 kg"></div>
+      <div>–</div>
+      <div>0.00 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 01-Feb-2025</p>
-      <img src="73.95.jpg" alt="73.95 kg">
-      <p><strong>Weight:</strong> 73.95 kg</p>
+
+    <div class="journey-row">
+      <div>25-Jan-2025</div>
+      <div>74.35 kg</div>
+      <div><img src="74.35.jpg" alt="74.35 kg"></div>
+      <div>-1.15 kg</div>
+      <div>-1.15 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 08-Feb-2025</p>
-      <img src="73.60.jpg" alt="73.60 kg">
-      <p><strong>Weight:</strong> 73.60 kg</p>
+
+    <div class="journey-row">
+      <div>01-Feb-2025</div>
+      <div>73.95 kg</div>
+      <div><img src="73.95.jpg" alt="73.95 kg"></div>
+      <div>-0.40 kg</div>
+      <div>-1.55 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 15-Feb-2025</p>
-      <img src="73.35.jpg" alt="73.35 kg">
-      <p><strong>Weight:</strong> 73.35 kg</p>
+
+    <div class="journey-row">
+      <div>08-Feb-2025</div>
+      <div>73.60 kg</div>
+      <div><img src="73.60.jpg" alt="73.60 kg"></div>
+      <div>-0.35 kg</div>
+      <div>-1.90 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 22-Feb-2025</p>
-      <img src="73.25.jpg" alt="73.25 kg">
-      <p><strong>Weight:</strong> 73.25 kg</p>
+
+    <div class="journey-row">
+      <div>15-Feb-2025</div>
+      <div>73.35 kg</div>
+      <div><img src="73.35.jpg" alt="73.35 kg"></div>
+      <div>-0.25 kg</div>
+      <div>-2.15 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 01-Mar-2025</p>
-      <img src="73.00.jpg" alt="73.00 kg">
-      <p><strong>Weight:</strong> 73.00 kg</p>
+
+    <div class="journey-row">
+      <div>22-Feb-2025</div>
+      <div>73.25 kg</div>
+      <div><img src="73.25.jpg" alt="73.25 kg"></div>
+      <div>-0.10 kg</div>
+      <div>-2.25 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 08-Mar-2025</p>
-      <img src="72.60.jpg" alt="72.60 kg">
-      <p><strong>Weight:</strong> 72.60 kg</p>
+
+    <div class="journey-row">
+      <div>01-Mar-2025</div>
+      <div>73.00 kg</div>
+      <div><img src="73.00.jpg" alt="73.00 kg"></div>
+      <div>-0.25 kg</div>
+      <div>-2.50 kg</div>
     </div>
-    <div class="journey-card">
-      <p><strong>Date:</strong> 15-Mar-2025</p>
-      <img src="72.80.jpg" alt="72.80 kg">
-      <p><strong>Weight:</strong> 72.80 kg</p>
+
+    <div class="journey-row">
+      <div>08-Mar-2025</div>
+      <div>72.60 kg</div>
+      <div><img src="72.60.jpg" alt="72.60 kg"></div>
+      <div>-0.40 kg</div>
+      <div>-2.90 kg</div>
+    </div>
+
+    <div class="journey-row">
+      <div>15-Mar-2025</div>
+      <div>72.80 kg</div>
+      <div><img src="72.80.jpg" alt="72.80 kg"></div>
+      <div>+0.20 kg</div>
+      <div>-2.70 kg</div>
     </div>
   </div>
 </section>
+
 
 </body>
 </html>
