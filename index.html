@@ -170,12 +170,17 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr 2fr 1fr 1fr;
   border-bottom: 3px solid #444;
+  height: 180px; /* Fixed height for uniform rows */
 }
 
 .journey-row div {
   border-right: 3px solid #444;
   padding: 12px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .journey-row div:last-child {
@@ -191,11 +196,13 @@
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
+  height: 60px; /* Shorter for header */
 }
 
 .journey-row img {
   width: 100%;
-  max-width: 130px;
+  height: 100%;
+  object-fit: cover; /* Zoom and crop to fill the box */
   border-radius: 8px;
   border: 2px solid #aaa;
 }
@@ -213,6 +220,7 @@
 .neutral {
   color: #777;
 }
+
 
 
   </style>
