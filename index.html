@@ -155,7 +155,7 @@
       border-radius: 12px;
     }
 
-  .journey-table {
+.journey-table {
   width: 100%;
   border-collapse: collapse;
   margin: auto;
@@ -164,6 +164,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   overflow: hidden;
+  table-layout: fixed;
 }
 
 .journey-table thead {
@@ -175,47 +176,24 @@
 .journey-table th,
 .journey-table td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 10px;
   text-align: center;
   vertical-align: middle;
 }
 
-.journey-table tbody td:nth-child(2) {
-  color: #1E88E5;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.journey-table tbody td:nth-child(4) {
-  color: #43A047;
-  font-weight: bold;
+.journey-table td:nth-child(3) {
+  width: 120px; /* image column */
+  height: 120px;
 }
 
 .journey-table img {
   width: 100%;
-  height: auto;
-  max-width: 100px;
-  max-height: 120px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #ddd;
-  transition: transform 0.3s ease;
+  border-radius: 6px;
+  display: block;
 }
 
-.journey-table img:hover {
-  transform: scale(1.1);
-}
-
-@media screen and (max-width: 768px) {
-  .journey-table {
-    font-size: 14px;
-  }
-
-  .journey-table img {
-    max-width: 80px;
-    max-height: 100px;
-  }
-}
 
 
   </style>
