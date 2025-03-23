@@ -161,68 +161,75 @@
       text-align: left;
     }
 
-    .journey-table {
-      border-collapse: collapse;
-      width: 60%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      background-color: #f8f4ff;
-      font-family: 'Segoe UI', sans-serif;
-    }
+#weight-loss {
+  padding: 20px;
+  background-color: #fdf7ff;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-    .journey-table th, .journey-table td {
-      border: 2px solid #ccc;
-      padding: 12px;
-      text-align: center;
-      height: 150px;
-    }
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
 
-    .journey-table th {
-      background-color: #6a1b9a;
-      color: white;
-      font-size: 18px;
-    }
+.journey-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 250px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
 
-    .journey-table td img {
-      max-width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
+.journey-card:hover {
+  transform: translateY(-5px);
+}
 
-    .journey-row:not(.header) td:nth-child(2) {
-      color: #1E88E5;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
+.journey-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 10px 0;
+  border: 2px solid #e0d0f0;
+}
 
-    .journey-row:not(.header) td:nth-child(4) {
-      color: #43A047;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
+.card-date {
+  font-size: 16px;
+  font-weight: bold;
+  color: #6a1b9a;
+}
 
-    .journey-row:not(.header) td:nth-child(5) {
-      color: #F4511E;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
+.card-weight {
+  font-size: 16px;
+  color: #333;
+  margin: 6px 0;
+}
 
-    @media (max-width: 768px) {
-      .gallery-card {
-        width: 150px;
-        height: 200px;
-      }
+.card-weekly span {
+  color: #43A047;
+  font-weight: bold;
+}
 
-      #lightbox-img {
-        width: 90vw;
-        height: auto;
-      }
+.card-net span {
+  color: #F4511E;
+  font-weight: bold;
+}
 
-      .journey-table {
-        width: 100%;
-        font-size: 14px;
-      }
-    }
+@media (max-width: 600px) {
+  .journey-card {
+    padding: 12px;
+  }
+
+  .journey-card img {
+    height: 120px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -373,80 +380,38 @@
   });
 </script>
 <section id="weight-loss">
-  <h2 style="text-align:center;">My Weight Loss Journey</h2>
-  <div class="journey-table">
-    <div class="journey-row header">
-      <div>Date</div>
-      <div>Weight</div>
-      <div>Image</div>
-      <div>Weekly Loss</div>
-      <div>Net Loss</div>
+  <h2 style="text-align:center; font-size: 2rem; margin-bottom: 20px;">My Weight Loss Journey</h2>
+  <div class="journey-grid">
+    <!-- Repeat this card per entry -->
+    <div class="journey-card">
+      <div class="card-date">18-Jan-2025</div>
+      <img src="75.50.jpg" alt="75.50 kg">
+      <div class="card-weight">Weight: <strong>75.50 kg</strong></div>
+      <div class="card-weekly">Weekly Loss: <span>-</span></div>
+      <div class="card-net">Net Loss: <span>0.00 kg</span></div>
     </div>
-    <div class="journey-row">
-      <div>18-Jan-2025</div>
-      <div>75.50 kg</div>
-      <div><img src="75.50.jpg" alt="75.50 kg"></div>
-      <div>-</div>
-      <div>0.00 kg</div>
+
+    <div class="journey-card">
+      <div class="card-date">25-Jan-2025</div>
+      <img src="74.35.jpg" alt="74.35 kg">
+      <div class="card-weight">Weight: <strong>74.35 kg</strong></div>
+      <div class="card-weekly">Weekly Loss: <span>1.15 kg</span></div>
+      <div class="card-net">Net Loss: <span>1.15 kg</span></div>
     </div>
-    <div class="journey-row">
-      <div>25-Jan-2025</div>
-      <div>74.35 kg</div>
-      <div><img src="74.35.jpg" alt="74.35 kg"></div>
-      <div>1.15 kg</div>
-      <div>1.15 kg</div>
+
+    <div class="journey-card">
+      <div class="card-date">01-Feb-2025</div>
+      <img src="73.95.jpg" alt="73.95 kg">
+      <div class="card-weight">Weight: <strong>73.95 kg</strong></div>
+      <div class="card-weekly">Weekly Loss: <span>0.40 kg</span></div>
+      <div class="card-net">Net Loss: <span>1.55 kg</span></div>
     </div>
-    <div class="journey-row">
-      <div>01-Feb-2025</div>
-      <div>73.95 kg</div>
-      <div><img src="73.95.jpg" alt="73.95 kg"></div>
-      <div>0.40 kg</div>
-      <div>1.55 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>08-Feb-2025</div>
-      <div>73.60 kg</div>
-      <div><img src="73.60.jpg" alt="73.60 kg"></div>
-      <div>0.35 kg</div>
-      <div>1.90 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>15-Feb-2025</div>
-      <div>73.35 kg</div>
-      <div><img src="73.35.jpg" alt="73.35 kg"></div>
-      <div>0.25 kg</div>
-      <div>2.15 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>22-Feb-2025</div>
-      <div>73.25 kg</div>
-      <div><img src="73.25.jpg" alt="73.25 kg"></div>
-      <div>0.10 kg</div>
-      <div>2.25 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>01-Mar-2025</div>
-      <div>73.00 kg</div>
-      <div><img src="73.00.jpg" alt="73.00 kg"></div>
-      <div>0.25 kg</div>
-      <div>2.50 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>08-Mar-2025</div>
-      <div>72.60 kg</div>
-      <div><img src="72.60.jpg" alt="72.60 kg"></div>
-      <div>0.40 kg</div>
-      <div>2.90 kg</div>
-    </div>
-    <div class="journey-row">
-      <div>15-Mar-2025</div>
-      <div>72.80 kg</div>
-      <div><img src="72.80.jpg" alt="72.80 kg"></div>
-      <div>-0.20 kg</div>
-      <div>2.70 kg</div>
-    </div>
+
+    <!-- Add more cards below as needed... -->
+
   </div>
 </section>
+
 
 </body>
 </html>
