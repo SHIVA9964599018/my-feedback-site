@@ -155,7 +155,7 @@
       border-radius: 12px;
     }
 
-   .journey-table {
+  .journey-table {
   width: 100%;
   border-collapse: collapse;
   margin: auto;
@@ -191,14 +191,11 @@
   font-weight: bold;
 }
 
-.journey-table tbody td:nth-child(5) {
-  color: #F4511E;
-  font-weight: bold;
-}
-
 .journey-table img {
-  width: 100px;
-  height: 120px;
+  width: 100%;
+  height: auto;
+  max-width: 100px;
+  max-height: 120px;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #ddd;
@@ -215,10 +212,11 @@
   }
 
   .journey-table img {
-    width: 80px;
-    height: 100px;
+    max-width: 80px;
+    max-height: 100px;
   }
 }
+
 
   </style>
 </head>
@@ -370,7 +368,10 @@
   });
 </script>
 <section id="weight-loss">
-  <h2 style="text-align:center; font-size: 2rem; margin-bottom: 20px;">My Weight Loss Journey</h2>
+  <h2 style="text-align:center; font-size: 2rem; margin-bottom: 10px;">My Weight Loss Journey</h2>
+  <p style="text-align:center; font-size: 1.2rem; font-weight: bold; color: #2e7d32; margin-bottom: 20px;">
+    Net Loss: 2.70 kg
+  </p>
   <table class="journey-table">
     <thead>
       <tr>
@@ -378,7 +379,6 @@
         <th>Weight</th>
         <th>Image</th>
         <th>Weekly Loss</th>
-        <th>Net Loss</th>
       </tr>
     </thead>
     <tbody>
@@ -387,13 +387,11 @@
         <td>75.50 kg</td>
         <td><img src="75.50.jpg" alt="75.50 kg photo"></td>
         <td>-</td>
-        <td>0.00 kg</td>
       </tr>
       <tr>
         <td>25-Jan-2025</td>
         <td>74.35 kg</td>
         <td><img src="74.35.jpg" alt="74.35 kg photo"></td>
-        <td>1.15 kg</td>
         <td>1.15 kg</td>
       </tr>
       <tr>
@@ -401,62 +399,46 @@
         <td>73.95 kg</td>
         <td><img src="73.95.jpg" alt="73.95 kg photo"></td>
         <td>0.40 kg</td>
-        <td>1.55 kg</td>
       </tr>
       <tr>
         <td>08-Feb-2025</td>
         <td>73.60 kg</td>
         <td><img src="73.60.jpg" alt="73.60 kg photo"></td>
         <td>0.35 kg</td>
-        <td>1.90 kg</td>
       </tr>
       <tr>
         <td>15-Feb-2025</td>
         <td>73.35 kg</td>
         <td><img src="73.35.jpg" alt="73.35 kg photo"></td>
         <td>0.25 kg</td>
-        <td>2.15 kg</td>
       </tr>
       <tr>
         <td>22-Feb-2025</td>
         <td>73.25 kg</td>
         <td><img src="73.25.jpg" alt="73.25 kg photo"></td>
         <td>0.10 kg</td>
-        <td>2.25 kg</td>
       </tr>
       <tr>
         <td>01-Mar-2025</td>
         <td>73.00 kg</td>
         <td><img src="73.00.jpg" alt="73.00 kg photo"></td>
         <td>0.25 kg</td>
-        <td>2.50 kg</td>
       </tr>
       <tr>
         <td>08-Mar-2025</td>
         <td>72.60 kg</td>
         <td><img src="72.60.jpg" alt="72.60 kg photo"></td>
         <td>0.40 kg</td>
-        <td>2.90 kg</td>
       </tr>
       <tr>
         <td>15-Mar-2025</td>
         <td>72.80 kg</td>
         <td><img src="72.80.jpg" alt="72.80 kg photo"></td>
         <td>-0.20 kg</td>
-        <td>2.70 kg</td>
-      </tr>
-            <tr>
-        <td>23-Mar-2025</td>
-        <td>72.75 kg</td>
-        <td><img src="72.75.jpg" alt="72.75 kg photo"></td>
-        <td>0.05 kg</td>
-        <td>2.75 kg</td>
       </tr>
     </tbody>
   </table>
 </section>
-
-
 
 </body>
 </html>
