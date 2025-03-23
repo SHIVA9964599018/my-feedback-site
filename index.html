@@ -182,18 +182,31 @@
 }
 
 .journey-table td:nth-child(3) {
-  width: 120px; /* image column */
+  width: 120px;
   height: 120px;
 }
 
 .journey-table img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* ✅ shows full image without cropping */
   border-radius: 6px;
   display: block;
+  background-color: #fff; /* adds contrast if image doesn't fill cell */
 }
 
+/* Colored number cells */
+.journey-table td:nth-child(2) {
+  color: #1E88E5;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.journey-table td:nth-child(4) {
+  color: #43A047;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
 
 
   </style>
