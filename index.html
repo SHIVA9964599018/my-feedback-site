@@ -390,6 +390,33 @@
       prevImage();
     }
   });
+
+   const correctPassword = "mygallery123"; // Change to your own secure password
+
+  function showSection(sectionId) {
+    // Check if it's the gallery
+    if (sectionId === 'gallery') {
+      const alreadyAuthorized = sessionStorage.getItem("galleryAuthorized");
+      if (!alreadyAuthorized) {
+        const password = prompt("This section is protected. Please enter the password:");
+        if (password !== correctPassword) {
+          alert("Incorrect password!");
+          return;
+        }
+        // If password is correct, store session key
+        sessionStorage.setItem("galleryAuthorized", "true");
+      }
+    }
+
+    // Hide all sections
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section) => {
+      section.classList.remove('active');
+    });
+
+    // Show the selected section
+    document.getElementById(sectionId).classList.add('active');
+  }   
 </script>
 <section id="weight-loss">
   <h2 style="text-align:center;">My Weight Loss Journey</h2>
@@ -470,6 +497,7 @@
     </tbody>
   </table>
 </section>
+
 
 
 </body>
