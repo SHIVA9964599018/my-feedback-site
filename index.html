@@ -497,14 +497,17 @@
     </tbody>
   </table>
 </section>
-<script type='Module'>
+<script type='module'>
+// Ensure Supabase is available
+const { createClient } = supabase;
+
 // Supabase configuration
 const SUPABASE_URL = "https://wzgchcvyzskespcfrjvi.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ";
 
-const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// Event listener for submitting feedback
 document.getElementById("feedback-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -532,9 +535,12 @@ document.getElementById("feedback-form").addEventListener("submit", async functi
     }
 });
 
-// Fetch feedback from Supabase and display it
+// Fetch and display feedback
 async function fetchFeedback() {
-    const { data, error } = await supabaseClient.from("Feedback").select("*").order("id", { ascending: false });
+    const { data, error } = await supabaseClient
+        .from("Feedback")
+        .select("*")
+        .order("id", { ascending: false });
 
     if (error) {
         console.error("Error fetching feedback:", error.message);
@@ -553,6 +559,7 @@ async function fetchFeedback() {
 
 // Fetch feedback when the page loads
 document.addEventListener("DOMContentLoaded", fetchFeedback);
+
 
 </script> 
 
