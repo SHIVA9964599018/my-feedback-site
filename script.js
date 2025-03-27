@@ -5,12 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
     );
 
-    function showSection(sectionId) {
-        document.querySelectorAll("section").forEach((section) => {
-            section.classList.remove("active");
-        });
-        document.getElementById(sectionId).classList.add("active");
-    }
+window.showSection = function (sectionId) {
+    document.querySelectorAll("section").forEach((section) => {
+        section.classList.remove("active");
+    });
+    document.getElementById(sectionId).classList.add("active");
+};
+
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
