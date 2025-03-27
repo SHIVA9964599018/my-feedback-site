@@ -1,4 +1,4 @@
-<script>
+
     function showSection(sectionId) {
       document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active')
@@ -34,8 +34,7 @@
     galleryImages.forEach((img, index) => {
       img.addEventListener('click', () => openLightbox(index))
     })
-  </script>
-  <script>
+
   let startX = 0;
 
   lightbox.addEventListener("touchstart", function(e) {
@@ -81,8 +80,7 @@
     // Show the selected section
     document.getElementById(sectionId).classList.add('active');
   }   
-</script>
-<script type='module'>
+
 // Ensure Supabase is available
 const { createClient } = supabase;
 
@@ -146,6 +144,5 @@ async function fetchFeedback() {
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 
 
-</script> 
 
 
