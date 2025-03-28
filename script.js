@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js";
 
 // Ensure Supabase is available
 document.addEventListener("DOMContentLoaded", function () {
@@ -6,6 +6,25 @@ document.addEventListener("DOMContentLoaded", function () {
         "https://wzgchcvyzskespcfrjvi.supabase.co",
         "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
     );
+
+    // Debugging: Check if elements exist
+    function checkElement(id) {
+        const element = document.getElementById(id);
+        if (!element) {
+            console.error(`Element with ID '${id}' not found.`);
+        }
+        return element;
+    }
+
+    const closeBtn = checkElement("close-lightbox");
+    const nextBtn = checkElement("next-btn");
+    const prevBtn = checkElement("prev-btn");
+
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (nextBtn) nextBtn.addEventListener("click", nextImage);
+    if (prevBtn) prevBtn.addEventListener("click", prevImage);
+});
+
 
     window.showSection = function (sectionId) {
         if (sectionId === "gallery") {
