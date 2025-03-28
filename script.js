@@ -138,18 +138,30 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("showAllPhotos").addEventListener("click", function (event) {
-        event.preventDefault(); // Prevents page refresh
-        document.getElementById("allPhotos").style.display = "block";
-        document.getElementById("marriagePhotos").style.display = "none";
-    });
+    let allPhotosSection = document.getElementById("allPhotos");
+    let marriagePhotosSection = document.getElementById("marriagePhotos");
 
-    document.getElementById("showMarriagePhotos").addEventListener("click", function (event) {
-        event.preventDefault(); // Prevents page refresh
-        document.getElementById("allPhotos").style.display = "none";
-        document.getElementById("marriagePhotos").style.display = "block";
-    });
+    // Ensure the elements exist before adding event listeners
+    if (allPhotosSection && marriagePhotosSection) {
+        document.querySelectorAll(".dropdown-menu a").forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                let sectionId = this.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract the section ID
+                
+                if (sectionId === "all-photos") {
+                    allPhotosSection.style.display = "block";
+                    marriagePhotosSection.style.display = "none";
+                } else if (sectionId === "marriage-photos") {
+                    allPhotosSection.style.display = "none";
+                    marriagePhotosSection.style.display = "block";
+                }
+            });
+        });
+    } else {
+        console.error("Sections not found. Check your HTML IDs.");
+    }
 });
+
 function showSection(sectionId) {
     // Hide all sections first
     document.querySelectorAll('section').forEach(section => {
