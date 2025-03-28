@@ -157,9 +157,18 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById(sectionId).style.display = "block";
     }
 
-    // Attach function to window so it can be used in HTML
-    window.showGallerySection = showGallerySection;
+    // Add event listeners when the page loads
+    document.getElementById("showAllPhotos").addEventListener("click", function (event) {
+        event.preventDefault();
+        showGallerySection("allPhotos");
+    });
+
+    document.getElementById("showMarriagePhotos").addEventListener("click", function (event) {
+        event.preventDefault();
+        showGallerySection("marriagePhotos");
+    });
 });
+
 
 
 function showSection(sectionId) {
