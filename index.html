@@ -272,7 +272,15 @@
     position: relative;
     display: inline-block;
 }
+#allPhotos, #marriagePhotos {
+    display: none; /* Initially hidden */
+}
 
+#allPhotos.show, #marriagePhotos.show {
+    display: block; /* Show when class is added */
+}
+
+    
 
   </style>
 </head>
@@ -327,6 +335,7 @@
     <p>Welcome to my personal site! I love building web apps using Supabase and GitHub.</p>
   </section>
 
+  
 <section id="gallery">
     <h2>Gallery</h2>
 
