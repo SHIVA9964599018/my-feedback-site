@@ -156,13 +156,12 @@ function showSection(sectionId) {
         section.style.display = 'none';
     });
 
-    // Find the section
-    let section = document.getElementById(sectionId);
-
-    // Check if the section exists before trying to show it
-    if (section) {
-        section.style.display = 'block';
+    // Show only the selected section if it exists
+    let targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = 'block';
     } else {
-        console.error("Section not found:", sectionId);
+        console.error("Section with ID '" + sectionId + "' not found.");
     }
 }
+
