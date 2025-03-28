@@ -138,29 +138,29 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    let allPhotosSection = document.getElementById("allPhotos");
-    let marriagePhotosSection = document.getElementById("marriagePhotos");
+    function showGallerySection(sectionId) {
+        console.log("Showing section:", sectionId); // Debugging log
 
-    // Ensure the elements exist before adding event listeners
-    if (allPhotosSection && marriagePhotosSection) {
-        document.querySelectorAll(".dropdown-menu a").forEach(link => {
-            link.addEventListener("click", function (event) {
-                event.preventDefault();
-                let sectionId = this.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract the section ID
-                
-                if (sectionId === "all-photos") {
-                    allPhotosSection.style.display = "block";
-                    marriagePhotosSection.style.display = "none";
-                } else if (sectionId === "marriage-photos") {
-                    allPhotosSection.style.display = "none";
-                    marriagePhotosSection.style.display = "block";
-                }
-            });
-        });
-    } else {
-        console.error("Sections not found. Check your HTML IDs.");
+        let allPhotosSection = document.getElementById("allPhotos");
+        let marriagePhotosSection = document.getElementById("marriagePhotos");
+
+        if (!allPhotosSection || !marriagePhotosSection) {
+            console.error("Error: One or more gallery sections not found.");
+            return;
+        }
+
+        // Hide both sections first
+        allPhotosSection.style.display = "none";
+        marriagePhotosSection.style.display = "none";
+
+        // Show the selected section
+        document.getElementById(sectionId).style.display = "block";
     }
+
+    // Attach function to window so it can be used in HTML
+    window.showGallerySection = showGallerySection;
 });
+
 
 function showSection(sectionId) {
     // Hide all sections first
