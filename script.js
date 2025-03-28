@@ -161,23 +161,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to show/hide gallery sections
 function showGallerySection(sectionId) {
-    console.log("Showing section:", sectionId); // Debugging log
+    console.log("Showing section:", sectionId);
 
     let allPhotosSection = document.getElementById("allPhotos");
     let marriagePhotosSection = document.getElementById("marriagePhotos");
 
     if (!allPhotosSection || !marriagePhotosSection) {
-        console.error("Error: One or more gallery sections not found.");
+        console.error("Error: Sections not found.");
         return;
     }
 
     // Hide both sections first
-    allPhotosSection.style.display = "none";
-    marriagePhotosSection.style.display = "none";
+    allPhotosSection.classList.remove("show");
+    marriagePhotosSection.classList.remove("show");
 
-    // Show the selected section
-    document.getElementById(sectionId).style.display = "block";
+    // Show only the selected section
+    document.getElementById(sectionId).classList.add("show");
 }
+
 
 
 
