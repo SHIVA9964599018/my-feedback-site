@@ -285,10 +285,23 @@
     <p>Welcome to my personal site! I love building web apps using Supabase and GitHub.</p>
   </section>
 
-  <section id="gallery">
-    <h2>Photo Gallery</h2>
-    <div class="gallery-container">
-      <div class="gallery-card"><img src="aayi_photo.jpg" alt="Image 1"></div>
+<section id="gallery">
+    <h1>Gallery</h1>
+
+    <!-- Dropdown for selecting photo category -->
+    <div class="dropdown">
+        <button class="dropbtn">Select Category</button>
+        <div class="dropdown-content">
+            <a href="#" id="showAllPhotos">All Photos</a>
+            <a href="#" id="showMarriagePhotos">Marriage Photos</a>
+        </div>
+    </div>
+
+    <!-- All Photos Section -->
+    <div id="allPhotos">
+        <h2>All Photos</h2>
+        <div class="gallery-container">
+<div class="gallery-card"><img src="aayi_photo.jpg" alt="Image 1"></div>
       <div class="gallery-card"><img src="wife_photo.jpg" alt="Image 2"></div>
       <div class="gallery-card"><img src="anand_photo.jpg" alt="Image 3"></div>
       <div class="gallery-card"><img src="samarth.jpg" alt="Image 4"></div>
@@ -320,10 +333,19 @@
       <div class="gallery-card"><img src="WhatsApp Image 2025-03-20 at 11.43.42 PM.jpeg" alt="Image 13"></div>
       <div class="gallery-card"><img src="WhatsApp Image 2025-03-20 at 11.43.42 PM(2).jpeg" alt="Image 13"></div>
        <div class="gallery-card"><img src="WhatsApp Image 2025-03-20 at 11.43.42 PM(1).jpeg" alt="Image 13"></div>
-     
-      
+        </div>
     </div>
-  </section>
+
+    <!-- Marriage Photos Section (Initially Hidden) -->
+    <div id="marriagePhotos" style="display: none;">
+        <h2>Marriage Photos</h2>
+        <div class="gallery-container">
+            <img src="marriage1.jpg" alt="Marriage Photo 1">
+            <img src="marriage2.jpg" alt="Marriage Photo 2">
+            <!-- Add more marriage photos here -->
+        </div>
+    </div>
+</section>
 
   <div id="lightbox">
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
