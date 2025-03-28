@@ -20,7 +20,6 @@ const supabaseClient = supabase.createClient(
     if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
     if (nextBtn) nextBtn.addEventListener("click", nextImage);
     if (prevBtn) prevBtn.addEventListener("click", prevImage);
-});
 
 
     window.showSection = function (sectionId) {
