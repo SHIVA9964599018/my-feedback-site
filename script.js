@@ -159,24 +159,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Function to show/hide gallery sections
 function showGallerySection(sectionId) {
     console.log("Showing section:", sectionId);
 
     let allPhotosSection = document.getElementById("allPhotos");
     let marriagePhotosSection = document.getElementById("marriagePhotos");
 
+    console.log("allPhotosSection:", allPhotosSection);  // Check if element exists
+    console.log("marriagePhotosSection:", marriagePhotosSection);  // Check if element exists
+
     if (!allPhotosSection || !marriagePhotosSection) {
-        console.error("Error: Sections not found.");
+        console.error("Error: Sections not found in the document.");
         return;
     }
 
     // Hide both sections first
-    allPhotosSection.classList.remove("show");
-    marriagePhotosSection.classList.remove("show");
+    allPhotosSection.style.display = "none";
+    marriagePhotosSection.style.display = "none";
 
     // Show only the selected section
-    document.getElementById(sectionId).classList.add("show");
+    let selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.style.display = "block";
+        console.log(`✅ Successfully displayed: ${sectionId}`);
+    } else {
+        console.error(`❌ Error: Element with ID '${sectionId}' not found.`);
+    }
 }
 
 
