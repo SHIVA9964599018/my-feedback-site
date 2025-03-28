@@ -137,3 +137,16 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchFeedback();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("showAllPhotos").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevents page refresh
+        document.getElementById("allPhotos").style.display = "block";
+        document.getElementById("marriagePhotos").style.display = "none";
+    });
+
+    document.getElementById("showMarriagePhotos").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevents page refresh
+        document.getElementById("allPhotos").style.display = "none";
+        document.getElementById("marriagePhotos").style.display = "block";
+    });
+});
