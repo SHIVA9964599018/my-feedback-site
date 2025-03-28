@@ -238,9 +238,34 @@
     margin: 0 auto;
   }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    z-index: 1000;
+}
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
 
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
 
   </style>
 </head>
@@ -286,22 +311,12 @@
   </section>
 
 <section id="gallery">
-    <h1>Gallery</h1>
+    <h2>Gallery</h2>
 
-    <!-- Dropdown for selecting photo category -->
-    <div class="dropdown">
-        <button class="dropbtn">Select Category</button>
-        <div class="dropdown-content">
-            <a href="#" id="showAllPhotos">All Photos</a>
-            <a href="#" id="showMarriagePhotos">Marriage Photos</a>
-        </div>
-    </div>
-
-    <!-- All Photos Section -->
+    <!-- Default: All Photos visible, Marriage Photos hidden -->
     <div id="allPhotos">
-        <h2>All Photos</h2>
+        <h3>All Photos</h3>
         <div class="gallery-container">
-<div class="gallery-card"><img src="aayi_photo.jpg" alt="Image 1"></div>
       <div class="gallery-card"><img src="wife_photo.jpg" alt="Image 2"></div>
       <div class="gallery-card"><img src="anand_photo.jpg" alt="Image 3"></div>
       <div class="gallery-card"><img src="samarth.jpg" alt="Image 4"></div>
@@ -336,16 +351,14 @@
         </div>
     </div>
 
-    <!-- Marriage Photos Section (Initially Hidden) -->
     <div id="marriagePhotos" style="display: none;">
-        <h2>Marriage Photos</h2>
+        <h3>Marriage Photos</h3>
         <div class="gallery-container">
-            <img src="marriage1.jpg" alt="Marriage Photo 1">
-            <img src="marriage2.jpg" alt="Marriage Photo 2">
-            <!-- Add more marriage photos here -->
+            <!-- Add marriage photos here -->
         </div>
     </div>
 </section>
+
 
   <div id="lightbox">
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
