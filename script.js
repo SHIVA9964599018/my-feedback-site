@@ -138,36 +138,47 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    function showGallerySection(sectionId) {
-        console.log("Showing section:", sectionId); // Debugging log
+    console.log("Script loaded, adding event listeners..."); // Debugging log
 
-        let allPhotosSection = document.getElementById("allPhotos");
-        let marriagePhotosSection = document.getElementById("marriagePhotos");
+    // Ensure elements exist before adding event listeners
+    let allPhotosBtn = document.getElementById("showAllPhotos");
+    let marriagePhotosBtn = document.getElementById("showMarriagePhotos");
 
-        if (!allPhotosSection || !marriagePhotosSection) {
-            console.error("Error: One or more gallery sections not found.");
-            return;
-        }
+    if (allPhotosBtn && marriagePhotosBtn) {
+        allPhotosBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            showGallerySection("allPhotos");
+        });
 
-        // Hide both sections first
-        allPhotosSection.style.display = "none";
-        marriagePhotosSection.style.display = "none";
+        marriagePhotosBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            showGallerySection("marriagePhotos");
+        });
+    } else {
+        console.error("Error: Gallery buttons not found!");
+    }
+});
 
-        // Show the selected section
-        document.getElementById(sectionId).style.display = "block";
+// Function to show/hide gallery sections
+function showGallerySection(sectionId) {
+    console.log("Showing section:", sectionId); // Debugging log
+
+    let allPhotosSection = document.getElementById("allPhotos");
+    let marriagePhotosSection = document.getElementById("marriagePhotos");
+
+    if (!allPhotosSection || !marriagePhotosSection) {
+        console.error("Error: One or more gallery sections not found.");
+        return;
     }
 
-    // Add event listeners when the page loads
-    document.getElementById("showAllPhotos").addEventListener("click", function (event) {
-        event.preventDefault();
-        showGallerySection("allPhotos");
-    });
+    // Hide both sections first
+    allPhotosSection.style.display = "none";
+    marriagePhotosSection.style.display = "none";
 
-    document.getElementById("showMarriagePhotos").addEventListener("click", function (event) {
-        event.preventDefault();
-        showGallerySection("marriagePhotos");
-    });
-});
+    // Show the selected section
+    document.getElementById(sectionId).style.display = "block";
+}
+
 
 
 
