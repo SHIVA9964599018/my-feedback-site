@@ -277,20 +277,23 @@
   </style>
 </head>
 <body>
-  <nav>
+
+<nav>
     <a href="#" onclick="showSection('home')">Home</a>
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
+
     <div class="dropdown">
         <a href="#" class="dropdown-toggle">Gallery</a>
         <div class="dropdown-menu">
-            <a href="#" onclick="showGallerySection('allPhotos'); return false;">All Photos</a>
-            <a href="#" onclick="showGallerySection('marriagePhotos'); return false;">Marriage Photos</a>
+            <a href="#" id="showAllPhotos">All Photos</a>
+            <a href="#" id="showMarriagePhotos">Marriage Photos</a>
         </div>
     </div>
 
     <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
-  </nav>
+</nav>
+
 
   <section id="home" class="active">
     <h1 style="font-size: 2.5em; color: #2c3e50;">Hi, I'm Shiva 👋</h1>
