@@ -1,8 +1,7 @@
-const { createClient } = supabase;
-
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 // Ensure Supabase is available
 document.addEventListener("DOMContentLoaded", function () {
-    const supabaseClient = createClient(
+    const supabaseClient = supabase.createClient(
         "https://wzgchcvyzskespcfrjvi.supabase.co",
         "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
     );
@@ -75,9 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
         img.addEventListener("click", () => openLightbox(index));
     });
 
-    document.getElementById("close-lightbox").addEventListener("click", closeLightbox);
-    document.getElementById("next-btn").addEventListener("click", nextImage);
-    document.getElementById("prev-btn").addEventListener("click", prevImage);
+    const closeBtn = document.getElementById("close-lightbox");
+    const nextBtn = document.getElementById("next-btn");
+    const prevBtn = document.getElementById("prev-btn");
+    
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (nextBtn) nextBtn.addEventListener("click", nextImage);
+    if (prevBtn) prevBtn.addEventListener("click", prevImage);
+
 
     let startX = 0;
 
@@ -107,7 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const { data, error } = await supabaseClient.from("Feedback").insert([{ name: name, message: feedbackText }]);
+        const { data, error } = await supabaseClient
+            .from("Feedback")
+            .insert([{ name: name, message: feedbackText }])
+            .select();
 
         if (error) {
             console.error("Error submitting feedback:", error.message);
@@ -137,5 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+document.addEventListener("DOMContentLoaded", function () {
     fetchFeedback();
+});
 
