@@ -150,3 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("marriagePhotos").style.display = "block";
     });
 });
+function showSection(sectionId) {
+    // Hide all sections first
+    document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show only the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
