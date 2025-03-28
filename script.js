@@ -13,14 +13,6 @@ const supabaseClient = supabase.createClient(
         return element;
     }
 
-    const closeBtn = checkElement("close-lightbox");
-    const nextBtn = checkElement("next-btn");
-    const prevBtn = checkElement("prev-btn");
-
-    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
-    if (nextBtn) nextBtn.addEventListener("click", nextImage);
-    if (prevBtn) prevBtn.addEventListener("click", prevImage);
-
 
     window.showSection = function (sectionId) {
         if (sectionId === "gallery") {
