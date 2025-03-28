@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js";
+const { createClient } = supabase;
 
 // Ensure Supabase is available
 document.addEventListener("DOMContentLoaded", function () {
