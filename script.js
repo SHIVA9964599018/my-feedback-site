@@ -158,24 +158,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ✅ Ensure `showGallerySection` is globally accessible
-    window.showGallerySection = function (sectionId) {
-        console.log(`Navigating to: ${sectionId}`);
+window.showGallerySection = function (sectionId) {
+    console.log(`Navigating to: ${sectionId}`);
 
-        // Hide all gallery sections
-        document.querySelectorAll(".gallery-section").forEach(section => {
-            section.style.display = "none";
-        });
+    // Find all gallery sections
+    let sections = document.querySelectorAll(".gallery-section");
+    console.log("Found sections:", sections);
 
-        // Show the selected section
-        let targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = "block";
-            targetSection.scrollIntoView({ behavior: "smooth" });
-        } else {
-            console.error(`Error: Section ${sectionId} not found!`);
-        }
-    };
+    if (sections.length === 0) {
+        console.error("No gallery sections found! Check your HTML.");
+        return;
+    }
+
+    // Hide all sections
+    sections.forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show the selected section
+    let targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        console.log(`Showing section: ${sectionId}`);
+        targetSection.style.display = "block";
+        targetSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+        console.error(`Error: Section ${sectionId} not found!`);
+    }
+};
+
 
     // ✅ General Section Navigation
     window.showSection = function (sectionId) {
