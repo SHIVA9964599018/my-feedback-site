@@ -10,17 +10,27 @@ const supabaseClient = createClient(
 
 // ✅ Function to Show a Section
 window.showSection = function (sectionId) {
+    // Hide all sections
     document.querySelectorAll("section").forEach((section) => {
         section.style.display = "none";
     });
 
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
+    // Special handling for gallery
+    if (sectionId === "gallery") {
+        let gallerySection = document.getElementById("gallery");
+        if (gallerySection) {
+            gallerySection.style.display = "block";
+        }
     } else {
-        console.error(`Section '${sectionId}' not found!`);
+        let targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = "block";
+        } else {
+            console.error(`Section with ID '${sectionId}' not found.`);
+        }
     }
 };
+
 
 // ✅ Function to Show Gallery and Its Dropdown
 window.showGalleryTab = function () {
@@ -51,25 +61,26 @@ window.showGallerySection = function (sectionId) {
 
     // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
-        section.style.display = "none"; // Hide all sections
+        section.style.display = "none";
     });
 
-    // Show the selected section
+    // Show only the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block"; // Make it visible
+        targetSection.style.display = "block";
         targetSection.scrollIntoView({ behavior: "smooth" });
         console.log(`Showing: ${targetSection.id}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // Hide dropdown after selecting a subtab
+    // Hide the dropdown menu after selection
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 // ✅ Dropdown Toggle Logic
 document.addEventListener("DOMContentLoaded", function () {
