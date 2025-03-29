@@ -161,10 +161,10 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Ensure the main Gallery section is visible
+    // ✅ Ensure the main gallery section is visible
     let galleryMainSection = document.getElementById("gallery");
     if (galleryMainSection) {
-        galleryMainSection.style.display = "block";
+        galleryMainSection.style.display = "block"; // Force it to be visible
         console.log("Gallery section is now visible.");
     } else {
         console.error("Error: Main Gallery section not found!");
@@ -184,7 +184,11 @@ window.showGallerySection = function (sectionId) {
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
+
+    // ✅ Scroll to the gallery section smoothly
+    galleryMainSection.scrollIntoView({ behavior: "smooth" });
 };
+
 
 
 
