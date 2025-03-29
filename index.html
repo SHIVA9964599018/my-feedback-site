@@ -273,8 +273,12 @@
     display: inline-block;
 }
 #allPhotos, #marriagePhotos {
-    display: none; /* Initially hidden */
+    display: block !important; /* Override any conflicting CSS */
+    opacity: 1 !important; 
+    visibility: visible !important;
+    height: auto !important;
 }
+
 
 #allPhotos.show, #marriagePhotos.show {
     display: block; /* Show when class is added */
