@@ -46,24 +46,25 @@ window.showGalleryTab = function () {
     }
 };
 
-// ✅ Function to Show Gallery Sub-sections
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
     // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
-        section.style.display = "none";
+        section.style.display = "none"; // Hide all sections
     });
 
+    // Show the selected section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block";
+        targetSection.style.display = "block"; // Make it visible
+        targetSection.scrollIntoView({ behavior: "smooth" });
         console.log(`Showing: ${targetSection.id}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // Hide dropdown menu after selecting a subtab
+    // Hide dropdown after selecting a subtab
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
