@@ -158,66 +158,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ✅ Event Listeners for Gallery Buttons
-    document.addEventListener("click", function (event) {
-        if (event.target.id === "showAllPhotos") {
-            event.preventDefault();
-            console.log("All Photos clicked");
-            showGallerySection("allPhotos");
-        } else if (event.target.id === "showMarriagePhotos") {
-            event.preventDefault();
-            console.log("Marriage Photos clicked");
-            showGallerySection("marriagePhotos");
-        }
-    });
-});
+    // ✅ Ensure `showGallerySection` is globally accessible
+    window.showGallerySection = function (sectionId) {
+        console.log(`Navigating to: ${sectionId}`);
 
-// ✅ Ensure `showGallerySection` function exists
-function showGallerySection(sectionId) {
-    console.log(`Navigating to: ${sectionId}`);
+        // Hide all gallery sections
+        document.querySelectorAll(".gallery-section").forEach(section => {
+            section.style.display = "none";
+        });
 
-    // Hide all sections smoothly
-    document.querySelectorAll(".gallery-section").forEach(section => {
-        section.style.opacity = "0";
-        setTimeout(() => section.style.display = "none", 300);
-    });
-
-    // Show the selected section with a fade-in effect
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        setTimeout(() => {
+        // Show the selected section
+        let targetSection = document.getElementById(sectionId);
+        if (targetSection) {
             targetSection.style.display = "block";
-            setTimeout(() => targetSection.style.opacity = "1", 50);
             targetSection.scrollIntoView({ behavior: "smooth" });
-        }, 300);
-    } else {
-        console.error(`Error: Section ${sectionId} not found!`);
-    }
-}
+        } else {
+            console.error(`Error: Section ${sectionId} not found!`);
+        }
+    };
 
+    // ✅ General Section Navigation
+    window.showSection = function (sectionId) {
+        // Hide all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.display = 'none';
+        });
 
-
-
-function showSection(sectionId) {
-    // Hide all sections first
-    document.querySelectorAll('section').forEach(section => {
-        section.style.display = 'none';
-    });
-
-    // Show only the selected section if it exists
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = 'block';
-    } else {
-        console.error("Section with ID '" + sectionId + "' not found.");
-    }
-}
-
-// Function to switch between gallery sections
-function showGallerySection(sectionId) {
-    document.getElementById('allPhotos').style.display = 'none';
-    document.getElementById('marriagePhotos').style.display = 'none';
-    document.getElementById(sectionId).style.display = 'block';
-}
-
+        // Show only the selected section if it exists
+        let targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+        } else {
+            console.error("Section with ID '" + sectionId + "' not found.");
+        }
+    };
+});
 
