@@ -176,7 +176,7 @@ window.showGalleryTab = function () {
         console.error("Gallery section not found!");
     }
 
-    // Ensure the subtabs are always visible when opening the Gallery tab
+    // Ensure the dropdown is visible
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "block";
@@ -189,6 +189,7 @@ window.showGalleryTab = function () {
 
     console.log("Gallery tab opened. Choose a subtab to view.");
 };
+
 
 
 
@@ -220,31 +221,35 @@ window.showGallerySection = function (sectionId) {
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
-    // Ensure dropdown opens when clicking "Gallery"
-    dropdownToggle.addEventListener("click", function (event) {
-        event.preventDefault();
-        dropdownMenu.style.display = "block";
-    });
-
-    // Close dropdown when clicking a subtab
-    document.querySelectorAll(".dropdown-menu a").forEach(item => {
-        item.addEventListener("click", function (event) {
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener("click", function (event) {
             event.preventDefault();
-            dropdownMenu.style.display = "none"; // Hide dropdown after selection
+            // Toggle dropdown visibility
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         });
-    });
 
-    // Hide dropdown when clicking outside
-    document.addEventListener("click", function (event) {
-        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = "none";
-        }
-    });
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+
+        // Close dropdown when clicking a subtab
+        document.querySelectorAll(".dropdown-menu a").forEach(item => {
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+                dropdownMenu.style.display = "none";
+            });
+        });
+    }
 });
+
 
 
 
