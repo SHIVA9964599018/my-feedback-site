@@ -187,23 +187,28 @@ window.showGalleryTab = function () {
 };
 
 window.showGallerySection = function (sectionId) {
-    console.log("Switching to:", sectionId);
+    console.log(`Navigating to: ${sectionId}`);
 
-    // Hide all other sub-sections under Gallery
+    // Hide all gallery sections
     document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Show the selected subtab
-    let selectedSection = document.getElementById(sectionId);
-    if (selectedSection) {
-        selectedSection.style.display = "block";
-        console.log(sectionId + " section displayed.");
+    // Show the selected subtab section
+    let targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = "block";
+        console.log(`Showing: ${targetSection.id}`);
     } else {
-        console.error("Section not found: " + sectionId);
+        console.error(`Error: Section ${sectionId} not found!`);
+    }
+
+    // Hide dropdown menu after selection
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "none"; // Hide it
     }
 };
-
 
 
 
