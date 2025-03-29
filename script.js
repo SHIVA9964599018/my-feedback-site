@@ -176,15 +176,20 @@ document.addEventListener("DOMContentLoaded", function () {
 function showGallerySection(sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Hide all sections
+    // Hide all sections smoothly
     document.querySelectorAll(".gallery-section").forEach(section => {
-        section.style.display = "none";
+        section.style.opacity = "0";
+        setTimeout(() => section.style.display = "none", 300);
     });
 
-    // Show selected section
+    // Show the selected section with a fade-in effect
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block";
+        setTimeout(() => {
+            targetSection.style.display = "block";
+            setTimeout(() => targetSection.style.opacity = "1", 50);
+            targetSection.scrollIntoView({ behavior: "smooth" });
+        }, 300);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
@@ -207,4 +212,12 @@ function showSection(sectionId) {
         console.error("Section with ID '" + sectionId + "' not found.");
     }
 }
+
+// Function to switch between gallery sections
+function showGallerySection(sectionId) {
+    document.getElementById('allPhotos').style.display = 'none';
+    document.getElementById('marriagePhotos').style.display = 'none';
+    document.getElementById(sectionId).style.display = 'block';
+}
+
 
