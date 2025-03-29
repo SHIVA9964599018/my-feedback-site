@@ -285,50 +285,38 @@
 }
 
     
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+nav {
+    overflow: visible !important; /* Override hidden overflow */
 }
-
 nav ul li {
-    position: relative;
-    display: inline-block;
-    padding: 10px 15px;
+    position: relative; /* Keeps parent item positioned */
 }
 
 nav ul li ul {
-    display: none;
     position: absolute;
+    top: 100%; /* Ensures it appears below the parent */
+    left: 0;
+    display: block; /* Ensures visibility */
     background-color: white;
     list-style: none;
     padding: 5px 0;
     margin: 0;
-    top: 100%; /* Moves the dropdown below the parent */
-    left: 0;
-    width: 150px; /* Adjust width */
+    width: 200px; /* Adjust width */
     border: 1px solid #ccc;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-nav ul li:hover ul {
-    display: block;
+    z-index: 9999; /* Brings it above other elements */
 }
 nav ul li ul li {
-    padding: 8px 12px;
-    white-space: nowrap; /* Prevents text from wrapping */
-}
-nav ul li ul {
-    z-index: 1000;
-}
-nav ul li ul {
-    background-color: #333; /* Dark background */
-    color: white; /* White text */
+    padding: 10px;
+    white-space: nowrap; /* Prevents text wrapping */
+    color: black; /* Ensures text is visible */
+    background-color: white;
 }
 
 nav ul li ul li:hover {
-    background-color: #555; /* Slightly lighter on hover */
+    background-color: #eee; /* Hover effect */
 }
+
 
   </style>
 </head>
