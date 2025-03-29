@@ -161,26 +161,19 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Find all gallery sections
-    let sections = document.querySelectorAll(".gallery-section");
-    console.log("Found sections:", sections);
-
-    if (sections.length === 0) {
-        console.error("No gallery sections found! Check your HTML.");
-        return;
-    }
-
-    // Hide all sections
-    sections.forEach(section => {
+    // Hide all gallery sections
+    document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
+        console.log(`Hiding: ${section.id}`);
     });
 
-    // Show the selected section
+    // Try to show the selected section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        console.log(`Showing section: ${sectionId}`);
         targetSection.style.display = "block";
-        targetSection.scrollIntoView({ behavior: "smooth" });
+
+        // Debugging: Check if display changed
+        console.log(`Showing: ${targetSection.id}, new display: ${targetSection.style.display}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
@@ -203,4 +196,7 @@ window.showGallerySection = function (sectionId) {
         }
     };
 });
+
+
+
 
