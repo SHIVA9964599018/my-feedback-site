@@ -183,23 +183,32 @@ window.showGalleryTab = function () {
     console.log("Gallery tab opened. Choose a subtab to view.");
 };
 
-// Function to handle Gallery subtabs
-window.showGallerySection = function (sectionId) {
-    console.log(`Navigating to: ${sectionId}`);
+window.showGalleryTab = function () {
+    console.log("Switching to Gallery...");
 
-    // Hide all gallery sub-sections
-    document.querySelectorAll(".gallery-section").forEach(section => {
+    // Hide all sections (Home, Feedback, etc.) except Gallery
+    document.querySelectorAll("section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Show the selected gallery sub-section
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
+    // Show the Gallery section
+    let gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+        gallerySection.style.display = "block";
+        gallerySection.scrollIntoView({ behavior: "smooth" });
+        console.log("Gallery section displayed.");
     } else {
-        console.error(`Error: Section ${sectionId} not found!`);
+        console.error("Gallery section not found!");
     }
+
+    // Keep both subtabs visible
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.style.display = "block";
+    });
+
+    console.log("Gallery tab opened. Choose a subtab to view.");
 };
+
 
 
 
