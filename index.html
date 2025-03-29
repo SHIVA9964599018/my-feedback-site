@@ -237,31 +237,33 @@
     display: block;
     margin: 0 auto;
   }
-/* Ensure parent navigation doesn't clip dropdown */
+    
+/* Ensure nav doesn't clip dropdown */
 nav {
     overflow: visible; 
     position: relative;
 }
 
-/* Make dropdown positioned properly */
+/* Dropdown Wrapper */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Initially hide dropdown menu */
+/* Dropdown Menu */
 .dropdown-menu {
     display: none;
     position: absolute;
     background-color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    min-width: 150px;
+    min-width: 180px;
     z-index: 1000;
     left: 0;
+    top: 100%; /* Places it below the parent */
 }
 
-/* Show dropdown when .active class is added */
-.dropdown.active .dropdown-menu {
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
     display: block;
 }
 
@@ -271,6 +273,8 @@ nav {
     padding: 10px;
     color: black;
     text-decoration: none;
+    font-size: 1em;
+    transition: background 0.2s;
 }
 
 .dropdown-menu a:hover {
@@ -278,26 +282,27 @@ nav {
 }
 
 
+
   </style>
 </head>
 <body>
 
-<nav>
+  <nav>
     <a href="#" onclick="showSection('home')">Home</a>
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
 
+    <!-- Dropdown -->
     <div class="dropdown">
-        <a href="#" class="dropdown-toggle">Gallery</a>
+        <a href="#" class="dropdown-toggle">Gallery ⌄</a>
         <div class="dropdown-menu">
-            <a href="#" id="showAllPhotos">All Photos</a>
-            <a href="#" id="showMarriagePhotos">Marriage Photos</a>
+            <a href="#" onclick="showGallerySection('allPhotos')">All Photos</a>
+            <a href="#" onclick="showGallerySection('marriagePhotos')">Marriage Photos</a>
         </div>
     </div>
 
     <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
 </nav>
-
 
   <section id="home" class="active">
     <h1 style="font-size: 2.5em; color: #2c3e50;">Hi, I'm Shiva 👋</h1>
