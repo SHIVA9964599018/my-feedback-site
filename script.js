@@ -161,32 +161,30 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Ensure the main gallery section is visible
-    let galleryMainSection = document.getElementById("gallery");
-    if (galleryMainSection) {
-        galleryMainSection.style.display = "block"; // Force it to be visible
-        console.log("Gallery section is now visible.");
-    } else {
-        console.error("Error: Main Gallery section not found!");
-    }
-
-    // ✅ Hide all gallery sub-sections
-    document.querySelectorAll(".gallery-section").forEach(section => {
-        section.style.display = "none";
-        console.log(`Hiding: ${section.id}`);
+    // Hide all sections
+    document.querySelectorAll("section").forEach(section => {
+        section.style.display = "none";  // Hide all main sections
     });
 
-    // ✅ Show the selected sub-section
+    // Show the main gallery section
+    let gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+        gallerySection.style.display = "block";
+    }
+
+    // Hide all gallery sub-sections
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.style.display = "block";
-        console.log(`Showing: ${targetSection.id}, new display: ${targetSection.style.display}`);
+        targetSection.scrollIntoView({ behavior: "smooth" });
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
-
-    // ✅ Scroll to the gallery section smoothly
-    galleryMainSection.scrollIntoView({ behavior: "smooth" });
 };
 
 
