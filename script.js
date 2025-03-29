@@ -161,12 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
-    // Hide all other sections (Home, Feedback, etc.)
+    // Hide all sections (Home, Feedback, etc.)
     document.querySelectorAll("section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Show the Gallery section
+    // Show only the Gallery section
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
@@ -176,17 +176,18 @@ window.showGalleryTab = function () {
         console.error("Gallery section not found!");
     }
 
-    // Hide all gallery sections (allPhotos, marriagePhotos) initially
+    // Hide all gallery content initially
     document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Ensure the dropdown menu is visible when clicking "Gallery"
+    // Ensure the dropdown menu (subtabs) is always visible when clicking "Gallery"
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "block";
     }
 };
+
 
 
 window.showGallerySection = function (sectionId) {
@@ -206,7 +207,7 @@ window.showGallerySection = function (sectionId) {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // Hide dropdown after selection
+    // Hide dropdown after selecting a subtab
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
@@ -220,31 +221,28 @@ document.addEventListener("DOMContentLoaded", function () {
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
-    // Toggle dropdown when clicking "Gallery ⌄"
+    // Ensure dropdown opens when clicking "Gallery ⌄"
     dropdownToggle.addEventListener("click", function (event) {
         event.preventDefault();
-        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        dropdownMenu.style.display = "block"; // Always show subtabs
     });
 
-    // Close dropdown when clicking a subtab and make sure the content appears
+    // Close dropdown when clicking a subtab
     document.querySelectorAll(".dropdown-menu a").forEach(item => {
         item.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default behavior
-            dropdownMenu.style.display = "none";
-
-            // Get the subtab ID and show its content
-            let sectionId = this.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract ID
-            showGallerySection(sectionId);
+            event.preventDefault();
+            dropdownMenu.style.display = "none"; // Hide dropdown after selecting a subtab
         });
     });
 
-    // Hide dropdown when clicking outside (only if not clicking on it)
+    // Hide dropdown when clicking outside
     document.addEventListener("click", function (event) {
         if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
             dropdownMenu.style.display = "none";
         }
     });
 });
+
 
 
 
