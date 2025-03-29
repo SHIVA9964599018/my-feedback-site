@@ -81,6 +81,7 @@ window.showGallerySection = function (sectionId) {
 };
 
 
+
 // ✅ Dropdown Toggle Logic
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded, adding event listeners...");
