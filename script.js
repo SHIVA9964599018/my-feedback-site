@@ -161,32 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
-    // Hide all sections first
-    document.querySelectorAll("section").forEach(section => {
-        section.style.display = "none";  // Hide everything
-    });
-
-    // Show the main Gallery section
-    let gallerySection = document.getElementById("gallery");
-    if (gallerySection) {
-        gallerySection.style.display = "block";
-        gallerySection.scrollIntoView({ behavior: "smooth" });  // Scroll to Gallery section
-    } else {
-        console.error("Gallery section not found!");
-    }
-
-    // Reset: Show the Gallery tab but hide subtabs initially
-    document.querySelectorAll(".gallery-section").forEach(section => {
-        section.style.display = "none";
-    });
-
-    console.log("Gallery tab opened. Choose a subtab to view.");
-};
-
-window.showGalleryTab = function () {
-    console.log("Switching to Gallery...");
-
-    // Hide all sections (Home, Feedback, etc.) except Gallery
+    // Hide all sections except Gallery
     document.querySelectorAll("section").forEach(section => {
         section.style.display = "none";
     });
@@ -199,15 +174,20 @@ window.showGalleryTab = function () {
         console.log("Gallery section displayed.");
     } else {
         console.error("Gallery section not found!");
+        return;
     }
 
-    // Keep both subtabs visible
-    document.querySelectorAll(".gallery-section").forEach(section => {
-        section.style.display = "block";
-    });
+    // ✅ Ensure both subtabs are visible but NOT pre-selected
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "block";
+    }
 
     console.log("Gallery tab opened. Choose a subtab to view.");
 };
+
+
+
 
 
 
