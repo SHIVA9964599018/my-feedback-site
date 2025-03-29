@@ -186,6 +186,23 @@ window.showGalleryTab = function () {
     console.log("Gallery tab opened. Choose a subtab to view.");
 };
 
+window.showGallerySection = function (sectionId) {
+    console.log("Switching to:", sectionId);
+
+    // Hide all other sub-sections under Gallery
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    // Show the selected subtab
+    let selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.style.display = "block";
+        console.log(sectionId + " section displayed.");
+    } else {
+        console.error("Section not found: " + sectionId);
+    }
+};
 
 
 
