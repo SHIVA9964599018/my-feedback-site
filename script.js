@@ -61,14 +61,13 @@ window.showGallerySection = function (sectionId) {
 
     // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
-        section.style.display = "none";
+        section.classList.remove("active");
     });
 
     // Show only the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block";
-        targetSection.scrollIntoView({ behavior: "smooth" });
+        targetSection.classList.add("active");
         console.log(`Showing: ${targetSection.id}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
