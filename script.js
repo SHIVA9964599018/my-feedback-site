@@ -211,6 +211,30 @@ window.showGallerySection = function (sectionId) {
 };
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    let dropdownToggle = document.querySelector(".dropdown-toggle");
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+
+    // Show dropdown when clicking "Gallery ⌄"
+    dropdownToggle.addEventListener("click", function (event) {
+        event.preventDefault();
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // Hide dropdown when clicking a subtab
+    document.querySelectorAll(".dropdown-menu a").forEach(item => {
+        item.addEventListener("click", function () {
+            dropdownMenu.style.display = "none";
+        });
+    });
+
+    // Hide dropdown if clicked outside
+    document.addEventListener("click", function (event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = "none";
+        }
+    });
+});
 
 
 
