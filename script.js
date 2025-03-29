@@ -161,18 +161,22 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Hide all gallery sections
+    // Ensure that the main Gallery section is visible
+    let galleryMainSection = document.getElementById("gallery");
+    if (galleryMainSection) {
+        galleryMainSection.style.display = "block";
+    }
+
+    // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
         console.log(`Hiding: ${section.id}`);
     });
 
-    // Try to show the selected section
+    // Show the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.style.display = "block";
-
-        // Debugging: Check if display changed
         console.log(`Showing: ${targetSection.id}, new display: ${targetSection.style.display}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
