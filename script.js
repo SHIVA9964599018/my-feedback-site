@@ -138,55 +138,57 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script loaded, adding event listeners..."); // Debugging log
+    console.log("Script loaded, adding event listeners...");
 
-    // Ensure elements exist before adding event listeners
-    let allPhotosBtn = document.getElementById("showAllPhotos");
-    let marriagePhotosBtn = document.getElementById("showMarriagePhotos");
+    // ✅ Dropdown Toggle Logic
+    let dropdownToggle = document.querySelector(".dropdown-toggle");
+    let dropdown = document.querySelector(".dropdown");
 
-    if (allPhotosBtn && marriagePhotosBtn) {
-        allPhotosBtn.addEventListener("click", function (event) {
+    if (dropdownToggle) {
+        dropdownToggle.addEventListener("click", function (event) {
             event.preventDefault();
-            showGallerySection("allPhotos");
+            dropdown.classList.toggle("active"); // Toggle dropdown menu
         });
-
-        marriagePhotosBtn.addEventListener("click", function (event) {
-            event.preventDefault();
-            showGallerySection("marriagePhotos");
-        });
-    } else {
-        console.error("Error: Gallery buttons not found!");
     }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!dropdown.contains(event.target) && !event.target.classList.contains("dropdown-toggle")) {
+            dropdown.classList.remove("active");
+        }
+    });
+
+    // ✅ Event Listeners for Gallery Buttons
+    document.addEventListener("click", function (event) {
+        if (event.target.id === "showAllPhotos") {
+            event.preventDefault();
+            console.log("All Photos clicked");
+            showGallerySection("allPhotos");
+        } else if (event.target.id === "showMarriagePhotos") {
+            event.preventDefault();
+            console.log("Marriage Photos clicked");
+            showGallerySection("marriagePhotos");
+        }
+    });
 });
 
+// ✅ Ensure `showGallerySection` function exists
 function showGallerySection(sectionId) {
-    console.log("Showing section:", sectionId);
+    console.log(`Navigating to: ${sectionId}`);
 
-    let allPhotosSection = document.getElementById("allPhotos");
-    let marriagePhotosSection = document.getElementById("marriagePhotos");
+    // Hide all sections
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.style.display = "none";
+    });
 
-    console.log("allPhotosSection:", allPhotosSection);  // Check if element exists
-    console.log("marriagePhotosSection:", marriagePhotosSection);  // Check if element exists
-
-    if (!allPhotosSection || !marriagePhotosSection) {
-        console.error("Error: Sections not found in the document.");
-        return;
-    }
-
-    // Hide both sections first
-    allPhotosSection.style.display = "none";
-    marriagePhotosSection.style.display = "none";
-
-    // Show only the selected section
-    let selectedSection = document.getElementById(sectionId);
-    if (selectedSection) {
-        selectedSection.style.display = "block";
-        console.log(`✅ Successfully displayed: ${sectionId}`);
+    // Show selected section
+    let targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = "block";
     } else {
-        console.error(`❌ Error: Element with ID '${sectionId}' not found.`);
+        console.error(`Error: Section ${sectionId} not found!`);
     }
 }
-
 
 
 
