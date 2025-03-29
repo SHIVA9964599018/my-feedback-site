@@ -238,11 +238,13 @@
     margin: 0 auto;
   }
 
+/* Ensure dropdown is properly positioned */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Submenu container */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -252,10 +254,12 @@
     z-index: 1000;
 }
 
+/* Show submenu on hover */
 .dropdown:hover .dropdown-menu {
     display: block;
 }
 
+/* Submenu links */
 .dropdown-menu a {
     display: block;
     padding: 10px;
@@ -263,60 +267,63 @@
     text-decoration: none;
 }
 
+/* Hover effect for submenu */
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
 }
 
+/* 🔹 Fix the nav issue */
+nav {
+    position: relative;
+    z-index: 1000; /* Ensure it's above other elements */
+}
 
-.dropdown {
+/* Ensure dropdown is positioned correctly */
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+nav ul li {
     position: relative;
     display: inline-block;
-}
-#allPhotos, #marriagePhotos {
-    display: block !important; /* Override any conflicting CSS */
-    opacity: 1 !important; 
-    visibility: visible !important;
-    height: auto !important;
+    padding: 10px;
 }
 
-
-#allPhotos.show, #marriagePhotos.show {
-    display: block; /* Show when class is added */
-}
-
-    
-nav {
-    overflow: visible !important; /* Override hidden overflow */
-}
-nav ul li {
-    position: relative; /* Keeps parent item positioned */
-}
-
+/* 🔹 Submenu fixes */
 nav ul li ul {
     position: absolute;
-    top: 100%; /* Ensures it appears below the parent */
+    top: 100%;
     left: 0;
-    display: block; /* Ensures visibility */
+    display: none;
     background-color: white;
-    list-style: none;
     padding: 5px 0;
     margin: 0;
-    width: 200px; /* Adjust width */
+    width: 200px;
     border: 1px solid #ccc;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 9999; /* Brings it above other elements */
+    z-index: 1000;
 }
+
+/* Show dropdown on hover */
+nav ul li:hover > ul {
+    display: block;
+}
+
+/* Style for submenu items */
 nav ul li ul li {
     padding: 10px;
-    white-space: nowrap; /* Prevents text wrapping */
-    color: black; /* Ensures text is visible */
+    white-space: nowrap;
+    color: black;
     background-color: white;
 }
 
+/* Hover effect */
 nav ul li ul li:hover {
-    background-color: #eee; /* Hover effect */
+    background-color: #eee;
+    cursor: pointer;
 }
-
 
   </style>
 </head>
