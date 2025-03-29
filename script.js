@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
 window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
-    // Hide all sections (Home, Feedback, etc.)
+    // Hide all sections except Gallery
     document.querySelectorAll("section").forEach(section => {
         section.style.display = "none";
     });
@@ -176,17 +176,20 @@ window.showGalleryTab = function () {
         console.error("Gallery section not found!");
     }
 
+    // Ensure the subtabs are always visible when opening the Gallery tab
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "block";
+    }
+
     // Hide all gallery content initially
     document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Ensure the dropdown menu (subtabs) is always visible when clicking "Gallery"
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    if (dropdownMenu) {
-        dropdownMenu.style.display = "block";
-    }
+    console.log("Gallery tab opened. Choose a subtab to view.");
 };
+
 
 
 
@@ -221,17 +224,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
-    // Ensure dropdown opens when clicking "Gallery ⌄"
+    // Ensure dropdown opens when clicking "Gallery"
     dropdownToggle.addEventListener("click", function (event) {
         event.preventDefault();
-        dropdownMenu.style.display = "block"; // Always show subtabs
+        dropdownMenu.style.display = "block";
     });
 
     // Close dropdown when clicking a subtab
     document.querySelectorAll(".dropdown-menu a").forEach(item => {
         item.addEventListener("click", function (event) {
             event.preventDefault();
-            dropdownMenu.style.display = "none"; // Hide dropdown after selecting a subtab
+            dropdownMenu.style.display = "none"; // Hide dropdown after selection
         });
     });
 
