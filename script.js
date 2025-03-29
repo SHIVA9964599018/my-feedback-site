@@ -8,28 +8,33 @@ const supabaseClient = createClient(
 
 
 
-// ✅ Function to Show a Section
 window.showSection = function (sectionId) {
+    console.log(`Switching to Section: ${sectionId}`);
+
     // Hide all sections
     document.querySelectorAll("section").forEach((section) => {
         section.style.display = "none";
     });
 
-    // Special handling for gallery
-    if (sectionId === "gallery") {
-        let gallerySection = document.getElementById("gallery");
-        if (gallerySection) {
-            gallerySection.style.display = "block";
+    // Show the selected section
+    let targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = "block";
+        console.log(`Showing: ${targetSection.id}`);
+
+        // If opening Gallery, ensure sub-tabs are visible and show "All Photos" by default
+        if (sectionId === "gallery") {
+            let dropdownMenu = document.querySelector(".dropdown-menu");
+            if (dropdownMenu) {
+                dropdownMenu.style.display = "block"; // Ensure the dropdown appears
+            }
+            showGallerySection("allPhotos"); // Default tab when opening Gallery
         }
     } else {
-        let targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = "block";
-        } else {
-            console.error(`Section with ID '${sectionId}' not found.`);
-        }
+        console.error(`Error: Section ${sectionId} not found.`);
     }
 };
+
 
 
 // ✅ Function to Show Gallery and Its Dropdown
@@ -59,15 +64,21 @@ window.showGalleryTab = function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
+    // Ensure the main Gallery section is visible
+    let gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+        gallerySection.style.display = "block";
+    }
+
     // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
-        section.classList.remove("active");
+        section.style.display = "none";
     });
 
     // Show only the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.classList.add("active");
+        targetSection.style.display = "block";
         console.log(`Showing: ${targetSection.id}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
@@ -79,6 +90,7 @@ window.showGallerySection = function (sectionId) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 
 
