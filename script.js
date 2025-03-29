@@ -158,30 +158,44 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-window.showGallerySection = function (sectionId) {
-    console.log(`Navigating to: ${sectionId}`);
+window.showGalleryTab = function () {
+    console.log("Switching to Gallery...");
 
-    // Hide all sections
+    // Hide all sections first
     document.querySelectorAll("section").forEach(section => {
-        section.style.display = "none";  // Hide all main sections
+        section.style.display = "none";  // Hide everything
     });
 
-    // Show the main gallery section
+    // Show the main Gallery section
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
+        gallerySection.scrollIntoView({ behavior: "smooth" });  // Scroll to Gallery section
+    } else {
+        console.error("Gallery section not found!");
     }
+
+    // Reset: Show the Gallery tab but hide subtabs initially
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.style.display = "none";
+    });
+
+    console.log("Gallery tab opened. Choose a subtab to view.");
+};
+
+// Function to handle Gallery subtabs
+window.showGallerySection = function (sectionId) {
+    console.log(`Navigating to: ${sectionId}`);
 
     // Hide all gallery sub-sections
     document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Show the selected sub-section
+    // Show the selected gallery sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.style.display = "block";
-        targetSection.scrollIntoView({ behavior: "smooth" });
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
