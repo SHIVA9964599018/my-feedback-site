@@ -210,6 +210,7 @@ window.showGallerySection = function (sectionId) {
 
 
 
+
     // ✅ General Section Navigation
     window.showSection = function (sectionId) {
         // Hide all sections
