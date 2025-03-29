@@ -280,7 +280,13 @@ nav {
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
 }
+.gallery-section {
+    display: none; /* Initially hidden */
+}
 
+.gallery-section.active {
+    display: block !important; /* Ensures it appears */
+}
 
 
   </style>
@@ -337,11 +343,11 @@ nav {
   </section>
 
   
-<section id="gallery">
- <!--   <h2>Gallery</h2> -->
+<section id="gallery" style="display: none;"> 
+  <!--   <h2>Gallery</h2> -->
 
     <!-- Default: All Photos visible, Marriage Photos hidden -->
-      <div id="allPhotos" class="gallery-section" style="display: none;">  
+      <div id="allPhotos" class="gallery-section">
       <h3>All Photos</h3>
       <div class="gallery-container">
       <div class="gallery-card"><img src="wife_photo.jpg" alt="Image 2"></div>
@@ -378,7 +384,7 @@ nav {
         </div>
     </div>
 
-    <div id="marriagePhotos" class="gallery-section" style="display: none;">    
+   <div id="marriagePhotos" class="gallery-section">  
     <h3>Marriage Photos</h3>
         <div class="gallery-container">
             <!-- Add marriage photos here -->
