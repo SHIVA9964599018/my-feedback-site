@@ -43,7 +43,6 @@ window.showSection = function (sectionId) {
 
 
 
-// ✅ Function to Show Gallery and Default to "All Photos"
 window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
@@ -52,12 +51,11 @@ window.showGalleryTab = function () {
         section.style.display = "none";
     });
 
-    // Show the gallery section
+    // Show the Gallery section
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
         gallerySection.scrollIntoView({ behavior: "smooth" });
-
         console.log("Gallery section is now visible.");
     } else {
         console.error("Gallery section not found!");
@@ -70,9 +68,12 @@ window.showGalleryTab = function () {
         console.log("Dropdown menu displayed.");
     }
 
-    // ✅ Show "All Photos" by default
-    showGallerySection("allPhotos");
+    // ✅ Hide all sub-sections initially (do not pre-select any)
+    document.querySelectorAll(".gallery-section").forEach((section) => {
+        section.style.display = "none";
+    });
 };
+
 
 
 window.showGallerySection = function (sectionId) {
@@ -91,7 +92,14 @@ window.showGallerySection = function (sectionId) {
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
+
+    // Hide the dropdown menu after selection
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "none";
+    }
 };
+
 
 
 
