@@ -11,7 +11,7 @@ const supabaseClient = createClient(
 window.showSection = function (sectionId) {
     console.log(`Switching to Section: ${sectionId}`);
 
-    // Hide all sections
+    // Hide all sections first
     document.querySelectorAll("section").forEach((section) => {
         section.style.display = "none";
     });
@@ -22,18 +22,24 @@ window.showSection = function (sectionId) {
         targetSection.style.display = "block";
         console.log(`Showing: ${targetSection.id}`);
 
-        // If opening Gallery, ensure sub-tabs are visible and show "All Photos" by default
+        // ✅ If Gallery is opened, ensure subtabs are visible & show All Photos by default
         if (sectionId === "gallery") {
+            console.log("Gallery section opened, ensuring sub-tabs appear...");
+
+            // Ensure the dropdown menu appears
             let dropdownMenu = document.querySelector(".dropdown-menu");
             if (dropdownMenu) {
-                dropdownMenu.style.display = "block"; // Ensure the dropdown appears
+                dropdownMenu.style.display = "block";
             }
-            showGallerySection("allPhotos"); // Default tab when opening Gallery
+
+            // Show All Photos by default when opening Gallery
+            showGallerySection("allPhotos");
         }
     } else {
         console.error(`Error: Section ${sectionId} not found.`);
     }
 };
+
 
 
 
@@ -64,10 +70,10 @@ window.showGalleryTab = function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Ensure the main Gallery section is visible
+    // ✅ Ensure the main Gallery section is visible
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
-        gallerySection.style.display = "block";
+        gallerySection.style.display = "block"; // Make sure the Gallery section is not hidden
     }
 
     // Hide all gallery sub-sections
@@ -75,7 +81,7 @@ window.showGallerySection = function (sectionId) {
         section.style.display = "none";
     });
 
-    // Show only the selected sub-section
+    // Show the selected sub-section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.style.display = "block";
