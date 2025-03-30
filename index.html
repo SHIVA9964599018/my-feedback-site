@@ -492,22 +492,26 @@ nav {
 <script type="module" src="script.js"></script>
 
 <!-- Image Modal -->
-<div id="imageModal" class="modal" onclick="closeImage()">
+<div id="imageModal" class="modal">
+    <span class="close-btn" onclick="closeImage()">&times;</span>
     <img class="modal-content" id="modalImg">
+    <button class="prev-btn" onclick="prevImage()">&#10094; Prev</button>
+    <button class="next-btn" onclick="nextImage()">Next &#10095;</button>
 </div>
 
-<!-- Style for Image Modal -->
+<!-- Style for Image Modal & Buttons -->
 <style>
     .modal {
         display: none;
         position: fixed;
         z-index: 1000;
-        padding-top: 10%;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.8);
+        text-align: center;
+        overflow: hidden;
     }
     
     .modal-content {
@@ -517,7 +521,37 @@ nav {
         max-height: 80%;
         border-radius: 5px;
     }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .prev-btn, .next-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+
+    .prev-btn:hover, .next-btn:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
 </style>
+
 
 </body>
 </html>
