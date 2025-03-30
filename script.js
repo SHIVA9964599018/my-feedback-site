@@ -89,41 +89,36 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Check if gallery section exists
+    // ✅ Ensure the "Gallery" section is visible
     let gallerySection = document.getElementById("gallery");
-    if (!gallerySection) {
+    if (gallerySection) {
+        gallerySection.style.display = "block"; // 🔹 This ensures "Gallery" becomes visible
+    } else {
         console.error("Gallery section not found!");
         return;
     }
 
-    // Ensure the Gallery section is visible
-    gallerySection.style.display = "block";
-
-    // Hide all gallery sections
-    let allGallerySections = document.querySelectorAll(".gallery-section");
-    if (allGallerySections.length === 0) {
-        console.error("No gallery sections found!");
-        return;
-    }
-    allGallerySections.forEach((section) => {
+    // ✅ Hide all gallery subsections first
+    document.querySelectorAll(".gallery-section").forEach((section) => {
         section.style.display = "none";
     });
 
-    // Show the selected gallery section
+    // ✅ Show the selected gallery subsection
     let targetSection = document.getElementById(sectionId);
-    if (!targetSection) {
+    if (targetSection) {
+        targetSection.style.display = "block";
+        console.log(`Showing: ${sectionId}`);
+    } else {
         console.error(`Error: Section ${sectionId} not found!`);
-        return;
     }
-    targetSection.style.display = "block";
-    console.log(`Showing: ${sectionId}`);
 
-    // Hide dropdown after selection
+    // ✅ Hide dropdown after selection
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 // ✅ Debugging: Ensure subtabs correctly trigger `showGallerySection`
 document.querySelectorAll(".dropdown-menu a").forEach((item) => {
