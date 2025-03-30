@@ -6,6 +6,29 @@ const supabaseClient = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
 );
 
+// ✅ Function to open the image in a modal
+window.openImage = function (event) {
+    let modal = document.getElementById("imageModal");
+    let modalImg = document.getElementById("modalImg");
+
+    modal.style.display = "block";
+    modalImg.src = event.target.src; // Get the clicked image's source
+}
+
+// ✅ Function to close the modal when clicked
+window.closeImage = function () {
+    let modal = document.getElementById("imageModal");
+    modal.style.display = "none";
+}
+
+// ✅ Attach click event to images inside .gallery-card dynamically
+document.addEventListener("DOMContentLoaded", function () {
+    let galleryImages = document.querySelectorAll(".gallery-card img");
+    
+    galleryImages.forEach((img) => {
+        img.addEventListener("click", openImage);
+    });
+});
 
 
 window.showSection = function (sectionId) {
