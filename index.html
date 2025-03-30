@@ -242,28 +242,23 @@ nav {
     
 
 
-/* Ensure the dropdown menu is positioned correctly */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Ensure dropdown menu is visible */
 .dropdown-menu {
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    top: 100%; /* Position it below the Gallery tab */
-    left: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-/* Show dropdown menu when hovering */
 .dropdown:hover .dropdown-menu {
-    display: block;
+    display: block; /* Ensures dropdown opens on hover */
 }
+
 
 /* Style dropdown links */
 .dropdown-menu a {
@@ -297,12 +292,11 @@ nav {
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
 
-    <!-- Dropdown -->
     <div class="dropdown">
-        <a href="#" class="dropdown-toggle" onclick="toggleDropdown()">Gallery ⌄</a>
-        <div class="dropdown-menu">
-            <a href="#" onclick="showGallerySection('allPhotos')">All Photos</a>
-            <a href="#" onclick="showGallerySection('marriagePhotos')">Marriage Photos</a>
+        <a href="#" class="dropdown-toggle">Gallery </a>
+        <div class="dropdown-menu" style="display: none;">
+            <a href="#" onclick="window.showGallerySection('allPhotos')">All Photos</a>
+            <a href="#" onclick="window.showGallerySection('marriagePhotos')">Marriage Photos</a>
         </div>
     </div>
 
