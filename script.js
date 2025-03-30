@@ -6,22 +6,39 @@ const supabaseClient = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
 );
 
-// ✅ Function to open the image in a modal
+let currentImageIndex = 0;
+let images = [];
+
+// ✅ Open Image in Modal
 window.openImage = function (event) {
+    images = Array.from(document.querySelectorAll(".gallery-card img")); // Get all images in gallery
+    currentImageIndex = images.indexOf(event.target); // Get index of clicked image
+
     let modal = document.getElementById("imageModal");
     let modalImg = document.getElementById("modalImg");
 
     modal.style.display = "block";
-    modalImg.src = event.target.src; // Get the clicked image's source
+    modalImg.src = event.target.src; // Set the clicked image in modal
 }
 
-// ✅ Function to close the modal when clicked
+// ✅ Close Modal
 window.closeImage = function () {
-    let modal = document.getElementById("imageModal");
-    modal.style.display = "none";
+    document.getElementById("imageModal").style.display = "none";
 }
 
-// ✅ Attach click event to images inside .gallery-card dynamically
+// ✅ Show Next Image
+window.nextImage = function () {
+    currentImageIndex = (currentImageIndex + 1) % images.length; // Loop to first image after last
+    document.getElementById("modalImg").src = images[currentImageIndex].src;
+}
+
+// ✅ Show Previous Image
+window.prevImage = function () {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length; // Loop to last image after first
+    document.getElementById("modalImg").src = images[currentImageIndex].src;
+}
+
+// ✅ Attach Click Event to All Images on Page Load
 document.addEventListener("DOMContentLoaded", function () {
     let galleryImages = document.querySelectorAll(".gallery-card img");
     
@@ -29,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         img.addEventListener("click", openImage);
     });
 });
+
 
 
 window.showSection = function (sectionId) {
