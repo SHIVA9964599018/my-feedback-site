@@ -89,7 +89,12 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Ensure Gallery section is visible
+    // ✅ Hide all sections before showing the selected gallery content
+    document.querySelectorAll("section").forEach((section) => {
+        section.style.display = "none";
+    });
+
+    // ✅ Ensure the Gallery section is visible
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
