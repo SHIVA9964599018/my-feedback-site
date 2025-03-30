@@ -6,44 +6,49 @@ const supabaseClient = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Z2NoY3Z5enNrZXNwY2ZyanZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NjQwNDEsImV4cCI6MjA1NzQ0MDA0MX0.UuAgu4quD9Vg80tOUSkfGJ4doOT0CUFEUeoHsiyeNZQ"
 );
 
-let currentImageIndex = 0;
-let images = [];
+window.currentImageIndex = 0;
+window.images = [];
 
-// ✅ Open Image in Modal
-window.openImage = function (event) {
-    images = Array.from(document.querySelectorAll(".gallery-card img")); // Get all images in gallery
-    currentImageIndex = images.indexOf(event.target); // Get index of clicked image
+window.openLightbox = function(index) {
+    window.images = Array.from(document.querySelectorAll(".gallery-card img"));
+    window.currentImageIndex = index;
 
-    let modal = document.getElementById("imageModal");
-    let modalImg = document.getElementById("modalImg");
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
 
-    modal.style.display = "block";
-    modalImg.src = event.target.src; // Set the clicked image in modal
-}
+    if (lightbox && lightboxImg) {
+        lightboxImg.src = window.images[index].src;
+        lightbox.style.display = "flex";
+    }
+};
 
-// ✅ Close Modal
-window.closeImage = function () {
-    document.getElementById("imageModal").style.display = "none";
-}
+window.closeLightbox = function() {
+    let lightbox = document.getElementById("lightbox");
+    if (lightbox) {
+        lightbox.style.display = "none";
+    }
+};
 
-// ✅ Show Next Image
-window.nextImage = function () {
-    currentImageIndex = (currentImageIndex + 1) % images.length; // Loop to first image after last
-    document.getElementById("modalImg").src = images[currentImageIndex].src;
-}
+window.nextImage = function() {
+    if (window.images.length === 0) return;
 
-// ✅ Show Previous Image
-window.prevImage = function () {
-    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length; // Loop to last image after first
-    document.getElementById("modalImg").src = images[currentImageIndex].src;
-}
+    window.currentImageIndex = (window.currentImageIndex + 1) % window.images.length;
+    document.getElementById("lightbox-img").src = window.images[window.currentImageIndex].src;
+};
 
-// ✅ Attach Click Event to All Images on Page Load
-document.addEventListener("DOMContentLoaded", function () {
-    let galleryImages = document.querySelectorAll(".gallery-card img");
-    
-    galleryImages.forEach((img) => {
-        img.addEventListener("click", openImage);
+window.prevImage = function() {
+    if (window.images.length === 0) return;
+
+    window.currentImageIndex = (window.currentImageIndex - 1 + window.images.length) % window.images.length;
+    document.getElementById("lightbox-img").src = window.images[window.currentImageIndex].src;
+};
+
+// Attach event listeners to all images
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".gallery-card img").forEach((img, index) => {
+        img.addEventListener("click", function() {
+            openLightbox(index);
+        });
     });
 });
 
