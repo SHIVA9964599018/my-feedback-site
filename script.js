@@ -94,7 +94,7 @@ window.showGallerySection = function (sectionId) {
         section.style.display = "none";
     });
 
-    // ✅ Ensure the Gallery section is visible
+    // ✅ Ensure the main Gallery section is visible
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
@@ -115,6 +115,12 @@ window.showGallerySection = function (sectionId) {
         console.log(`Showing: ${sectionId}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
+    }
+
+    // ✅ Hide the dropdown after clicking a subtab
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "none";
     }
 };
 
