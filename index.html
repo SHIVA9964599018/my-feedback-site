@@ -244,42 +244,27 @@ nav {
     position: relative;
 }
 
-/* Dropdown Wrapper */
+/* Show dropdown on hover */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
     display: none;
     position: absolute;
     background-color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    min-width: 180px;
-    z-index: 1000;
-    left: 0;
-    top: 100%; /* Places it below the parent */
+    min-width: 160px;
+    z-index: 1;
 }
 
-/* Show dropdown on hover */
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
     display: block;
 }
 
-/* Submenu item styles */
-.dropdown-menu a {
-    display: block;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-    font-size: 1em;
-    transition: background 0.2s;
-}
 
-.dropdown-menu a:hover {
-    background-color: #f1f1f1;
-}
 .gallery-section {
     display: none; /* Initially hidden */
 }
@@ -293,14 +278,14 @@ nav {
 </head>
 <body>
 
-  <nav>
+ <nav>
     <a href="#" onclick="showSection('home')">Home</a>
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
 
     <!-- Dropdown -->
     <div class="dropdown">
-        <a href="#" class="dropdown-toggle">Gallery </a>
+        <a href="#" class="dropdown-toggle" onclick="toggleDropdown()">Gallery ⌄</a>
         <div class="dropdown-menu">
             <a href="#" onclick="showGallerySection('allPhotos')">All Photos</a>
             <a href="#" onclick="showGallerySection('marriagePhotos')">Marriage Photos</a>
@@ -344,10 +329,8 @@ nav {
 
   
 <section id="gallery" style="display: none;">
-    <h2>Select a Category</h2>
-
-    <!-- Gallery Content (Hidden Initially) -->
-    <div id="allPhotos" class="gallery-section" style="display: none;">
+<div id="allPhotos" class="gallery-section" style="display: none;">
+      <h3>All Photos</h3>
       <div class="gallery-container">
       <div class="gallery-card"><img src="wife_photo.jpg" alt="Image 2"></div>
       <div class="gallery-card"><img src="anand_photo.jpg" alt="Image 3"></div>
@@ -383,8 +366,7 @@ nav {
         </div>
     </div>
 
-<div id="marriagePhotos" class="gallery-section" style="display: none;">  
-  <h3>Marriage Photos</h3>
+  <div id="marriagePhotos" class="gallery-section" style="display: none;">  <h3>Marriage Photos</h3>
         <div class="gallery-container">
             <!-- Add marriage photos here -->
         </div>
