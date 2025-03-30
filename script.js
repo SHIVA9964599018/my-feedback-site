@@ -149,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
+    let dropdown = document.querySelector(".dropdown");
 
     if (dropdownToggle && dropdownMenu) {
         // ✅ Show dropdown on click
@@ -161,13 +162,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // ✅ Show dropdown on hover
-        let dropdown = document.querySelector(".dropdown");
         dropdown.addEventListener("mouseenter", function () {
             dropdownMenu.style.display = "block";
         });
 
         dropdown.addEventListener("mouseleave", function () {
             dropdownMenu.style.display = "none";
+        });
+
+        // ✅ Hide dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
         });
 
         // ✅ Ensure clicking a subtab hides the dropdown
@@ -177,17 +184,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 dropdownMenu.style.display = "none";
             });
         });
-
-        // ✅ Close dropdown when clicking outside
-        document.addEventListener("click", function (event) {
-            if (!dropdown.contains(event.target)) {
-                dropdownMenu.style.display = "none";
-            }
-        });
     } else {
         console.error("Dropdown toggle or menu not found!");
     }
 });
+
 
 
 // ✅ Handle Feedback Submission
