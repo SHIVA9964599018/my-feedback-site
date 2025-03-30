@@ -89,35 +89,37 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Ensure the "Gallery" section is visible
+    // ✅ Ensure the main "Gallery" section is visible
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
-        gallerySection.style.display = "block"; // 🔹 This ensures "Gallery" becomes visible
+        gallerySection.style.display = "block"; // Ensure the whole gallery is visible
     } else {
         console.error("Gallery section not found!");
         return;
     }
 
-    // ✅ Hide all gallery subsections first
-    document.querySelectorAll(".gallery-section").forEach((section) => {
-        section.style.display = "none";
+    // ✅ Hide all gallery subsections before showing the new one
+    let gallerySections = document.querySelectorAll(".gallery-section");
+    gallerySections.forEach((section) => {
+        section.style.display = "none";  // Hide all subsections first
     });
 
-    // ✅ Show the selected gallery subsection
+    // ✅ Show the clicked gallery subtab
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block";
+        targetSection.style.display = "block";  // Show the selected subtab
         console.log(`Showing: ${sectionId}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // ✅ Hide dropdown after selection
+    // ✅ Hide the dropdown menu after clicking
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 
 // ✅ Debugging: Ensure subtabs correctly trigger `showGallerySection`
