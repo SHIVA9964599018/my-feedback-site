@@ -89,36 +89,30 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Ensure the main "Gallery" section is visible
+    // ✅ Ensure Gallery section is visible
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
-        gallerySection.style.display = "block"; // Ensure the whole gallery is visible
+        gallerySection.style.display = "block";
     } else {
         console.error("Gallery section not found!");
         return;
     }
 
     // ✅ Hide all gallery subsections before showing the new one
-    let gallerySections = document.querySelectorAll(".gallery-section");
-    gallerySections.forEach((section) => {
-        section.style.display = "none";  // Hide all subsections first
+    document.querySelectorAll(".gallery-section").forEach((section) => {
+        section.style.display = "none";
     });
 
-    // ✅ Show the clicked gallery subtab
+    // ✅ Show the selected gallery subtab
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
-        targetSection.style.display = "block";  // Show the selected subtab
+        targetSection.style.display = "block";
         console.log(`Showing: ${sectionId}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
-
-    // ✅ Hide the dropdown menu after clicking
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    if (dropdownMenu) {
-        dropdownMenu.style.display = "none";
-    }
 };
+
 
 
 
@@ -142,49 +136,35 @@ document.querySelectorAll(".dropdown-menu a").forEach((item) => {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script loaded, adding event listeners...");
-
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
-    let dropdown = document.querySelector(".dropdown");
 
     if (dropdownToggle && dropdownMenu) {
         // ✅ Show dropdown on click
         dropdownToggle.addEventListener("click", function (event) {
             event.preventDefault();
-            console.log("Gallery clicked!");
-
-            // Toggle dropdown visibility
-            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
         });
 
-        // ✅ Show dropdown on hover
-        dropdown.addEventListener("mouseenter", function () {
-            dropdownMenu.style.display = "block";
-        });
-
-        dropdown.addEventListener("mouseleave", function () {
-            dropdownMenu.style.display = "none";
-        });
-
-        // ✅ Hide dropdown when clicking outside
+        // ✅ Close dropdown when clicking outside
         document.addEventListener("click", function (event) {
-            if (!dropdown.contains(event.target)) {
+            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = "none";
             }
         });
 
         // ✅ Ensure clicking a subtab hides the dropdown
         document.querySelectorAll(".dropdown-menu a").forEach((item) => {
-            item.addEventListener("click", function () {
-                console.log(`Subtab clicked: ${item.innerText}`);
-                dropdownMenu.style.display = "none";
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+                let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract section ID
+                window.showGallerySection(sectionId);
+                dropdownMenu.style.display = "none"; // Hide dropdown after selecting
             });
         });
-    } else {
-        console.error("Dropdown toggle or menu not found!");
     }
 });
+
 
 
 
