@@ -491,6 +491,33 @@ nav {
 <!-- Load your script file -->
 <script type="module" src="script.js"></script>
 
+<!-- Image Modal -->
+<div id="imageModal" class="modal" onclick="closeImage()">
+    <img class="modal-content" id="modalImg">
+</div>
+
+<!-- Style for Image Modal -->
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 10%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+    }
+    
+    .modal-content {
+        display: block;
+        margin: auto;
+        max-width: 80%;
+        max-height: 80%;
+        border-radius: 5px;
+    }
+</style>
 
 </body>
 </html>
