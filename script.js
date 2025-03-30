@@ -75,11 +75,16 @@ window.showGalleryTab = function () {
 
 
 
-// ✅ Function to toggle dropdown (if user clicks instead of hover)
-window.toggleDropdown = function () {
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-};
+window.toggleDropdown = function() {
+    var dropdownMenu = document.querySelector(".dropdown-menu");
+    
+    // Toggle visibility
+    if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+    } else {
+        dropdownMenu.style.display = "block";
+    }
+}
 
 // ✅ Function to show gallery sections
 window.showGallerySection = function (sectionId) {
@@ -122,8 +127,7 @@ window.showGallerySection = function (sectionId) {
 
 
 
-// ✅ Dropdown Toggle Logic
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded, adding event listeners...");
 
     let dropdownToggle = document.querySelector(".dropdown-toggle");
@@ -146,10 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".dropdown-menu a").forEach((item) => {
             item.addEventListener("click", function () {
                 dropdownMenu.style.display = "none";
+                window.showGallerySection(item.getAttribute("onclick").match(/'([^']+)'/)[1]); // Extracts section name
             });
         });
     }
 });
+
 
 // ✅ Handle Feedback Submission
 document.getElementById("feedback-form").addEventListener("submit", async function (event) {
