@@ -79,26 +79,27 @@ window.showGalleryTab = function () {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Hide all gallery sub-sections
-    document.querySelectorAll(".gallery-section").forEach((section) => {
+    // Hide all gallery sections
+    document.querySelectorAll(".gallery-section").forEach(section => {
         section.style.display = "none";
     });
 
-    // Show the selected sub-section
+    // Show the selected gallery section
     let targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.style.display = "block";
-        console.log(`Showing: ${targetSection.id}`);
+        console.log(`Showing: ${sectionId}`);
     } else {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // Hide the dropdown menu after selection
+    // Ensure the dropdown disappears after clicking a subtab
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 
 
