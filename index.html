@@ -242,7 +242,13 @@ nav {
     
 
 
-/* Ensure the dropdown is hidden initially */
+/* Ensure the dropdown menu is positioned correctly */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Ensure dropdown menu is visible */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -250,14 +256,16 @@ nav {
     min-width: 150px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    top: 100%; /* Position it below the Gallery tab */
+    left: 0;
 }
 
-/* Make sure the dropdown appears correctly */
+/* Show dropdown menu when hovering */
 .dropdown:hover .dropdown-menu {
     display: block;
 }
 
-/* Style for dropdown links */
+/* Style dropdown links */
 .dropdown-menu a {
     display: block;
     padding: 10px;
