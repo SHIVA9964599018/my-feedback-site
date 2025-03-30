@@ -75,6 +75,13 @@ window.showGalleryTab = function () {
 
 
 
+// ✅ Function to toggle dropdown (if user clicks instead of hover)
+window.toggleDropdown = function () {
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+};
+
+// ✅ Function to show gallery sections
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
@@ -106,6 +113,7 @@ window.showGallerySection = function (sectionId) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 
 
