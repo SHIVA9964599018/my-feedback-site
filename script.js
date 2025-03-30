@@ -46,41 +46,48 @@ window.showSection = function (sectionId) {
 window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
-    // Hide all sections first
+    // Hide all sections
     document.querySelectorAll("section").forEach((section) => {
         section.style.display = "none";
     });
 
-    // Show the Gallery section
+    // Show only the Gallery section
     let gallerySection = document.getElementById("gallery");
     if (gallerySection) {
         gallerySection.style.display = "block";
         gallerySection.scrollIntoView({ behavior: "smooth" });
-        console.log("Gallery section is now visible.");
     } else {
         console.error("Gallery section not found!");
     }
 
-    // Show the dropdown menu
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    if (dropdownMenu) {
-        dropdownMenu.style.display = "block";
-        console.log("Dropdown menu displayed.");
-    }
-
-    // ✅ Hide all sub-sections initially (do not pre-select any)
+    // Hide all gallery content initially
     document.querySelectorAll(".gallery-section").forEach((section) => {
         section.style.display = "none";
     });
+
+    // Show dropdown menu
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) {
+        dropdownMenu.style.display = "block";
+    }
 };
+
 
 
 
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
+    // Ensure the Gallery section is visible
+    let gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+        gallerySection.style.display = "block";
+    } else {
+        console.error("Gallery section not found!");
+    }
+
     // Hide all gallery sections
-    document.querySelectorAll(".gallery-section").forEach(section => {
+    document.querySelectorAll(".gallery-section").forEach((section) => {
         section.style.display = "none";
     });
 
@@ -93,12 +100,13 @@ window.showGallerySection = function (sectionId) {
         console.error(`Error: Section ${sectionId} not found!`);
     }
 
-    // Ensure the dropdown disappears after clicking a subtab
+    // Hide dropdown after selection
     let dropdownMenu = document.querySelector(".dropdown-menu");
     if (dropdownMenu) {
         dropdownMenu.style.display = "none";
     }
 };
+
 
 
 
