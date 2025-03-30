@@ -144,7 +144,7 @@ document.querySelectorAll(".dropdown-menu a").forEach((item) => {
 
 
 
-window.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded, adding event listeners...");
 
     let dropdownToggle = document.querySelector(".dropdown-toggle");
@@ -153,12 +153,16 @@ window.addEventListener("DOMContentLoaded", function () {
     if (dropdownToggle && dropdownMenu) {
         dropdownToggle.addEventListener("click", function (event) {
             event.preventDefault();
-            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+            console.log("Gallery clicked!"); // ✅ Check if this appears in the console
+
+            // Toggle dropdown visibility
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         });
 
         // Close dropdown when clicking outside
         document.addEventListener("click", function (event) {
             if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                console.log("Clicked outside, hiding dropdown");
                 dropdownMenu.style.display = "none";
             }
         });
@@ -166,10 +170,12 @@ window.addEventListener("DOMContentLoaded", function () {
         // Ensure clicking a subtab hides the dropdown
         document.querySelectorAll(".dropdown-menu a").forEach((item) => {
             item.addEventListener("click", function () {
+                console.log(`Subtab clicked: ${item.innerText}`);
                 dropdownMenu.style.display = "none";
-                window.showGallerySection(item.getAttribute("onclick").match(/'([^']+)'/)[1]); // Extracts section name
             });
         });
+    } else {
+        console.error("Dropdown toggle or menu not found!");
     }
 });
 
