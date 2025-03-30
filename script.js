@@ -151,28 +151,38 @@ document.addEventListener("DOMContentLoaded", function () {
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
     if (dropdownToggle && dropdownMenu) {
+        // ✅ Show dropdown on click
         dropdownToggle.addEventListener("click", function (event) {
             event.preventDefault();
-            console.log("Gallery clicked!"); // ✅ Check if this appears in the console
+            console.log("Gallery clicked!");
 
             // Toggle dropdown visibility
             dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         });
 
-        // Close dropdown when clicking outside
-        document.addEventListener("click", function (event) {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                console.log("Clicked outside, hiding dropdown");
-                dropdownMenu.style.display = "none";
-            }
+        // ✅ Show dropdown on hover
+        let dropdown = document.querySelector(".dropdown");
+        dropdown.addEventListener("mouseenter", function () {
+            dropdownMenu.style.display = "block";
         });
 
-        // Ensure clicking a subtab hides the dropdown
+        dropdown.addEventListener("mouseleave", function () {
+            dropdownMenu.style.display = "none";
+        });
+
+        // ✅ Ensure clicking a subtab hides the dropdown
         document.querySelectorAll(".dropdown-menu a").forEach((item) => {
             item.addEventListener("click", function () {
                 console.log(`Subtab clicked: ${item.innerText}`);
                 dropdownMenu.style.display = "none";
             });
+        });
+
+        // ✅ Close dropdown when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
         });
     } else {
         console.error("Dropdown toggle or menu not found!");
