@@ -86,31 +86,37 @@ window.toggleDropdown = function() {
     }
 }
 
-// ✅ Function to show gallery sections
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // Ensure the Gallery section is visible
+    // Check if gallery section exists
     let gallerySection = document.getElementById("gallery");
-    if (gallerySection) {
-        gallerySection.style.display = "block";
-    } else {
+    if (!gallerySection) {
         console.error("Gallery section not found!");
+        return;
     }
 
+    // Ensure the Gallery section is visible
+    gallerySection.style.display = "block";
+
     // Hide all gallery sections
-    document.querySelectorAll(".gallery-section").forEach((section) => {
+    let allGallerySections = document.querySelectorAll(".gallery-section");
+    if (allGallerySections.length === 0) {
+        console.error("No gallery sections found!");
+        return;
+    }
+    allGallerySections.forEach((section) => {
         section.style.display = "none";
     });
 
     // Show the selected gallery section
     let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
-        console.log(`Showing: ${sectionId}`);
-    } else {
+    if (!targetSection) {
         console.error(`Error: Section ${sectionId} not found!`);
+        return;
     }
+    targetSection.style.display = "block";
+    console.log(`Showing: ${sectionId}`);
 
     // Hide dropdown after selection
     let dropdownMenu = document.querySelector(".dropdown-menu");
@@ -118,6 +124,17 @@ window.showGallerySection = function (sectionId) {
         dropdownMenu.style.display = "none";
     }
 };
+
+// ✅ Debugging: Ensure subtabs correctly trigger `showGallerySection`
+document.querySelectorAll(".dropdown-menu a").forEach((item) => {
+    item.addEventListener("click", function (event) {
+        event.preventDefault();
+        let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract section name
+        console.log(`Subtab clicked, navigating to: ${sectionId}`);
+        window.showGallerySection(sectionId);
+    });
+});
+
 
 
 
