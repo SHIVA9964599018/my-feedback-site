@@ -11,24 +11,29 @@
 
 nav {
     background-color: #2F4F7F;
-    overflow: visible; 
+    overflow: visible;
     position: relative;
+    display: flex;
+    flex-wrap: wrap; /* Allows items to move to the next line */
+    justify-content: center; /* Keeps them centered */
+    padding: 10px 0; /* Adds some spacing */
 }
 
+nav a {
+    flex: 1 1 auto; /* Allows tabs to resize dynamically */
+    min-width: 100px; /* Ensures each tab has a minimum width */
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: white;
+    white-space: nowrap; /* Prevents text from breaking inside a tab */
+}
 
-    nav a {
-      float: left;
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 10px 10px;
-      font-size: 1.2em;
-      text-decoration: none;
-    }
+nav a:hover {
+    background-color: #1F3F6F;
+}
 
-    nav a:hover {
-      background-color: #2F4F7F;
-    }
 
     section {
       display: none;
@@ -206,11 +211,7 @@ nav {
 
 
 
-@media (max-width: 768px) {
-  #weight-loss {
-    display: block !important;
-  }
-}
+
 
 @media (max-width: 768px) {
   .journey-table {
