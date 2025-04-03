@@ -131,12 +131,17 @@
 <script type="module" src="script.js"></script>
 <script>
   fetch("weight-loss.html")
-    .then(response => response.text())
+    .then(response => {
+      console.log("Response status:", response.status);
+      return response.text();
+    })
     .then(data => {
+      console.log("Fetched data:", data);
       document.getElementById("weight-loss-container").innerHTML = data;
     })
     .catch(error => console.error("Error loading the file:", error));
 </script>
+
 
 </body>
 </html>
