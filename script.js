@@ -285,9 +285,16 @@ document.getElementById("weight-loss-tab").addEventListener("click", function(ev
       return response.text();
     })
     .then(data => {
-      console.log("✅ Loaded weight-loss.html:", data);  // Debugging step
-      document.getElementById("weight-loss-container").innerHTML = data;
+      console.log("✅ Loaded weight-loss.html successfully!");  
+      
+      let container = document.getElementById("weight-loss-container");
+      if (container) {
+        container.innerHTML = data;  
+        container.style.display = "block"; // ✅ Ensure it's visible
+        console.log("✅ Injected weight-loss.html content and made it visible!");
+      } else {
+        console.error("❌ weight-loss-container not found!");
+      }
     })
     .catch(error => console.error("❌ Error loading weight-loss.html:", error));
 });
-
