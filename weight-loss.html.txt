@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Weight Loss Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="weight-loss">
+  <h2 style="text-align:center;">My Weight Loss Journey</h2>
+  <p style="text-align:center; font-weight:bold; color:#F4511E; font-size: 1.2rem;">
+    Total Net Loss: 2.85 kg
+  </p>
+
+  <table class="journey-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Weight</th>
+        <th>Image</th>
+        <th>Weekly Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>18-Jan-2025</td>
+        <td>75.50 kg</td>
+        <td><img src="All_images/75.50.jpg" alt="75.50 kg"></td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>25-Jan-2025</td>
+        <td>74.35 kg</td>
+        <td><img src="All_images/74.35.jpg" alt="74.35 kg"></td>
+        <td>1.15 kg</td>
+      </tr>
+      <tr>
+        <td>01-Feb-2025</td>
+        <td>73.95 kg</td>
+        <td><img src="All_images/73.95.jpg" alt="73.95 kg"></td>
+        <td>0.40 kg</td>
+      </tr>
+      <tr>
+        <td>08-Feb-2025</td>
+        <td>73.60 kg</td>
+        <td><img src="All_images/73.60.jpg" alt="73.60 kg"></td>
+        <td>0.35 kg</td>
+      </tr>
+      <tr>
+        <td>15-Feb-2025</td>
+        <td>73.35 kg</td>
+        <td><img src="All_images/73.35.jpg" alt="73.35 kg"></td>
+        <td>0.25 kg</td>
+      </tr>
+      <tr>
+        <td>22-Feb-2025</td>
+        <td>73.25 kg</td>
+        <td><img src="All_images/73.25.jpg" alt="73.25 kg"></td>
+        <td>0.10 kg</td>
+      </tr>
+      <tr>
+        <td>01-Mar-2025</td>
+        <td>73.00 kg</td>
+        <td><img src="All_images/73.00.jpg" alt="73.00 kg"></td>
+        <td>0.25 kg</td>
+      </tr>
+      <tr>
+        <td>08-Mar-2025</td>
+        <td>72.60 kg</td>
+        <td><img src="All_images/72.60.jpg" alt="72.60 kg"></td>
+        <td>0.40 kg</td>
+      </tr>
+      <tr>
+        <td>15-Mar-2025</td>
+        <td>72.80 kg</td>
+        <td><img src="All_images/72.80.jpg" alt="72.80 kg"></td>
+        <td>-0.20 kg</td>
+      </tr>
+        <tr>
+        <td>23-Mar-2025</td>
+        <td>72.75 kg</td>
+        <td><img src="All_images/72.75.jpg" alt="72.75 kg"></td>
+        <td>0.05 kg</td>
+      </tr>
+        <tr>
+        <td>29-Mar-2025</td>
+        <td>72.65 kg</td>
+        <td><img src="All_images/72.65.jpg" alt="72.65 kg"></td>
+        <td>0.10 kg</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+</body>
