@@ -108,6 +108,7 @@
     </div>
 </section>
 
+<div id="weight-loss-container"></div>
 
   <div id="lightbox">
     <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
@@ -128,9 +129,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
 <script type="module" src="script.js"></script>
-
-
-
+<script>
+  fetch("weight-loss.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("weight-loss-container").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading the file:", error));
+</script>
 
 </body>
 </html>
