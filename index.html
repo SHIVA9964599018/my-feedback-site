@@ -20,7 +20,8 @@
         </div>
     </div>
 
-	<a href="weight-loss.html">My Weight Loss Journey</a> 
+	<!--<a href="weight-loss.html">My Weight Loss Journey</a> -->
+	<a href="#" id="weight-loss-tab">My Weight Loss Journey</a>
 </nav>
 
   <section id="home" class="active">
@@ -129,22 +130,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
 <script type="module" src="script.js"></script>
-<script>
-  console.log("JavaScript is running!");
-</script>
-<script>
-  fetch("weight-loss.html")
-    .then(response => {
-      console.log("Response status:", response.status);
-      return response.text();
-    })
-    .then(data => {
-      console.log("Fetched data:", data);
-      document.getElementById("weight-loss-container").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading the file:", error));
-</script>
-
-
 </body>
 </html>
