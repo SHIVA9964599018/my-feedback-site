@@ -298,3 +298,6 @@ document.getElementById("weight-loss-tab").addEventListener("click", function(ev
     })
     .catch(error => console.error("❌ Error loading weight-loss.html:", error));
 });
+window.onload = function () {
+    document.getElementById("weight-loss-container").style.display = "none";
+};
