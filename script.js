@@ -273,3 +273,30 @@ async function fetchFeedback() {
 
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script Loaded!");  // Debugging step
+
+    // Get the Weight Loss Journey tab
+    const weightLossTab = document.getElementById("weight-loss-tab");
+
+    console.log("Weight Loss Tab:", weightLossTab);  // Debugging step
+
+    if (weightLossTab) {
+        weightLossTab.addEventListener("click", function (event) {
+            event.preventDefault(); // Stop default navigation
+            console.log("Weight Loss Tab Clicked!");  // Debugging step
+
+            // Fetch the content from weight-loss.html
+            fetch("weight-loss.html")
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Data Fetched:", data.substring(0, 100));  // Debugging step
+                    document.getElementById("weight-loss-container").innerHTML = data;
+                })
+                .catch(error => console.error("Error loading weight-loss.html:", error));
+        });
+    } else {
+        console.error("Element #weight-loss-tab NOT FOUND!");
+    }
+});
