@@ -274,5 +274,12 @@ nav {
 .gallery-section.active {
     display: block !important; /* Ensures it appears */
 }
+#weight-loss-container {
+    display: block !important;
+    visibility: visible !important;
+    min-height: 200px;
+    background-color: lightgray;
+}
+
 </style>
 
