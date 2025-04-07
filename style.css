@@ -275,7 +275,58 @@ nav {
       height: auto;
       display: block;
       margin: 0 auto;
-    }
+    }#weight-loss {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  border-top: 3px solid #F4511E;
+}
+
+#weight-loss h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#weight-loss p {
+  margin-bottom: 30px;
+}
+
+.journey-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.journey-table thead {
+  background-color: #F4511E;
+  color: #fff;
+}
+
+.journey-table th, .journey-table td {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.journey-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.journey-table img {
+  width: 80px;
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.journey-table img:hover {
+  transform: scale(1.05);
+}
+
 
 </style>
 
