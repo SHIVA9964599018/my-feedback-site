@@ -274,30 +274,4 @@ async function fetchFeedback() {
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 
-document.getElementById("weight-loss-tab").addEventListener("click", function(event) {
-  event.preventDefault();
 
-  console.log("✅ Weight Loss Tab Clicked! Fetching weight-loss.html...");
-
-  fetch("weight-loss.html")
-    .then(response => {
-      console.log("Fetch Response:", response);  // Debugging step
-      return response.text();
-    })
-    .then(data => {
-      console.log("✅ Loaded weight-loss.html successfully!");  
-      
-      let container = document.getElementById("weight-loss-container");
-      if (container) {
-        container.innerHTML = data;  
-        container.style.display = "block"; // ✅ Ensure it's visible
-        console.log("✅ Injected weight-loss.html content and made it visible!");
-      } else {
-        console.error("❌ weight-loss-container not found!");
-      }
-    })
-    .catch(error => console.error("❌ Error loading weight-loss.html:", error));
-});
-window.onload = function () {
-    document.getElementById("weight-loss-container").style.display = "none";
-};
