@@ -11,7 +11,7 @@
     <a href="#" onclick="showSection('home')">Home</a>
     <a href="#" onclick="showSection('feedback')">Feedback</a>
     <a href="#" onclick="showSection('about')">About</a>
-
+    <a href="#" onclick="showSection('bike-summary')">Bike Summary</a> 
     <div class="dropdown">
         <a href="#" class="dropdown-toggle">Gallery </a>
         <div class="dropdown-menu" style="display: none;">
@@ -224,6 +224,17 @@
   </div>
 </section>
 
+<section id="bike-summary" style="display: none;">
+  <h2>Bike Fuel Summary</h2>
+  <div id="bike-summary-data">
+    <p><strong>Total Distance:</strong> <span id="total-distance"></span> km</p>
+    <p><strong>Total Fuel:</strong> <span id="total-fuel"></span> liters</p>
+    <p><strong>Mileage:</strong> <span id="mileage"></span> km/l</p>
+    <p><strong>Total Expense:</strong> ₹<span id="total-expense"></span></p>
+    <p><strong>Monthly Expense:</strong> ₹<span id="monthly-expense"></span></p>
+    <p><strong>Weekly Expense:</strong> ₹<span id="weekly-expense"></span></p>
+  </div>
+</section>
 	
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
