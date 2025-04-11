@@ -81,12 +81,16 @@ window.showSection = function (sectionId) {
             // Show All Photos by default when opening Gallery
             showGallerySection("allPhotos");
         }
+
+        // ✅ If Bike Summary tab is opened, fetch the data
+        if (sectionId === "bike-summary") {
+            loadBikeSummary(); // call backend and fill the data
+        }
+
     } else {
         console.error(`Error: Section ${sectionId} not found.`);
     }
 };
-
-
 
 
 window.showGalleryTab = function () {
