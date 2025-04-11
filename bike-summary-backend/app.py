@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from supabase import create_client, Client
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from datetime import datetime, timedelta
 from flask_cors import CORS
 
