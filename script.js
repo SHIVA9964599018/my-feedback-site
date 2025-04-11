@@ -277,5 +277,23 @@ async function fetchFeedback() {
 
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
+async function loadBikeSummary() {
+  const url = "https://your-backend.onrender.com/api/bike-summary"; // replace this with your real Render backend URL
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    document.getElementById("total-distance").textContent = data.total_distance_km;
+    document.getElementById("total-fuel").textContent = data.total_fuel_liters;
+    document.getElementById("mileage").textContent = data.mileage_kmpl;
+    document.getElementById("total-expense").textContent = data.total_expense;
+    document.getElementById("monthly-expense").textContent = data.monthly_expense;
+    document.getElementById("weekly-expense").textContent = data.weekly_expense;
+  } catch (err) {
+    console.error("Failed to load bike summary:", err);
+  }
+}
+
 
 
