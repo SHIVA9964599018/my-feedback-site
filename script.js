@@ -81,12 +81,16 @@ window.showSection = function (sectionId) {
             // Show All Photos by default when opening Gallery
             showGallerySection("allPhotos");
         }
+
+        // ✅ If Bike Summary tab is opened, fetch the data
+        if (sectionId === "bike-summary") {
+            loadBikeSummary(); // call backend and fill the data
+        }
+
     } else {
         console.error(`Error: Section ${sectionId} not found.`);
     }
 };
-
-
 
 
 window.showGalleryTab = function () {
@@ -273,31 +277,23 @@ async function fetchFeedback() {
 
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
+async function loadBikeSummary() {
+ const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+  
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
 
-document.getElementById("weight-loss-tab").addEventListener("click", function(event) {
-  event.preventDefault();
+    document.getElementById("total-distance").textContent = data.total_distance_km;
+    document.getElementById("total-fuel").textContent = data.total_fuel_liters;
+    document.getElementById("mileage").textContent = data.mileage_kmpl;
+    document.getElementById("total-expense").textContent = data.total_expense;
+    document.getElementById("monthly-expense").textContent = data.monthly_expense;
+    document.getElementById("weekly-expense").textContent = data.weekly_expense;
+  } catch (err) {
+    console.error("Failed to load bike summary:", err);
+  }
+}
 
-  console.log("✅ Weight Loss Tab Clicked! Fetching weight-loss.html...");
 
-  fetch("weight-loss.html")
-    .then(response => {
-      console.log("Fetch Response:", response);  // Debugging step
-      return response.text();
-    })
-    .then(data => {
-      console.log("✅ Loaded weight-loss.html successfully!");  
-      
-      let container = document.getElementById("weight-loss-container");
-      if (container) {
-        container.innerHTML = data;  
-        container.style.display = "block"; // ✅ Ensure it's visible
-        console.log("✅ Injected weight-loss.html content and made it visible!");
-      } else {
-        console.error("❌ weight-loss-container not found!");
-      }
-    })
-    .catch(error => console.error("❌ Error loading weight-loss.html:", error));
-});
-window.onload = function () {
-    document.getElementById("weight-loss-container").style.display = "none";
-};
+
