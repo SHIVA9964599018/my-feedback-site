@@ -278,8 +278,8 @@ async function fetchFeedback() {
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
-  const url = "https://your-backend.onrender.com/api/bike-summary"; // replace this with your real Render backend URL
-
+ const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+  
   try {
     const response = await fetch(url);
     const data = await response.json();
