@@ -302,8 +302,12 @@ async function loadBikeSummary() {
     setText("monthly-expense", data.monthly_expense);
     setText("weekly-expense", data.weekly_expense);
 
-    renderMonthlyExpenses(data.monthly_breakdown);
-    renderWeeklyExpenses(data.weekly_breakdown);
+if (data && data.monthly_breakdown && data.weekly_breakdown) {
+  renderMonthlyExpenses(data.monthly_breakdown);
+  renderWeeklyExpenses(data.weekly_breakdown);
+} else {
+  console.warn("Missing monthly or weekly breakdown data", data);
+}
 
   } catch (err) {
     console.error("Failed to load bike summary:", err);
