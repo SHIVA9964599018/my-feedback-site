@@ -347,6 +347,8 @@ function renderWeeklyExpenses(weeklyData) {
     container.appendChild(dayItem);
   });
 }
+renderMonthlyExpenses(data.monthly_breakdown);
+renderWeeklyExpenses(data.weekly_breakdown);
 
 
 
