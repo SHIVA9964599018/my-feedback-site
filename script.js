@@ -326,7 +326,7 @@ async function loadBikeSummary() {
 
 
 function renderMonthlyExpenses(monthlyData) {
-    const container = document.getElementById("monthly-expenses");
+    const container = document.getElementById("monthly-expenses-container");
     container.innerHTML = "<h3>▼ Monthly Expenses</h3>";
 
     Object.entries(monthlyData).forEach(([year, months]) => {
@@ -355,7 +355,7 @@ function renderMonthlyExpenses(monthlyData) {
 }
 
 function renderWeeklyExpenses(weeklyData) {
-    const container = document.getElementById("weekly-expenses");
+    const container = document.getElementById("weekly-expenses-container");
     container.innerHTML = "<h3>▼ Weekly Expenses</h3>";
 
     const monthGroups = {};
