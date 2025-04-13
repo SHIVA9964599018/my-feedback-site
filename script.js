@@ -278,39 +278,45 @@ async function fetchFeedback() {
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
-  const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+  const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
+  const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
   const loadingMessage = document.getElementById("loading-message");
 
   if (loadingMessage) loadingMessage.style.display = "block";
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    // Fetch summary
+    const summaryResponse = await fetch(summaryUrl);
+    const summaryData = await summaryResponse.json();
 
-    if (loadingMessage) loadingMessage.style.display = "none";
-
-    // Safely set values only if elements exist
+    // Set text content safely
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;
     };
 
-    setText("total-distance", data.total_distance_km);
-    setText("total-fuel", data.total_fuel_liters);
-    setText("mileage", data.mileage_kmpl);
-    setText("total-expense", data.total_expense);
-    setText("monthly-expense", data.monthly_expense);
-    setText("weekly-expense", data.weekly_expense);
+    setText("total-distance", summaryData.total_distance_km);
+    setText("total-fuel", summaryData.total_fuel_liters);
+    setText("mileage", summaryData.mileage_kmpl);
+    setText("total-expense", summaryData.total_expense);
+    setText("monthly-expense", summaryData.monthly_expense);
+    setText("weekly-expense", summaryData.weekly_expense);
 
-if (data && data.monthly_breakdown && data.weekly_breakdown) {
-  renderMonthlyExpenses(data.monthly_breakdown);
-  renderWeeklyExpenses(data.weekly_breakdown);
-} else {
-  console.warn("Missing monthly or weekly breakdown data", data);
-}
+    // Fetch detailed breakdown (monthly and weekly)
+    const expenseResponse = await fetch(expensesUrl);
+    const expenseData = await expenseResponse.json();
+
+    if (loadingMessage) loadingMessage.style.display = "none";
+
+    if (expenseData && expenseData.monthly_expenses && expenseData.weekly_expenses) {
+      renderMonthlyExpenses(expenseData.monthly_expenses);
+      renderWeeklyExpenses(expenseData.weekly_expenses);
+    } else {
+      console.warn("Missing expense breakdown data", expenseData);
+    }
 
   } catch (err) {
-    console.error("Failed to load bike summary:", err);
+    console.error("Failed to load bike data:", err);
     if (loadingMessage) {
       loadingMessage.textContent = "Failed to load data. Please try again later.";
     }
@@ -318,48 +324,75 @@ if (data && data.monthly_breakdown && data.weekly_breakdown) {
 }
 
 
+
 function renderMonthlyExpenses(monthlyData) {
-  const container = document.getElementById("monthly-expenses-container");
-  container.innerHTML = "";
+    const container = document.getElementById("monthly-expenses");
+    container.innerHTML = "<h3>▼ Monthly Expenses</h3>";
 
-  Object.keys(monthlyData).sort().forEach(year => {
-    const yearDiv = document.createElement("div");
-    yearDiv.classList.add("year-block");
+    Object.entries(monthlyData).forEach(([year, months]) => {
+        const yearDiv = document.createElement("div");
+        const yearHeader = document.createElement("h4");
+        yearHeader.textContent = `${year}`;
+        yearHeader.style.cursor = "pointer";
 
-    const yearHeader = document.createElement("h3");
-    yearHeader.textContent = year;
-    yearHeader.classList.add("collapsible");
-    yearDiv.appendChild(yearHeader);
+        const monthsList = document.createElement("ul");
+        monthsList.style.display = "none";
 
-    const monthsList = document.createElement("div");
-    monthsList.classList.add("month-grid");
-    monthsList.style.display = "none";
+        Object.entries(months).forEach(([month, amount]) => {
+            const li = document.createElement("li");
+            li.textContent = `${month}: ₹${amount}`;
+            monthsList.appendChild(li);
+        });
 
-    Object.entries(monthlyData[year]).forEach(([month, amount]) => {
-      const monthItem = document.createElement("p");
-      monthItem.innerHTML = `<strong>${month}:</strong> ₹${amount.toFixed(2)}`;
-      monthsList.appendChild(monthItem);
+        yearHeader.addEventListener("click", () => {
+            monthsList.style.display = monthsList.style.display === "none" ? "block" : "none";
+        });
+
+        yearDiv.appendChild(yearHeader);
+        yearDiv.appendChild(monthsList);
+        container.appendChild(yearDiv);
     });
-
-    yearDiv.appendChild(monthsList);
-    container.appendChild(yearDiv);
-
-    yearHeader.addEventListener("click", () => {
-      monthsList.style.display = monthsList.style.display === "none" ? "block" : "none";
-    });
-  });
 }
 
 function renderWeeklyExpenses(weeklyData) {
-  const container = document.getElementById("weekly-expenses-container");
-  container.innerHTML = "";
+    const container = document.getElementById("weekly-expenses");
+    container.innerHTML = "<h3>▼ Weekly Expenses</h3>";
 
-  Object.entries(weeklyData).sort().reverse().forEach(([date, amount]) => {
-    const dayItem = document.createElement("p");
-    dayItem.innerHTML = `<strong>${date}:</strong> ₹${amount.toFixed(2)}`;
-    container.appendChild(dayItem);
-  });
+    const monthGroups = {};
+
+    // Group by year + month
+    Object.entries(weeklyData).forEach(([dateStr, amount]) => {
+        const date = new Date(dateStr);
+        const label = `${date.getFullYear()}-${date.toLocaleString("default", { month: "short" })}`;
+        if (!monthGroups[label]) monthGroups[label] = [];
+        monthGroups[label].push({ date: dateStr, amount });
+    });
+
+    Object.entries(monthGroups).forEach(([monthLabel, weeks]) => {
+        const monthDiv = document.createElement("div");
+        const monthHeader = document.createElement("h4");
+        monthHeader.textContent = monthLabel;
+        monthHeader.style.cursor = "pointer";
+
+        const weeksList = document.createElement("ul");
+        weeksList.style.display = "none";
+
+        weeks.forEach(week => {
+            const li = document.createElement("li");
+            li.textContent = `${week.date}: ₹${week.amount}`;
+            weeksList.appendChild(li);
+        });
+
+        monthHeader.addEventListener("click", () => {
+            weeksList.style.display = weeksList.style.display === "none" ? "block" : "none";
+        });
+
+        monthDiv.appendChild(monthHeader);
+        monthDiv.appendChild(weeksList);
+        container.appendChild(monthDiv);
+    });
 }
+
 
 
 
