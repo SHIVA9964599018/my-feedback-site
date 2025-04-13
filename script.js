@@ -305,6 +305,49 @@ async function loadBikeSummary() {
   }
 }
 
+function renderMonthlyExpenses(monthlyData) {
+  const container = document.getElementById("monthly-expenses-container");
+  container.innerHTML = "";
+
+  Object.keys(monthlyData).sort().forEach(year => {
+    const yearDiv = document.createElement("div");
+    yearDiv.classList.add("year-block");
+
+    const yearHeader = document.createElement("h3");
+    yearHeader.textContent = year;
+    yearHeader.classList.add("collapsible");
+    yearDiv.appendChild(yearHeader);
+
+    const monthsList = document.createElement("div");
+    monthsList.classList.add("month-grid");
+    monthsList.style.display = "none";
+
+    Object.entries(monthlyData[year]).forEach(([month, amount]) => {
+      const monthItem = document.createElement("p");
+      monthItem.innerHTML = `<strong>${month}:</strong> ₹${amount.toFixed(2)}`;
+      monthsList.appendChild(monthItem);
+    });
+
+    yearDiv.appendChild(monthsList);
+    container.appendChild(yearDiv);
+
+    yearHeader.addEventListener("click", () => {
+      monthsList.style.display = monthsList.style.display === "none" ? "block" : "none";
+    });
+  });
+}
+
+function renderWeeklyExpenses(weeklyData) {
+  const container = document.getElementById("weekly-expenses-container");
+  container.innerHTML = "";
+
+  Object.entries(weeklyData).sort().reverse().forEach(([date, amount]) => {
+    const dayItem = document.createElement("p");
+    dayItem.innerHTML = `<strong>${date}:</strong> ₹${amount.toFixed(2)}`;
+    container.appendChild(dayItem);
+  });
+}
+
 
 
 
