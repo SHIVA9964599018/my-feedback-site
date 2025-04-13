@@ -279,37 +279,32 @@ async function fetchFeedback() {
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
   const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+  const loadingMessage = document.getElementById("loading-message");
 
-  // Show loading placeholders
-  document.getElementById("total-distance").textContent = "Loading...";
-  document.getElementById("total-fuel").textContent = "Loading...";
-  document.getElementById("mileage").textContent = "Loading...";
-  document.getElementById("total-expense").textContent = "Loading...";
-  document.getElementById("monthly-expense").textContent = "Loading...";
-  document.getElementById("weekly-expense").textContent = "Loading...";
+  // Show loading message
+  loadingMessage.style.display = "block";
 
   try {
     const response = await fetch(url);
     const data = await response.json();
 
+    // Hide loading message once data is received
+    loadingMessage.style.display = "none";
+
+    // Populate the UI with data
     document.getElementById("total-distance").textContent = data.total_distance_km;
     document.getElementById("total-fuel").textContent = data.total_fuel_liters;
     document.getElementById("mileage").textContent = data.mileage_kmpl;
     document.getElementById("total-expense").textContent = data.total_expense;
     document.getElementById("monthly-expense").textContent = data.monthly_expense;
     document.getElementById("weekly-expense").textContent = data.weekly_expense;
+
   } catch (err) {
     console.error("Failed to load bike summary:", err);
-
-    // Show error messages if something fails
-    document.getElementById("total-distance").textContent = "Error!";
-    document.getElementById("total-fuel").textContent = "Error!";
-    document.getElementById("mileage").textContent = "Error!";
-    document.getElementById("total-expense").textContent = "Error!";
-    document.getElementById("monthly-expense").textContent = "Error!";
-    document.getElementById("weekly-expense").textContent = "Error!";
+    loadingMessage.textContent = "Failed to load data. Please try again later.";
   }
 }
+
 
 
 
