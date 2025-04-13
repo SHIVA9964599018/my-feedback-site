@@ -281,29 +281,38 @@ async function loadBikeSummary() {
   const url = "https://my-feedback-site.onrender.com/api/bike-summary";
   const loadingMessage = document.getElementById("loading-message");
 
-  // Show loading message
-  loadingMessage.style.display = "block";
+  if (loadingMessage) loadingMessage.style.display = "block";
 
   try {
     const response = await fetch(url);
     const data = await response.json();
 
-    // Hide loading message once data is received
-    loadingMessage.style.display = "none";
+    if (loadingMessage) loadingMessage.style.display = "none";
 
-    // Populate the UI with data
-    document.getElementById("total-distance").textContent = data.total_distance_km;
-    document.getElementById("total-fuel").textContent = data.total_fuel_liters;
-    document.getElementById("mileage").textContent = data.mileage_kmpl;
-    document.getElementById("total-expense").textContent = data.total_expense;
-    document.getElementById("monthly-expense").textContent = data.monthly_expense;
-    document.getElementById("weekly-expense").textContent = data.weekly_expense;
+    // Safely set values only if elements exist
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+
+    setText("total-distance", data.total_distance_km);
+    setText("total-fuel", data.total_fuel_liters);
+    setText("mileage", data.mileage_kmpl);
+    setText("total-expense", data.total_expense);
+    setText("monthly-expense", data.monthly_expense);
+    setText("weekly-expense", data.weekly_expense);
+
+    renderMonthlyExpenses(data.monthly_breakdown);
+    renderWeeklyExpenses(data.weekly_breakdown);
 
   } catch (err) {
     console.error("Failed to load bike summary:", err);
-    loadingMessage.textContent = "Failed to load data. Please try again later.";
+    if (loadingMessage) {
+      loadingMessage.textContent = "Failed to load data. Please try again later.";
+    }
   }
 }
+
 
 function renderMonthlyExpenses(monthlyData) {
   const container = document.getElementById("monthly-expenses-container");
@@ -347,8 +356,7 @@ function renderWeeklyExpenses(weeklyData) {
     container.appendChild(dayItem);
   });
 }
-renderMonthlyExpenses(data.monthly_breakdown);
-renderWeeklyExpenses(data.weekly_breakdown);
+
 
 
 
