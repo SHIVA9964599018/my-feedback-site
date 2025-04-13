@@ -228,6 +228,7 @@
   <h2>Bike Fuel Summary</h2>
   <img src="All_images/bike.jpg" alt="My bike Photo" width="450" height="300">
 
+  <!-- Bike Summary -->
   <details open>
     <summary><strong>Bike Summary</strong></summary>
     <div id="bike-summary-data">
@@ -238,22 +239,29 @@
     </div>
   </details>
 
+  <!-- Monthly Expenses -->
   <details>
     <summary><strong>Monthly Expenses</strong></summary>
     <div id="monthly-expense-data">
-      <!-- JS will populate: Year > Jan ₹xxx, Feb ₹xxx... -->
+      <p><strong>This Month:</strong> ₹<span id="monthly-expense"></span></p>
+      <div id="monthly-expenses-container">
+        <!-- JS will inject year/month breakdown here -->
+      </div>
     </div>
   </details>
 
+  <!-- Weekly Expenses -->
   <details>
     <summary><strong>Weekly Expenses</strong></summary>
     <div id="weekly-expense-data">
-      <!-- JS will populate: Week range > ₹xxx -->
       <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense"></span></p>
+      <div id="weekly-expenses-container">
+        <!-- JS will inject date-wise breakdown here -->
+      </div>
     </div>
   </details>
 </section>
-	
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
 <script type="module" src="script.js"></script>
