@@ -20,22 +20,25 @@
 }
 
 nav {
-  display: flex;
-  flex-wrap: wrap; /* or use nowrap + scroll if you prefer */
-  justify-content: flex-start; /* ✅ keeps items aligned left */
-  background-color: #2F4F7F;
-  padding: 5px 10px;
-  gap: 10px; /* ⬅️ spacing between tabs */
+  position: relative;
   overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
+
 nav a {
-  color: white;
+  padding: 12px 16px;
   text-decoration: none;
-  padding: 10px 12px;
-  font-size: 1.1em;
+  color: white;
+  display: inline-block;
   white-space: nowrap;
+  line-height: 1.5;
 }
+
 
 
 
