@@ -10,6 +10,8 @@
     gap: 5px;
     overflow-x: auto;
     white-space: nowrap;
+    width: 100%;              /* ✅ Fill full width of screen */
+    box-sizing: border-box;  /* ✅ So padding doesn't add extra width */
   }
 
   nav a,
@@ -22,6 +24,7 @@
     position: absolute;
   }
 }
+
 
 
 nav {
