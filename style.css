@@ -6,37 +6,43 @@
     
 @media only screen and (max-width: 768px) {
   nav {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
-  nav a {
-    flex: 0 0 auto;
+  nav a,
+  .dropdown-toggle {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
   }
 }
+
 
 nav {
-  position: relative;
+  display: flex;
+  flex-wrap: wrap; /* allows it to wrap in small screens */
+  justify-content: space-around;
+  align-items: center;
+  background-color: #2F4F7F;
+  padding: 10px;
+  gap: 10px;
   overflow-x: auto;
   white-space: nowrap;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
 }
 
-
-nav a {
-  padding: 12px 16px;
-  text-decoration: none;
+nav a,
+.dropdown-toggle {
   color: white;
-  display: inline-block;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 18px;
   white-space: nowrap;
-  line-height: 1.5;
 }
 
 
@@ -170,38 +176,39 @@ nav a {
 
 
     
+/* Dropdown Container */
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
+/* Dropdown Menu */
 .dropdown-menu {
   display: none;
   position: absolute;
   background-color: #2F4F7F;
+  top: 100%;
+  left: 0;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  top: 100%; /* Moves the dropdown below the "Gallery" tab */
-  left: 0;
-  min-width: 150px;
-  white-space: nowrap; /* Prevents line breaks */
+  min-width: 160px;
 }
 
-/* ✅ Show dropdown on hover */
+/* Show dropdown on hover */
 .dropdown:hover .dropdown-menu {
-    display: block;
+  display: block;
 }
 
-/* Style dropdown links */
+/* Dropdown links */
 .dropdown-menu a {
-    display: block;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
 }
 
 .dropdown-menu a:hover {
-    background-color: #ddd;
+  background-color: #4F6F9F;
 }
 
 .gallery-section {
