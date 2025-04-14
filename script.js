@@ -139,40 +139,35 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Hide all sections before showing the selected gallery content
-    document.querySelectorAll("section").forEach((section) => {
-        section.style.display = "none";
-    });
-
-    // ✅ Ensure the main Gallery section is visible
-    let gallerySection = document.getElementById("gallery");
-    if (gallerySection) {
-        gallerySection.style.display = "block";
-    } else {
+    // ✅ Ensure the main gallery section is visible
+    const gallerySection = document.getElementById("gallery");
+    if (!gallerySection) {
         console.error("Gallery section not found!");
         return;
     }
+    gallerySection.style.display = "block";
 
-    // ✅ Hide all gallery subsections before showing the new one
+    // ✅ Hide only inner gallery sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
         section.style.display = "none";
     });
 
-    // ✅ Show the selected gallery subtab
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
+    const target = document.getElementById(sectionId);
+    if (target) {
+        target.style.display = "block";
         console.log(`Showing: ${sectionId}`);
+
+        // ✅ Re-bind lightbox click handlers when new section is shown
+        bindLightboxClickHandlers();
     } else {
-        console.error(`Error: Section ${sectionId} not found!`);
+        console.error(`Section ${sectionId} not found`);
     }
 
-    // ✅ Hide the dropdown after clicking a subtab
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    if (dropdownMenu) {
-        dropdownMenu.style.display = "none";
-    }
+    // Hide dropdown if applicable
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) dropdownMenu.style.display = "none";
 };
+
 
 
 
@@ -187,6 +182,17 @@ document.querySelectorAll(".dropdown-menu a").forEach((item) => {
     });
 });
 
+function bindLightboxClickHandlers() {
+    window.images = Array.from(document.querySelectorAll(".gallery-card img"));
+    window.images.forEach((img, index) => {
+        img.onclick = () => openLightbox(index);
+    });
+}
+
+// Call once on DOM load
+document.addEventListener("DOMContentLoaded", () => {
+    bindLightboxClickHandlers();
+});
 
 
 
