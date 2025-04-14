@@ -27,7 +27,7 @@
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Changed from space-around to center */
+  justify-content: flex-start;
   align-items: center;
   background-color: #2F4F7F;
   padding: 10px;
