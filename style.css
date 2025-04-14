@@ -31,7 +31,7 @@ nav {
   align-items: center;
   background-color: #2F4F7F;
   padding: 10px;
-  gap: 15px; /* You can tweak this smaller or bigger */
+  gap: 10px; /* You can tweak this smaller or bigger */
   overflow-x: auto;
   white-space: nowrap;
 }
