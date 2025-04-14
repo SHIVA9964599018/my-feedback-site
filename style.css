@@ -4,34 +4,39 @@
       margin: 0;
     }
     
-@media only screen and (max-width: 768px) and (orientation: portrait) {
+@media only screen and (max-width: 768px) {
   nav {
-    flex-direction: column;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+  }
 }
-}
+
 nav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: wrap; /* or use nowrap + scroll if you prefer */
+  justify-content: flex-start; /* ✅ keeps items aligned left */
   background-color: #2F4F7F;
+  padding: 5px 10px;
+  gap: 10px; /* ⬅️ spacing between tabs */
   overflow-x: auto;
-  white-space: nowrap;
 }
 
 nav a {
-  display: inline-block;
   color: white;
-  text-align: center;
-  padding: 10px 15px;
-  font-size: 1.2em;
   text-decoration: none;
-  flex: 1 1 auto; /* Allow items to shrink and grow */
-  min-width: max-content; /* Prevent cutting text */
+  padding: 10px 12px;
+  font-size: 1.1em;
+  white-space: nowrap;
 }
 
-nav a:hover {
-  background-color: #1e3b5f;
-}
 
 
 
