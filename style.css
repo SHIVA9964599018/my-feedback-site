@@ -10,26 +10,29 @@
 }
 }
 nav {
-    background-color: #2F4F7F;
-    overflow: visible; 
-    position: relative;
-    white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #2F4F7F;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
+nav a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 1.2em;
+  text-decoration: none;
+  flex: 1 1 auto; /* Allow items to shrink and grow */
+  min-width: max-content; /* Prevent cutting text */
+}
 
-    nav a {
-      float: left;
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 10px 10px;
-      font-size: 1.2em;
-      text-decoration: none;
-    }
+nav a:hover {
+  background-color: #1e3b5f;
+}
 
-    nav a:hover {
-      background-color: #2F4F7F;
-    }
 
 
     section {
