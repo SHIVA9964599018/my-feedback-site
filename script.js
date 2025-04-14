@@ -68,7 +68,7 @@ window.showSection = function (sectionId) {
         targetSection.style.display = "block";
         console.log(`Showing: ${targetSection.id}`);
 
-        // ✅ If Gallery is opened, ensure subtabs are visible & show All Photos by default
+        // ✅ If Gallery is opened, ensure subtabs are visible (but don't auto-show content)
         if (sectionId === "gallery") {
             console.log("Gallery section opened, ensuring sub-tabs appear...");
 
@@ -78,8 +78,8 @@ window.showSection = function (sectionId) {
                 dropdownMenu.style.display = "block";
             }
 
-            // Show All Photos by default when opening Gallery
-            showGallerySection("allPhotos");
+            // ❌ Don't auto-show 'All Photos' anymore
+            // showGallerySection("allPhotos");
         }
 
         // ✅ If Bike Summary tab is opened, fetch the data
@@ -91,6 +91,7 @@ window.showSection = function (sectionId) {
         console.error(`Error: Section ${sectionId} not found.`);
     }
 };
+
 
 
 window.showGalleryTab = function () {
