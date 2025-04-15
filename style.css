@@ -4,14 +4,21 @@
       margin: 0;
     }
     
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 @media only screen and (max-width: 768px) {
   nav {
+    width: 100%;
+    box-sizing: border-box;
     justify-content: flex-start;
     gap: 5px;
     overflow-x: auto;
     white-space: nowrap;
-    width: 100%;              /* ✅ Fill full width of screen */
-    box-sizing: border-box;  /* ✅ So padding doesn't add extra width */
   }
 
   nav a,
@@ -24,6 +31,7 @@
     position: absolute;
   }
 }
+
 
 
 
