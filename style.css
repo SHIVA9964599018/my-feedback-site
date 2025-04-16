@@ -414,14 +414,15 @@ nav a,
   }
 
   /* Details block */
-  #bike-summary details {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px;
-    background-color: #f9f9f9;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-  }
+#bike-summary details {
+  margin-bottom: 8px; /* reduce spacing between tabs */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.04);
+}
+
 
   /* Summary titles */
   #bike-summary summary {
