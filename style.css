@@ -412,6 +412,15 @@ nav a,
     margin-bottom: 12px;
   }
 
+#monthly-expenses-container > div > strong {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff; /* Match your main header theme */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+}
 
 
 </style>
