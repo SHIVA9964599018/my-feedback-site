@@ -340,7 +340,7 @@ function renderMonthlyExpenses(monthlyData) {
 
         const yearHeader = document.createElement("div");
         yearHeader.textContent = `${year}`;
-        yearHeader.className = "sub-summary"; // apply custom styling
+        yearHeader.className = "section-header"; // unified styling
 
         const monthsList = document.createElement("ul");
         monthsList.style.display = "none";
@@ -363,11 +363,10 @@ function renderMonthlyExpenses(monthlyData) {
 
 function renderWeeklyExpenses(weeklyData) {
     const container = document.getElementById("weekly-expenses-container");
-    container.innerHTML = ""; // Clear previous content if needed
+    container.innerHTML = "";
 
     const monthGroups = {};
 
-    // Group by year + month
     Object.entries(weeklyData).forEach(([dateStr, amount]) => {
         const date = new Date(dateStr);
         const label = `${date.getFullYear()}-${date.toLocaleString("default", { month: "short" })}`;
@@ -380,7 +379,7 @@ function renderWeeklyExpenses(weeklyData) {
 
         const monthHeader = document.createElement("div");
         monthHeader.textContent = monthLabel;
-        monthHeader.className = "sub-summary"; // apply custom styling
+        monthHeader.className = "section-header"; // unified styling
 
         const weeksList = document.createElement("ul");
         weeksList.style.display = "none";
