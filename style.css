@@ -423,6 +423,17 @@ nav a,
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.section-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  background-color: #007bff;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 
 </style>
