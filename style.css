@@ -416,7 +416,7 @@ nav a,
   /* Details block */
 #bike-summary details {
   margin-bottom: 0px; /* reduce spacing between tabs */
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   background-color: #f9f9f9;
@@ -430,7 +430,7 @@ nav a,
     font-weight: bold;
     color: #ffffff;
     background-color: #007bff;
-    padding: 10px;
+    padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
   }
