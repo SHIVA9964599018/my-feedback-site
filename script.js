@@ -334,13 +334,13 @@ async function loadBikeSummary() {
 
 function renderMonthlyExpenses(monthlyData) {
     const container = document.getElementById("monthly-expenses-container");
-    //container.innerHTML = "<h3>▼ Monthly Expenses</h3>";
 
     Object.entries(monthlyData).forEach(([year, months]) => {
         const yearDiv = document.createElement("div");
-        const yearHeader = document.createElement("h4");
+
+        const yearHeader = document.createElement("div");
         yearHeader.textContent = `${year}`;
-        yearHeader.style.cursor = "pointer";
+        yearHeader.className = "sub-summary"; // apply custom styling
 
         const monthsList = document.createElement("ul");
         monthsList.style.display = "none";
@@ -363,7 +363,7 @@ function renderMonthlyExpenses(monthlyData) {
 
 function renderWeeklyExpenses(weeklyData) {
     const container = document.getElementById("weekly-expenses-container");
-    container.innerHTML = "<h3>▼ Weekly Expenses</h3>";
+    container.innerHTML = ""; // Clear previous content if needed
 
     const monthGroups = {};
 
@@ -377,9 +377,10 @@ function renderWeeklyExpenses(weeklyData) {
 
     Object.entries(monthGroups).forEach(([monthLabel, weeks]) => {
         const monthDiv = document.createElement("div");
-        const monthHeader = document.createElement("h4");
+
+        const monthHeader = document.createElement("div");
         monthHeader.textContent = monthLabel;
-        monthHeader.style.cursor = "pointer";
+        monthHeader.className = "sub-summary"; // apply custom styling
 
         const weeksList = document.createElement("ul");
         weeksList.style.display = "none";
@@ -399,6 +400,7 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
+
 
 
 
