@@ -334,7 +334,7 @@ async function loadBikeSummary() {
 
 function renderMonthlyExpenses(monthlyData) {
     const container = document.getElementById("monthly-expenses-container");
-    container.innerHTML = "<h3>▼ Monthly Expenses</h3>";
+    //container.innerHTML = "<h3>▼ Monthly Expenses</h3>";
 
     Object.entries(monthlyData).forEach(([year, months]) => {
         const yearDiv = document.createElement("div");
