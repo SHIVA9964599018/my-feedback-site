@@ -415,7 +415,7 @@ nav a,
 
   /* Details block */
 #bike-summary details {
-  margin-bottom: 8px; /* reduce spacing between tabs */
+  margin-bottom: 0px; /* reduce spacing between tabs */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
