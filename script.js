@@ -278,8 +278,8 @@ async function fetchFeedback() {
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
- const url = "https://my-feedback-site.onrender.com/api/bike-summary";
-  
+  const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -290,10 +290,53 @@ async function loadBikeSummary() {
     document.getElementById("total-expense").textContent = data.total_expense;
     document.getElementById("monthly-expense").textContent = data.monthly_expense;
     document.getElementById("weekly-expense").textContent = data.weekly_expense;
+
+    // ➕ Add monthly expenses with distance (Jan-Dec sorted)
+    if (data.monthly_expenses_by_year) {
+      const container = document.getElementById("monthly-expenses-container");
+      container.innerHTML = "";
+
+      const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      Object.keys(data.monthly_expenses_by_year).sort().forEach((year) => {
+        const yearButton = document.createElement("button");
+        yearButton.textContent = year;
+        yearButton.className = "collapsible";
+
+        const yearContent = document.createElement("div");
+        yearContent.className = "content";
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        thead.innerHTML = `<tr><th>Month</th><th>Amount (₹)</th><th>Distance (km)</th></tr>`;
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+
+        monthOrder.forEach(month => {
+          if (data.monthly_expenses_by_year[year][month]) {
+            const row = data.monthly_expenses_by_year[year][month];
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${month}</td><td>${row.amount}</td><td>${row.distance}</td>`;
+            tbody.appendChild(tr);
+          }
+        });
+
+        table.appendChild(tbody);
+        yearContent.appendChild(table);
+
+        yearButton.addEventListener("click", function () {
+          this.classList.toggle("active");
+          yearContent.style.display = yearContent.style.display === "block" ? "none" : "block";
+        });
+
+        container.appendChild(yearButton);
+        container.appendChild(yearContent);
+      });
+    }
   } catch (err) {
     console.error("Failed to load bike summary:", err);
   }
 }
-
 
 
