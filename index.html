@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
   <title>My Website</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
- <nav>
-    <a href="#" onclick="showSection('home')">Home</a>
-    <a href="#" onclick="showSection('feedback')">Feedback</a>
-    <a href="#" onclick="showSection('about')">About</a>
-    <a href="#" onclick="showSection('bike-summary')">Bike Summary</a> 
-    <div class="dropdown">
-        <a href="#" class="dropdown-toggle">Gallery </a>
-        <div class="dropdown-menu" style="display: none;">
-            <a href="#" onclick="window.showGallerySection('allPhotos')">All Photos</a>
-            <a href="#" onclick="window.showGallerySection('marriagePhotos')">Marriage Photos</a>
-        </div>
-    </div>
+<nav>
+  <a href="#" onclick="showSection('home')">Home</a>
+  <a href="#" onclick="showSection('feedback')">Feedback</a>
+  <a href="#" onclick="showSection('about')">About</a>
+  <a href="#" onclick="showSection('bike-summary')">Bike Summary</a> 
+  <a href="#" onclick="showSection('gallery')">Gallery</a>
+  <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
+</nav>
 
-	<!--<a href="weight-loss.html">My Weight Loss Journey</a> -->
-	<a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a></nav>
 
-  <section id="home" class="active">
+
+
+  <section id="home" class="active" style="display: none;">
     <h1 style="font-size: 2.5em; color: #2c3e50;">Hi, I'm Shiva 👋</h1>
     <p style="font-size: 1.2em;">Welcome to my personal space on the web. Explore feedback, gallery, and more!</p>
     <div style="max-width: 600px; margin-top: 20px;">
@@ -37,26 +33,30 @@
     <img src="All_images/my_intro_photo.jpg" alt="Shiva Photo" width="180" style="border-radius: 50%; margin-top: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);">
   </section>
 
-  <section id="feedback">
+  <section id="feedback" style="display: none;">
     <h2>Give Your Feedback</h2>
     <form id="feedback-form">
-      Name: <input type="text" id="name" required><br><br>
-      Feedback: <textarea id="feedbackText" required></textarea><br><br>
+      Name: <input type="text" id="name" required=""><br><br>
+      Feedback: <textarea id="feedbackText" required=""></textarea><br><br>
       <button type="submit">Submit</button>
     </form>
     <p id="message"></p>
     <h3 style="margin-top: 40px;">Previous Feedback</h3>
-    <ul id="feedback-list"></ul>
+    <ul id="feedback-list"><li><strong>Vinod:</strong> Nice application—it's outstanding</li><li><strong>Gurulingayya:</strong> Good</li><li><strong>Anand:</strong> Good Work</li><li><strong>Rachayya:</strong> .</li><li><strong>Rachayya:</strong> .</li><li><strong>Rachayya:</strong> .</li><li><strong>Rachayya:</strong> .</li><li><strong>Shiva:</strong> Such a Cool Website</li></ul>
   </section>
 
-  <section id="about">
+  <section id="about" style="display: none;">
     <h2>About Me</h2>
     <img src="All_images/my_photo.jpeg" alt="My Passport Photo" width="300" height="300">
     <p>Welcome to my personal site! I love building web apps using Supabase and GitHub.</p>
   </section>
 
-  
 <section id="gallery" style="display: none;">
+  <h2>Gallery</h2>
+  <ul>
+    <li><a href="#" onclick="showGallerySection('allPhotos')">All Photos</a></li>
+    <li><a href="#" onclick="showGallerySection('marriagePhotos')">Marriage Photos</a></li>
+  </ul>
 <div id="allPhotos" class="gallery-section" style="display: none;">
       <h3>All Photos</h3>
 <div class="gallery-container">
@@ -111,8 +111,8 @@
 
 
   <div id="lightbox">
-    <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" />
+    <span style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img">
   <div id="lightbox-controls">
     <button class="lightbox-button" onclick="prevImage()">◀️</button>
     <button class="lightbox-button" onclick="nextImage()">▶️</button>
@@ -128,7 +128,7 @@
 </div>
 <div>
 
-<section id="weight-loss" style="padding: 2rem; background: #f9f9f9;">
+<section id="weight-loss" style="padding: 2rem; background: rgb(249, 249, 249); display: none;">
   <h2 style="text-align:center; font-size: 2rem; color: #2c3e50;">My Weight Loss Journey</h2>
   <p style="text-align:center; font-weight: bold; font-size: 1.2rem; color: #16a085;">
     🎯 Total Net Loss: 3.10 kg
@@ -223,25 +223,45 @@
 
   </div>
 </section>
-
-<section id="bike-summary" style="display: none;">
+	
+<section id="bike-summary" style="display: block;">
   <h2>Bike Fuel Summary</h2>
-  <div id="bike-summary-data">
-    <p><strong>Total Distance:</strong> <span id="total-distance"></span> km</p>
-    <p><strong>Total Fuel:</strong> <span id="total-fuel"></span> liters</p>
-    <p><strong>Mileage:</strong> <span id="mileage"></span> km/l</p>
-    <p><strong>Total Expense:</strong> ₹<span id="total-expense"></span></p>
-    <p><strong>Monthly Expense:</strong> ₹<span id="monthly-expense"></span></p>
-    <p><strong>Weekly Expense:</strong> ₹<span id="weekly-expense"></span></p>
-  </div>
+  <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300">
 
-  <!-- 🔽 Collapsible Yearly View for Monthly Expense + Distance -->
-  <div id="monthly-details-container" style="margin-top: 20px;"></div>
+  <!-- Bike Summary -->
+  <details>
+    <summary><strong>Bike Summary</strong></summary>
+    <div id="bike-summary-data">
+      <p><strong>Total Distance:</strong> <span id="total-distance">2278</span> km</p>
+      <p><strong>Total Fuel:</strong> <span id="total-fuel">42.85</span> liters</p>
+      <p><strong>Mileage:</strong> <span id="mileage">53.16</span> km/l</p>
+      <p><strong>Total Expense:</strong> ₹<span id="total-expense">4414</span></p>
+    </div>
+  </details>
+
+  <!-- Monthly Expenses -->
+  <details open="">
+    <summary><strong>Monthly Expenses</strong></summary>
+    <div id="monthly-expense-data">
+      <div id="monthly-expenses-container"><div><h4 style="cursor: pointer;">2025</h4><ul style="display: block;"><li>Jan: ₹798, Distance: 200 km</li><li>Feb: ₹869, Distance: 431 km</li><li>Mar: ₹1822, Distance: 958 km</li><li>Apr: ₹1369, Distance: 689 km</li></ul></div></div>
+    </div>
+  </details>
+
+  <!-- Weekly Expenses -->
+  <details>
+    <summary><strong>Weekly Expenses</strong></summary>
+    <div id="weekly-expense-data">
+      <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense">444</span></p>
+      <div id="weekly-expenses-container"><div><div class="section-header">2025-Apr</div><ul style="display: none;"><li>2025-04-19: ₹444</li></ul></div></div>
+    </div>
+  </details>
 </section>
 
-	
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
 <script type="module" src="script.js"></script>
+
+
+</div>
 </body>
 </html>
