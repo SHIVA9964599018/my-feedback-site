@@ -68,7 +68,7 @@ window.showSection = function (sectionId) {
         targetSection.style.display = "block";
         console.log(`Showing: ${targetSection.id}`);
 
-        // ✅ If Gallery is opened, ensure subtabs are visible & show All Photos by default
+        // ✅ If Gallery is opened, ensure subtabs are visible (but don't auto-show content)
         if (sectionId === "gallery") {
             console.log("Gallery section opened, ensuring sub-tabs appear...");
 
@@ -78,8 +78,8 @@ window.showSection = function (sectionId) {
                 dropdownMenu.style.display = "block";
             }
 
-            // Show All Photos by default when opening Gallery
-            showGallerySection("allPhotos");
+            // ❌ Don't auto-show 'All Photos' anymore
+            // showGallerySection("allPhotos");
         }
 
         // ✅ If Bike Summary tab is opened, fetch the data
@@ -91,6 +91,7 @@ window.showSection = function (sectionId) {
         console.error(`Error: Section ${sectionId} not found.`);
     }
 };
+
 
 
 window.showGalleryTab = function () {
@@ -139,40 +140,35 @@ window.toggleDropdown = function() {
 window.showGallerySection = function (sectionId) {
     console.log(`Navigating to: ${sectionId}`);
 
-    // ✅ Hide all sections before showing the selected gallery content
-    document.querySelectorAll("section").forEach((section) => {
-        section.style.display = "none";
-    });
-
-    // ✅ Ensure the main Gallery section is visible
-    let gallerySection = document.getElementById("gallery");
-    if (gallerySection) {
-        gallerySection.style.display = "block";
-    } else {
+    // ✅ Ensure the main gallery section is visible
+    const gallerySection = document.getElementById("gallery");
+    if (!gallerySection) {
         console.error("Gallery section not found!");
         return;
     }
+    gallerySection.style.display = "block";
 
-    // ✅ Hide all gallery subsections before showing the new one
+    // ✅ Hide only inner gallery sections
     document.querySelectorAll(".gallery-section").forEach((section) => {
         section.style.display = "none";
     });
 
-    // ✅ Show the selected gallery subtab
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
+    const target = document.getElementById(sectionId);
+    if (target) {
+        target.style.display = "block";
         console.log(`Showing: ${sectionId}`);
+
+        // ✅ Re-bind lightbox click handlers when new section is shown
+        bindLightboxClickHandlers();
     } else {
-        console.error(`Error: Section ${sectionId} not found!`);
+        console.error(`Section ${sectionId} not found`);
     }
 
-    // ✅ Hide the dropdown after clicking a subtab
-    let dropdownMenu = document.querySelector(".dropdown-menu");
-    if (dropdownMenu) {
-        dropdownMenu.style.display = "none";
-    }
+    // Hide dropdown if applicable
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    if (dropdownMenu) dropdownMenu.style.display = "none";
 };
+
 
 
 
@@ -187,6 +183,17 @@ document.querySelectorAll(".dropdown-menu a").forEach((item) => {
     });
 });
 
+function bindLightboxClickHandlers() {
+    window.images = Array.from(document.querySelectorAll(".gallery-card img"));
+    window.images.forEach((img, index) => {
+        img.onclick = () => openLightbox(index);
+    });
+}
+
+// Call once on DOM load
+document.addEventListener("DOMContentLoaded", () => {
+    bindLightboxClickHandlers();
+});
 
 
 
@@ -278,64 +285,126 @@ async function fetchFeedback() {
 // ✅ Load feedback on page load
 document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
-  const url = "https://my-feedback-site.onrender.com/api/bike-summary";
+  const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
+  const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
+  const loadingMessage = document.getElementById("loading-message");
+
+  if (loadingMessage) loadingMessage.style.display = "block";
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    // Fetch summary
+    const summaryResponse = await fetch(summaryUrl);
+    const summaryData = await summaryResponse.json();
 
-    document.getElementById("total-distance").textContent = data.total_distance_km;
-    document.getElementById("total-fuel").textContent = data.total_fuel_liters;
-    document.getElementById("mileage").textContent = data.mileage_kmpl;
-    document.getElementById("total-expense").textContent = data.total_expense;
-    document.getElementById("monthly-expense").textContent = data.monthly_expense;
-    document.getElementById("weekly-expense").textContent = data.weekly_expense;
+    // Set text content safely
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
 
-    // ➕ Add monthly expenses with distance (Jan-Dec sorted)
-    if (data.monthly_expenses_by_year) {
-      const container = document.getElementById("monthly-expenses-container");
-      container.innerHTML = "";
+    setText("total-distance", summaryData.total_distance_km);
+    setText("total-fuel", summaryData.total_fuel_liters);
+    setText("mileage", summaryData.mileage_kmpl);
+    setText("total-expense", summaryData.total_expense);
+    setText("monthly-expense", summaryData.monthly_expense);
+    setText("weekly-expense", summaryData.weekly_expense);
 
-      const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // Fetch detailed breakdown (monthly and weekly)
+    const expenseResponse = await fetch(expensesUrl);
+    const expenseData = await expenseResponse.json();
 
-      Object.keys(data.monthly_expenses_by_year).sort().forEach((year) => {
-        const yearButton = document.createElement("button");
-        yearButton.textContent = year;
-        yearButton.className = "collapsible";
+    if (loadingMessage) loadingMessage.style.display = "none";
 
-        const yearContent = document.createElement("div");
-        yearContent.className = "content";
-
-        const table = document.createElement("table");
-        const thead = document.createElement("thead");
-        thead.innerHTML = `<tr><th>Month</th><th>Amount (₹)</th><th>Distance (km)</th></tr>`;
-        table.appendChild(thead);
-
-        const tbody = document.createElement("tbody");
-
-        monthOrder.forEach(month => {
-          if (data.monthly_expenses_by_year[year][month]) {
-            const row = data.monthly_expenses_by_year[year][month];
-            const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${month}</td><td>${row.amount}</td><td>${row.distance}</td>`;
-            tbody.appendChild(tr);
-          }
-        });
-
-        table.appendChild(tbody);
-        yearContent.appendChild(table);
-
-        yearButton.addEventListener("click", function () {
-          this.classList.toggle("active");
-          yearContent.style.display = yearContent.style.display === "block" ? "none" : "block";
-        });
-
-        container.appendChild(yearButton);
-        container.appendChild(yearContent);
-      });
+    if (expenseData && expenseData.monthly_expenses && expenseData.weekly_expenses) {
+      renderMonthlyExpenses(expenseData.monthly_expenses);
+      renderWeeklyExpenses(expenseData.weekly_expenses);
+    } else {
+      console.warn("Missing expense breakdown data", expenseData);
     }
+
   } catch (err) {
-    console.error("Failed to load bike summary:", err);
+    console.error("Failed to load bike data:", err);
+    if (loadingMessage) {
+      loadingMessage.textContent = "Failed to load data. Please try again later.";
+    }
   }
 }
 
+
+
+function renderMonthlyExpenses(monthlyData) {
+    const container = document.getElementById("monthly-expenses-container");
+    container.innerHTML = ""; // Clear previous content
+
+    const monthOrder = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    Object.entries(monthlyData).forEach(([year, months]) => {
+        const yearDiv = document.createElement("div");
+        const yearHeader = document.createElement("h4");
+        yearHeader.textContent = `${year}`;
+        yearHeader.style.cursor = "pointer";
+
+        const monthsList = document.createElement("ul");
+        monthsList.style.display = "none";
+
+        // Convert object to array and sort by our monthOrder
+        const sortedMonths = Object.entries(months).sort((a, b) => {
+            return monthOrder.indexOf(a[0]) - monthOrder.indexOf(b[0]);
+        });
+
+        sortedMonths.forEach(([month, data]) => {
+            const li = document.createElement("li");
+            li.textContent = `${month}: ₹${data.amount}, Distance: ${data.distance} km`;
+            monthsList.appendChild(li);
+        });
+
+        yearHeader.addEventListener("click", () => {
+            monthsList.style.display = monthsList.style.display === "none" ? "block" : "none";
+        });
+
+        yearDiv.appendChild(yearHeader);
+        yearDiv.appendChild(monthsList);
+        container.appendChild(yearDiv);
+    });
+}
+
+
+
+function renderWeeklyExpenses(weeklyData) {
+    const container = document.getElementById("weekly-expenses-container");
+    container.innerHTML = "";
+
+    const monthGroups = {};
+
+    Object.entries(weeklyData).forEach(([dateStr, amount]) => {
+        const date = new Date(dateStr);
+        const label = `${date.getFullYear()}-${date.toLocaleString("default", { month: "short" })}`;
+        if (!monthGroups[label]) monthGroups[label] = [];
+        monthGroups[label].push({ date: dateStr, amount });
+    });
+
+    Object.entries(monthGroups).forEach(([monthLabel, weeks]) => {
+        const monthDiv = document.createElement("div");
+
+        const monthHeader = document.createElement("div");
+        monthHeader.textContent = monthLabel;
+        monthHeader.className = "section-header"; // unified styling
+
+        const weeksList = document.createElement("ul");
+        weeksList.style.display = "none";
+
+        weeks.forEach(week => {
+            const li = document.createElement("li");
+            li.textContent = `${week.date}: ₹${week.amount}`;
+            weeksList.appendChild(li);
+        });
+
+        monthHeader.addEventListener("click", () => {
+            weeksList.style.display = weeksList.style.display === "none" ? "block" : "none";
+        });
+
+        monthDiv.appendChild(monthHeader);
+        monthDiv.appendChild(weeksList);
+        container.appendChild(monthDiv);
+    });
+}
