@@ -54,42 +54,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+// Automatically show the 'home' section when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  showSection("home"); // Change this to 'bike-summary' if you prefer that
+});
+
 window.showSection = function (sectionId) {
-    console.log(`Switching to Section: ${sectionId}`);
+  console.log(`Switching to Section: ${sectionId}`);
 
-    // Hide all sections first
-    document.querySelectorAll("section").forEach((section) => {
-        section.style.display = "none";
-    });
+  // Hide all sections
+  document.querySelectorAll("section").forEach((section) => {
+    section.style.display = "none";
+  });
 
-    // Show the selected section
-    let targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.style.display = "block";
-        console.log(`Showing: ${targetSection.id}`);
+  // Show the selected section
+  let targetSection = document.getElementById(sectionId);
+  if (targetSection) {
+    targetSection.style.display = "block";
+    console.log(`Showing: ${targetSection.id}`);
 
-        // ✅ If Gallery is opened, ensure subtabs are visible (but don't auto-show content)
-        if (sectionId === "gallery") {
-            console.log("Gallery section opened, ensuring sub-tabs appear...");
-
-            // Ensure the dropdown menu appears
-            let dropdownMenu = document.querySelector(".dropdown-menu");
-            if (dropdownMenu) {
-                dropdownMenu.style.display = "block";
-            }
-
-            // ❌ Don't auto-show 'All Photos' anymore
-            // showGallerySection("allPhotos");
-        }
-
-        // ✅ If Bike Summary tab is opened, fetch the data
-        if (sectionId === "bike-summary") {
-            loadBikeSummary(); // call backend and fill the data
-        }
-
-    } else {
-        console.error(`Error: Section ${sectionId} not found.`);
+    // Extra handling for gallery
+    if (sectionId === "gallery") {
+      let dropdownMenu = document.querySelector(".dropdown-menu");
+      if (dropdownMenu) {
+        dropdownMenu.style.display = "block";
+      }
     }
+
+    // Load bike data only when bike-summary is shown
+    if (sectionId === "bike-summary") {
+      loadBikeSummary();
+    }
+  } else {
+    console.error(`Error: Section ${sectionId} not found.`);
+  }
 };
 
 
@@ -288,26 +286,18 @@ async function loadBikeSummary() {
   const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
   const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
 
-  // Get the loading overlay element
   const loadingOverlay = document.getElementById("loading-overlay");
-
-  // Show loading overlay
-  if (loadingOverlay) {
-    loadingOverlay.style.display = "flex"; // Show the overlay
-  }
+  if (loadingOverlay) loadingOverlay.style.display = "flex";
 
   try {
-    // Fetch summary data
     const summaryResponse = await fetch(summaryUrl);
     const summaryData = await summaryResponse.json();
 
-    // Set text content safely using a helper function
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;
     };
 
-    // Populate summary data into the HTML elements
     setText("total-distance", summaryData.total_distance_km);
     setText("total-fuel", summaryData.total_fuel_liters);
     setText("mileage", summaryData.mileage_kmpl);
@@ -315,17 +305,12 @@ async function loadBikeSummary() {
     setText("monthly-expense", summaryData.monthly_expense);
     setText("weekly-expense", summaryData.weekly_expense);
 
-    // Fetch detailed breakdown (monthly and weekly expenses)
     const expenseResponse = await fetch(expensesUrl);
     const expenseData = await expenseResponse.json();
 
-    // Hide the loading overlay after the data is loaded
-    if (loadingOverlay) {
-      loadingOverlay.style.display = "none"; // Hide loading overlay
-    }
+    if (loadingOverlay) loadingOverlay.style.display = "none";
 
-    // Render monthly and weekly expenses if data is available
-    if (expenseData && expenseData.monthly_expenses && expenseData.weekly_expenses) {
+    if (expenseData?.monthly_expenses && expenseData?.weekly_expenses) {
       renderMonthlyExpenses(expenseData.monthly_expenses);
       renderWeeklyExpenses(expenseData.weekly_expenses);
     } else {
@@ -334,11 +319,7 @@ async function loadBikeSummary() {
 
   } catch (err) {
     console.error("Failed to load bike data:", err);
-
-    // Hide the loading overlay on error
-    if (loadingOverlay) {
-      loadingOverlay.style.display = "none"; // Hide the overlay on error
-    }
+    if (loadingOverlay) loadingOverlay.style.display = "none";
   }
 }
 
