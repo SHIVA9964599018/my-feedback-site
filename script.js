@@ -330,7 +330,7 @@ if (loadingOverlay) loadingOverlay.style.display = "flex";
     loadingOverlay.style.display = "none"; // Hide overlay even on error
   }
 }
-
+}
 
 
 function renderMonthlyExpenses(monthlyData) {
