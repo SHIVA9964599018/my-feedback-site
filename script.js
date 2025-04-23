@@ -288,26 +288,26 @@ async function loadBikeSummary() {
   const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
   const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
 
-  // Get the loading overlay and message elements
+  // Get the loading overlay element
   const loadingOverlay = document.getElementById("loading-overlay");
-  const loadingMessage = document.getElementById("loading-message");
 
-  if (loadingOverlay && loadingMessage) {
+  // Show loading overlay
+  if (loadingOverlay) {
     loadingOverlay.style.display = "flex"; // Show the overlay
-    loadingMessage.textContent = "Loading, please wait..."; // Set loading message
   }
 
   try {
-    // Fetch summary
+    // Fetch summary data
     const summaryResponse = await fetch(summaryUrl);
     const summaryData = await summaryResponse.json();
 
-    // Set text content safely
+    // Set text content safely using a helper function
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;
     };
 
+    // Populate summary data into the HTML elements
     setText("total-distance", summaryData.total_distance_km);
     setText("total-fuel", summaryData.total_fuel_liters);
     setText("mileage", summaryData.mileage_kmpl);
@@ -315,13 +315,16 @@ async function loadBikeSummary() {
     setText("monthly-expense", summaryData.monthly_expense);
     setText("weekly-expense", summaryData.weekly_expense);
 
-    // Fetch detailed breakdown (monthly and weekly)
+    // Fetch detailed breakdown (monthly and weekly expenses)
     const expenseResponse = await fetch(expensesUrl);
     const expenseData = await expenseResponse.json();
 
-    // Hide the loading message after data is loaded
-    if (loadingMessage) loadingMessage.style.display = "none";
+    // Hide the loading overlay after the data is loaded
+    if (loadingOverlay) {
+      loadingOverlay.style.display = "none"; // Hide loading overlay
+    }
 
+    // Render monthly and weekly expenses if data is available
     if (expenseData && expenseData.monthly_expenses && expenseData.weekly_expenses) {
       renderMonthlyExpenses(expenseData.monthly_expenses);
       renderWeeklyExpenses(expenseData.weekly_expenses);
@@ -331,14 +334,14 @@ async function loadBikeSummary() {
 
   } catch (err) {
     console.error("Failed to load bike data:", err);
-    if (loadingMessage) {
-      loadingMessage.textContent = "Failed to load data. Please try again later."; // Error message
-    }
+
+    // Hide the loading overlay on error
     if (loadingOverlay) {
-      loadingOverlay.style.display = "none"; // Hide overlay on error
+      loadingOverlay.style.display = "none"; // Hide the overlay on error
     }
   }
 }
+
 
 
 function renderMonthlyExpenses(monthlyData) {
