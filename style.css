@@ -469,26 +469,3 @@ table img {
   font-size: 1.2rem;
   font-weight: bold;
 }
-.accordion-container {
-  max-width: 800px; /* or whatever width fits your layout */
-  margin: 0 auto;
-  padding: 10px;
-}
-
-.accordion {
-  background-color: #007BFF; /* Bootstrap blue, or change to your choice */
-  color: white;
-  cursor: pointer;
-  padding: 14px 20px;
-  margin-top: 10px;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 16px;
-  border-radius: 6px;
-  width: 100%; /* Full width within container */
-}
-
-.accordion:hover {
-  background-color: #0056b3;
-}
