@@ -131,7 +131,7 @@
 <section id="weight-loss" style="padding: 2rem; background: rgb(249, 249, 249); display: none;">
   <h2 style="text-align:center; font-size: 2rem; color: #2c3e50;">My Weight Loss Journey</h2>
   <p style="text-align:center; font-weight: bold; font-size: 1.2rem; color: #16a085;">
-    🎯 Total Net Loss: 3.10 kg
+    🎯 Total Net Loss: 3.25 kg
   </p>
 
   <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; margin-top: 2rem;">
@@ -147,17 +147,9 @@
       <h3>06-Apr-2025</h3>
       <p style="font-size:1.1rem; font-weight:bold; color:#e67e22;">72.40 kg</p>
       <img src="All_images/72.40.jpg" alt="72.40 kg" style="width:100%; border-radius:8px; margin:0.5rem 0;">
-      <span style="background-color:#27ae60; color:white; padding:4px 10px; border-radius:50px;">−0.25 kg</span>
+      <span style="background-color:#27ae60; color:white; padding:4px 10px; border-radius:50px;">−0.20 kg</span>
     </div>
 
-    <div style="background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:1rem; width:280px;">
-      <h3>29-Mar-2025</h3>
-      <p style="font-size:1.1rem; font-weight:bold; color:#e67e22;">72.65 kg</p>
-      <img src="All_images/72.65.jpg" alt="72.65 kg" style="width:100%; border-radius:8px; margin:0.5rem 0;">
-      <span style="background-color:#27ae60; color:white; padding:4px 10px; border-radius:50px;">+0.10 kg</span>
-    </div>
-
-   
     <div style="background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:1rem; width:280px;">
       <h3>08-Mar-2025</h3>
       <p style="font-size:1.1rem; font-weight:bold; color:#e67e22;">72.60 kg</p>
@@ -222,21 +214,26 @@
   <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300">
 
   <!-- Bike Summary -->
+  <div id="loading-message" style="display: none;">Loading bike data...</div>
+
+  <!-- Bike Summary -->
   <details>
     <summary><strong>Bike Summary</strong></summary>
     <div id="bike-summary-data">
-      <p><strong>Total Distance:</strong> <span id="total-distance">2278</span> km</p>
-      <p><strong>Total Fuel:</strong> <span id="total-fuel">42.85</span> liters</p>
-      <p><strong>Mileage:</strong> <span id="mileage">53.16</span> km/l</p>
-      <p><strong>Total Expense:</strong> ₹<span id="total-expense">4414</span></p>
+      <p><strong>Total Distance:</strong> <span id="total-distance"></span> km</p>
+      <p><strong>Total Fuel:</strong> <span id="total-fuel"></span> liters</p>
+      <p><strong>Mileage:</strong> <span id="mileage"></span> km/l</p>
+      <p><strong>Total Expense:</strong> ₹<span id="total-expense"></span></p>
     </div>
   </details>
 
   <!-- Monthly Expenses -->
-  <details open="">
+  <details open>
     <summary><strong>Monthly Expenses</strong></summary>
     <div id="monthly-expense-data">
-      <div id="monthly-expenses-container"><div><h4 style="cursor: pointer;">2025</h4><ul style="display: block;"><li>Jan: ₹798, Distance: 200 km</li><li>Feb: ₹869, Distance: 431 km</li><li>Mar: ₹1822, Distance: 958 km</li><li>Apr: ₹1369, Distance: 689 km</li></ul></div></div>
+      <div id="monthly-expenses-container">
+        <!-- Monthly breakdown will be rendered here -->
+      </div>
     </div>
   </details>
 
@@ -244,8 +241,10 @@
   <details>
     <summary><strong>Weekly Expenses</strong></summary>
     <div id="weekly-expense-data">
-      <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense">444</span></p>
-      <div id="weekly-expenses-container"><div><div class="section-header">2025-Apr</div><ul style="display: none;"><li>2025-04-19: ₹444</li></ul></div></div>
+      <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense"></span></p>
+      <div id="weekly-expenses-container">
+        <!-- Weekly breakdown will be rendered here -->
+      </div>
     </div>
   </details>
 </section>

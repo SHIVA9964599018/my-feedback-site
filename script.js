@@ -287,9 +287,8 @@ document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
   const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
   const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
-  const loadingMessage = document.getElementById("loading-message");
-
-  if (loadingMessage) loadingMessage.style.display = "block";
+const loadingOverlay = document.getElementById("loading-overlay");
+if (loadingOverlay) loadingOverlay.style.display = "flex";
 
   try {
     // Fetch summary
@@ -327,6 +326,8 @@ async function loadBikeSummary() {
     if (loadingMessage) {
       loadingMessage.textContent = "Failed to load data. Please try again later.";
     }
+	if (loadingOverlay) {
+    loadingOverlay.style.display = "none"; // Hide overlay even on error
   }
 }
 
