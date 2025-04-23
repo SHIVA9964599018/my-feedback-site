@@ -287,7 +287,8 @@ document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
   const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
   const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
-const loadingOverlay = document.getElementById("loading-overlay");
+  const loadingMessage = document.getElementById("loading-message");
+  const loadingOverlay = document.getElementById("loading-overlay");
 if (loadingOverlay) loadingOverlay.style.display = "flex";
 
   try {
