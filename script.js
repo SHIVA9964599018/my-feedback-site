@@ -287,9 +287,15 @@ document.addEventListener("DOMContentLoaded", fetchFeedback);
 async function loadBikeSummary() {
   const summaryUrl = "https://my-feedback-site.onrender.com/api/bike-summary";
   const expensesUrl = "https://my-feedback-site.onrender.com/api/bike-expenses";
-  const loadingMessage = document.getElementById("loading-message");
+
+  // Get the loading overlay and message elements
   const loadingOverlay = document.getElementById("loading-overlay");
-if (loadingOverlay) loadingOverlay.style.display = "flex";
+  const loadingMessage = document.getElementById("loading-message");
+
+  if (loadingOverlay && loadingMessage) {
+    loadingOverlay.style.display = "flex"; // Show the overlay
+    loadingMessage.textContent = "Loading, please wait..."; // Set loading message
+  }
 
   try {
     // Fetch summary
@@ -313,6 +319,7 @@ if (loadingOverlay) loadingOverlay.style.display = "flex";
     const expenseResponse = await fetch(expensesUrl);
     const expenseData = await expenseResponse.json();
 
+    // Hide the loading message after data is loaded
     if (loadingMessage) loadingMessage.style.display = "none";
 
     if (expenseData && expenseData.monthly_expenses && expenseData.weekly_expenses) {
@@ -325,12 +332,12 @@ if (loadingOverlay) loadingOverlay.style.display = "flex";
   } catch (err) {
     console.error("Failed to load bike data:", err);
     if (loadingMessage) {
-      loadingMessage.textContent = "Failed to load data. Please try again later.";
+      loadingMessage.textContent = "Failed to load data. Please try again later."; // Error message
     }
-	if (loadingOverlay) {
-    loadingOverlay.style.display = "none"; // Hide overlay even on error
+    if (loadingOverlay) {
+      loadingOverlay.style.display = "none"; // Hide overlay on error
+    }
   }
-}
 }
 
 
