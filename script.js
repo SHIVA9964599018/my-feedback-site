@@ -290,9 +290,16 @@ async function loadBikeSummary() {
   if (loadingOverlay) loadingOverlay.style.display = "flex";
 
   try {
-    const summaryResponse = await fetch(summaryUrl);
-    const summaryData = await summaryResponse.json();
+    // Fetch both summary and expenses in parallel
+    const [summaryResponse, expenseResponse] = await Promise.all([
+      fetch(summaryUrl),
+      fetch(expensesUrl),
+    ]);
 
+    const summaryData = await summaryResponse.json();
+    const expenseData = await expenseResponse.json();
+
+    // Populate summary data
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;
@@ -305,11 +312,7 @@ async function loadBikeSummary() {
     setText("monthly-expense", summaryData.monthly_expense);
     setText("weekly-expense", summaryData.weekly_expense);
 
-    const expenseResponse = await fetch(expensesUrl);
-    const expenseData = await expenseResponse.json();
-
-    if (loadingOverlay) loadingOverlay.style.display = "none";
-
+    // Render expense breakdowns
     if (expenseData?.monthly_expenses && expenseData?.weekly_expenses) {
       renderMonthlyExpenses(expenseData.monthly_expenses);
       renderWeeklyExpenses(expenseData.weekly_expenses);
@@ -319,9 +322,12 @@ async function loadBikeSummary() {
 
   } catch (err) {
     console.error("Failed to load bike data:", err);
+  } finally {
+    // ✅ Always hide overlay no matter what
     if (loadingOverlay) loadingOverlay.style.display = "none";
   }
 }
+
 
 
 

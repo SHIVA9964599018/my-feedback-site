@@ -454,7 +454,7 @@ table img {
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   z-index: 9999;
-  display: flex;
+  display: none; /* 👈 Hide it initially */
   justify-content: center;
   align-items: center;
   font-family: sans-serif;
