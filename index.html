@@ -215,14 +215,20 @@
   </div>
 </section>
 	
-<section id="bike-summary" style="display: block;">
+<!-- Home Section -->
+<section id="home">
+  <h2>Welcome to My Website</h2>
+  <p>This is the home section.</p>
+</section>
+
+<!-- Bike Summary Section -->
+<section id="bike-summary">
   <h2>Bike Fuel Summary</h2>
   <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300">
 
-  <!-- Bike Summary -->
   <div id="loading-message" style="display: none;">Loading bike data...</div>
 
-  <!-- Bike Summary -->
+  <!-- Summary -->
   <details>
     <summary><strong>Bike Summary</strong></summary>
     <div id="bike-summary-data">
@@ -233,27 +239,24 @@
     </div>
   </details>
 
-  <!-- Monthly Expenses -->
+  <!-- Monthly -->
   <details open>
     <summary><strong>Monthly Expenses</strong></summary>
     <div id="monthly-expense-data">
-      <div id="monthly-expenses-container">
-        <!-- Monthly breakdown will be rendered here -->
-      </div>
+      <div id="monthly-expenses-container"></div>
     </div>
   </details>
 
-  <!-- Weekly Expenses -->
+  <!-- Weekly -->
   <details>
     <summary><strong>Weekly Expenses</strong></summary>
     <div id="weekly-expense-data">
       <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense"></span></p>
-      <div id="weekly-expenses-container">
-        <!-- Weekly breakdown will be rendered here -->
-      </div>
+      <div id="weekly-expenses-container"></div>
     </div>
   </details>
 </section>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
