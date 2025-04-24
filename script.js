@@ -407,6 +407,7 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
+window.onload = function() {
 function loadHTML(file, containerId = "dynamic-section") {
   fetch(file)
     .then(response => response.text())
@@ -420,4 +421,4 @@ function loadHTML(file, containerId = "dynamic-section") {
       console.error("Load error:", error);
     });
 }
-
+}
