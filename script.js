@@ -420,3 +420,4 @@ function loadHTML(file, containerId = "dynamic-section") {
       console.error("Load error:", error);
     });
 }
+
