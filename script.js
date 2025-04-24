@@ -409,7 +409,7 @@ function renderWeeklyExpenses(weeklyData) {
 }
 
 
-function loadDynamic(file) {
+function showDynamicSection(file) {
   fetch(file)
     .then(response => response.text())
     .then(data => {
