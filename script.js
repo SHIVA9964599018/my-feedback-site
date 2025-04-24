@@ -407,19 +407,17 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
-export function showDynamicSection() {
-  const sections = document.querySelectorAll("section");
-  sections.forEach(sec => {
-    if (sec.id !== "dynamic-section") {
-      sec.style.display = "none";
-    }
-  });
 
-  const dynamic = document.getElementById("dynamic-section");
-  if (dynamic) {
-    dynamic.style.display = "block";
-  }
+
+function loadDynamic(file) {
+  fetch(file)
+    .then(response => response.text())
+    .then(data => {
+      const container = document.getElementById("dynamic-section");
+      container.innerHTML = data;
+      container.style.display = "block"; // ✅ make it visible
+    })
+    .catch(error => console.error("Error loading dynamic section:", error));
 }
-window.showDynamicSection = showDynamicSection;
 
 
