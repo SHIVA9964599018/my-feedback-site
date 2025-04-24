@@ -408,8 +408,13 @@ function renderWeeklyExpenses(weeklyData) {
     });
 }
 function loadHTML(file, containerId = "dynamic-section") {
-  fetch(file)
-    .then(response => response.text())
+  fetch(`./${file}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
     .then(html => {
       const container = document.getElementById(containerId);
       if (container) container.innerHTML = html;
@@ -420,3 +425,4 @@ function loadHTML(file, containerId = "dynamic-section") {
       console.error("Load error:", error);
     });
 }
+
