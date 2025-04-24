@@ -407,3 +407,16 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
+function loadHTML(file, containerId = "dynamic-section") {
+  fetch(file)
+    .then(response => response.text())
+    .then(html => {
+      const container = document.getElementById(containerId);
+      if (container) container.innerHTML = html;
+    })
+    .catch(error => {
+      const container = document.getElementById(containerId);
+      if (container) container.innerHTML = "<p>Error loading content.</p>";
+      console.error("Load error:", error);
+    });
+}
