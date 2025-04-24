@@ -408,21 +408,26 @@ function renderWeeklyExpenses(weeklyData) {
     });
 }
 export function loadHTML(file, containerId = "dynamic-section") {
+  console.log("Loading HTML from:", file);
   fetch(file)
     .then(response => {
+      console.log("Fetch response:", response);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       return response.text();
     })
     .then(html => {
       const container = document.getElementById(containerId);
-      if (container) container.innerHTML = html;
+      if (container) {
+        container.innerHTML = html;
+        console.log("HTML injected successfully.");
+      } else {
+        console.warn("Container not found:", containerId);
+      }
     })
     .catch(error => {
-      const container = document.getElementById(containerId);
-      if (container) container.innerHTML = "<p>Error loading content.</p>";
       console.error("Load error:", error);
     });
 }
 
-// ✅ Attach to window to make available for onclick in HTML
 window.loadHTML = loadHTML;
+
