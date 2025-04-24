@@ -407,12 +407,10 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
-function loadHTML(file, containerId = "dynamic-section") {
-  fetch(`./${file}`)
+export function loadHTML(file, containerId = "dynamic-section") {
+  fetch(file)
     .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       return response.text();
     })
     .then(html => {
@@ -426,3 +424,5 @@ function loadHTML(file, containerId = "dynamic-section") {
     });
 }
 
+// ✅ Attach to window to make available for onclick in HTML
+window.loadHTML = loadHTML;
