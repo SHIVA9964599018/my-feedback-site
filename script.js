@@ -407,27 +407,19 @@ function renderWeeklyExpenses(weeklyData) {
         container.appendChild(monthDiv);
     });
 }
-export function loadHTML(file, containerId = "dynamic-section") {
-  console.log("Loading HTML from:", file);
-  fetch(file)
-    .then(response => {
-      console.log("Fetch response:", response);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response.text();
-    })
-    .then(html => {
-      const container = document.getElementById(containerId);
-      if (container) {
-        container.innerHTML = html;
-        console.log("HTML injected successfully.");
-      } else {
-        console.warn("Container not found:", containerId);
-      }
-    })
-    .catch(error => {
-      console.error("Load error:", error);
-    });
-}
+export function showDynamicSection() {
+  const sections = document.querySelectorAll("section");
+  sections.forEach(sec => {
+    if (sec.id !== "dynamic-section") {
+      sec.style.display = "none";
+    }
+  });
 
-window.loadHTML = loadHTML;
+  const dynamic = document.getElementById("dynamic-section");
+  if (dynamic) {
+    dynamic.style.display = "block";
+  }
+}
+window.showDynamicSection = showDynamicSection;
+
 
