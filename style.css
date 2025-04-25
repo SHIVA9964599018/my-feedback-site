@@ -206,13 +206,6 @@ blockquote {
   background-color: #4F6F9F;
 }
 
-.gallery-section {
-  display: none;
-}
-
-.gallery-section.active {
-  display: block !important;
-}
 
 #weight-loss-container {
   display: block !important;
