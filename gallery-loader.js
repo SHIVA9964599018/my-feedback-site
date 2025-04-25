@@ -11,12 +11,21 @@ function loadDynamic(file) {
     })
     .then(data => {
       console.log("Dynamic content successfully loaded.");
-      
+
       const container = document.getElementById("dynamic-section");
       console.log("Container found:", container);
-      
+
       if (container) {
         container.innerHTML = data;
+
+        // Explicitly show the gallery section after loading
+        const gallerySection = document.getElementById("gallery");
+        if (gallerySection) {
+          gallerySection.style.display = "block";  // Show the gallery section
+          console.log("Gallery section displayed.");
+        } else {
+          console.error("Gallery section not found.");
+        }
 
         // Hide all other sections
         const allSections = document.querySelectorAll("section");
