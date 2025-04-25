@@ -19,7 +19,7 @@
   <a href="#" onclick="showSection('feedback')">Feedback</a>
   <a href="#" onclick="showSection('about')">About</a>
   <a href="#" onclick="showSection('bike-summary')">Bike Summary</a> 
-  <a href="#" onclick="event.preventDefault(); showDynamicSection('gallery.html', 'dynamic-section');">Gallery</a>
+  <a href="#" onclick="loadDynamic('gallery.html')">Gallery</a>
   <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
 </nav>
 
@@ -265,7 +265,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->
- <script type="module" src="script.js"></script>
+<!-- <script type="module" src="script.js"></script> -->
+<script src="script.js" defer></script>
 
 </body>
 </html>

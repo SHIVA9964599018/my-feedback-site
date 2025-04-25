@@ -409,15 +409,17 @@ function renderWeeklyExpenses(weeklyData) {
 }
 
 
-function showDynamicSection(file) {
+function loadDynamic(file) {
   fetch(file)
     .then(response => response.text())
     .then(data => {
       const container = document.getElementById("dynamic-section");
       container.innerHTML = data;
-      container.style.display = "block"; // ✅ make it visible
+      container.style.display = "block";
     })
     .catch(error => console.error("Error loading dynamic section:", error));
 }
 
+// ✅ Make sure it’s available globally:
+window.loadDynamic = loadDynamic;
 
