@@ -16,28 +16,17 @@ function loadDynamic(file) {
       console.log("Container found:", container);
 
       if (container) {
-        container.innerHTML = data;
-
-        // Explicitly show the gallery section after loading
-        const gallerySection = document.getElementById("gallery");
-        if (gallerySection) {
-          gallerySection.style.display = "block";  // Show the gallery section
-          console.log("Gallery section displayed.");
-        } else {
-          console.error("Gallery section not found.");
-        }
-
         // Hide all other sections
         const allSections = document.querySelectorAll("section");
-        console.log("All sections found:", allSections);
-
         allSections.forEach(sec => {
-          if (sec.id !== "dynamic-section") sec.style.display = "none";
+          sec.style.display = "none";
         });
 
-        // Show the dynamic section
+        // Load the content and show the dynamic section
+        container.innerHTML = data;
         container.style.display = "block";
-        console.log("Dynamic section displayed.");
+
+        console.log("Dynamic section displayed with new content.");
       } else {
         console.error("Container with ID 'dynamic-section' not found.");
       }
