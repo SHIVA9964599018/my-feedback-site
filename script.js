@@ -437,6 +437,18 @@ function loadDynamic(file) {
         container.style.display = "block";
 
         console.log("Dynamic section displayed with new content.");
+
+        // Reattach lightbox event listeners if gallery.html was loaded
+        if (file.includes("gallery.html")) {
+          console.log("Reattaching gallery image click listeners...");
+          const galleryImages = container.querySelectorAll(".gallery-card img");
+          galleryImages.forEach((img, index) => {
+            img.addEventListener("click", function () {
+              openLightbox(index);
+            });
+          });
+        }
+
       } else {
         console.error("Container with ID 'dynamic-section' not found.");
       }
@@ -445,6 +457,7 @@ function loadDynamic(file) {
       console.error("Error loading dynamic section:", error);
     });
 }
+
 
 window.loadDynamic = loadDynamic;
 
