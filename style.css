@@ -342,7 +342,7 @@ table img {
   transform: scale(1.05);
 }
 
-#bike-summary h2 {
+/*#bike-summary h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 28px;
   color: #2c3e50;
@@ -354,7 +354,7 @@ table img {
   border: 0px solid #ccc;
   border-radius: 8px;
   padding: 10px;
-  background-color: #2F4F7F;
+  background-color: #f9f9f9;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.04);
 }
 
@@ -419,7 +419,58 @@ table img {
   font-size: 16px;
   color: #333;
   margin-bottom: 6px;
+}*/
+
+#bike-summary h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 16px;
 }
+
+#bike-summary details {
+  margin-bottom: 0px;
+  border: 0px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.04);
+}
+
+#bike-summary summary {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#bike-summary p {
+  font-size: 16px;
+  color: #333;
+  margin: 8px 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#bike-summary strong {
+  color: #2c3e50;
+}
+
+#monthly-expenses-container {
+  font-family: "Segoe UI", sans-serif;
+  padding: 10px 20px;
+  background-color: #f9fbff;
+  border-left: 5px solid #007bff;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#monthly-expenses-container div {
+  margin-bottom: 12px;
+}
+
 
 .sub-summary {
   font-size: 1.2rem;
