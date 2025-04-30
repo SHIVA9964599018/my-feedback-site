@@ -454,8 +454,8 @@ table img {
   font-family: 'Segoe UI', sans-serif;
 }
 
-#bike-summary strong {
-  color: #2c3e50;
+#bike-summary summary strong {
+  color: #ffffff;  /* Fixes the dark text override */
 }
 
 #monthly-expenses-container {
