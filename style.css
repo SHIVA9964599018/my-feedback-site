@@ -480,6 +480,14 @@ table img {
   margin-top: 10px;
 }
 
+#weekly-expenses-container div {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
 .sub-summary {
   font-size: 1.2rem;
   font-weight: bold;
