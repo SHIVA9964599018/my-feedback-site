@@ -429,7 +429,7 @@ table img {
 }
 
 #bike-summary details {
-  margin-bottom: 0px;
+  margin-bottom: 1px;
   border: 0px solid #ccc;
   border-radius: 8px;
   padding: 0px;
