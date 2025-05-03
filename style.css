@@ -422,11 +422,11 @@ table img {
 }*/
 
 #bike-summary {
-  max-width: none;         /* Remove width limit */
-  margin: 0;               /* Remove horizontal centering */
-  padding: 20px 40px;      /* Give it some breathing space on left */
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 900px;
+  margin: 0 auto; /* Optional: center the whole section on wider screens */
 }
-
 
 #bike-summary h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
