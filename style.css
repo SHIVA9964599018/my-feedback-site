@@ -423,8 +423,9 @@ table img {
 
 #bike-summary {
   padding-left: 20px;
-  max-width: 800px;
-  margin: auto;
+  padding-right: 20px;
+  max-width: 900px;
+  margin: 0 auto; /* Optional: center the whole section on wider screens */
 }
 
 #bike-summary h2 {
@@ -436,20 +437,21 @@ table img {
 
 #bike-summary img {
   display: block;
-  max-width: 100%;
+  width: 100%;
+  max-width: 500px;
   height: auto;
-  margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 #bike-summary details {
   margin-bottom: 15px;
   border-radius: 8px;
-  padding: 0px;
   background-color: #f9f9f9;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04);
-  display: block; /* changed from inline-block to block for full width */
+  display: block;
+  padding: 0px 10px;
 }
 
 #bike-summary summary {
@@ -457,10 +459,14 @@ table img {
   font-weight: bold;
   color: #ffffff;
   background-color: #2F4F7F;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
-  display: inline-block;
+  /* Removed inline-block to restore arrow symbol */
+}
+
+#bike-summary summary strong {
+  color: #ffffff;
 }
 
 #bike-summary p {
@@ -470,23 +476,7 @@ table img {
   font-family: 'Segoe UI', sans-serif;
 }
 
-#bike-summary summary strong {
-  color: #ffffff;
-}
-
-#monthly-expenses-container {
-  font-family: "Segoe UI", sans-serif;
-  padding: 10px 20px;
-  background-color: #f9fbff;
-  border-left: 5px solid #007bff;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-#monthly-expenses-container div {
-  margin-bottom: 12px;
-}
-
+#monthly-expenses-container,
 #weekly-expenses-container {
   font-family: "Segoe UI", sans-serif;
   padding: 10px 20px;
@@ -496,8 +486,9 @@ table img {
   margin-top: 10px;
 }
 
+#monthly-expenses-container div,
 #weekly-expenses-container div {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   padding: 6px 10px;
   background-color: #ffffff;
   color: #000000;
@@ -516,6 +507,7 @@ table img {
   margin: 10px 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 
 .section-header {
