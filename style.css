@@ -422,7 +422,7 @@ table img {
 }*/
 
 #bike-summary {
-  padding-left: 20px;
+  padding-left: 1px;
   padding-right: 20px;
   max-width: 900px;
   margin: 0 auto; /* Optional: center the whole section on wider screens */
