@@ -459,7 +459,7 @@ table img {
   font-weight: bold;
   color: #ffffff;
   background-color: #2F4F7F;
-  padding: 8px 12px;
+  padding: 4px 6px;
   border-radius: 6px;
   cursor: pointer;
   /* Removed inline-block to restore arrow symbol */
