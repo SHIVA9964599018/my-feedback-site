@@ -422,7 +422,9 @@ table img {
 }*/
 
 #bike-summary {
-  padding-left: 20px; /* optional, for slight left indent */
+  padding-left: 20px;
+  max-width: 800px;
+  margin: auto;
 }
 
 #bike-summary h2 {
@@ -432,14 +434,22 @@ table img {
   margin-bottom: 16px;
 }
 
+#bike-summary img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 #bike-summary details {
-  margin-bottom: 1px;
-  border: 0px solid #ccc;
+  margin-bottom: 15px;
   border-radius: 8px;
   padding: 0px;
   background-color: #f9f9f9;
-  box-shadow: 1px 1px 4px rgba(0,0,0,0.04);
-  display: inline-block; /* limits width to content */
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04);
+  display: block; /* changed from inline-block to block for full width */
 }
 
 #bike-summary summary {
@@ -447,10 +457,10 @@ table img {
   font-weight: bold;
   color: #ffffff;
   background-color: #2F4F7F;
-  padding: 3px 8px;
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
-  display: inline-block; /* only as wide as content */
+  display: inline-block;
 }
 
 #bike-summary p {
@@ -461,7 +471,7 @@ table img {
 }
 
 #bike-summary summary strong {
-  color: #ffffff;  /* Fixes the dark text override */
+  color: #ffffff;
 }
 
 #monthly-expenses-container {
@@ -490,7 +500,7 @@ table img {
   margin-bottom: 8px;
   padding: 6px 10px;
   background-color: #ffffff;
-  color: #000000; /* Ensure text is visible on white background */
+  color: #000000;
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
   font-family: "Segoe UI", sans-serif;
