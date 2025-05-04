@@ -167,7 +167,10 @@ window.showGallerySection = function (sectionId) {
     if (dropdownMenu) dropdownMenu.style.display = "none";
 };
 
-
+function showGalleryDropdown(show) {
+  var dropdown = document.getElementById("gallery-dropdown");
+  dropdown.style.display = show ? "block" : "none";
+}
 
 
 
