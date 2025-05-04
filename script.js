@@ -92,7 +92,7 @@ window.showSection = function (sectionId) {
 
 
 
-/* window.showGalleryTab = function () {
+ window.showGalleryTab = function () {
     console.log("Switching to Gallery...");
 
     // Hide all sections
@@ -179,7 +179,7 @@ document.querySelectorAll(".dropdown-menu a").forEach((item) => {
         console.log(`Subtab clicked, navigating to: ${sectionId}`);
         window.showGallerySection(sectionId);
     });
-}); */
+}); 
 
 function bindLightboxClickHandlers() {
     window.images = Array.from(document.querySelectorAll(".gallery-card img"));
