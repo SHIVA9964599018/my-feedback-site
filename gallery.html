@@ -55,18 +55,3 @@
 </div>
  
 
-<script>
-// ✅ On gallery.html load dynamically, show All Photos by default
-window.showGallerySection("all-photos");
-
-// ✅ Re-bind dropdown click events (since this file is dynamically loaded)
-document.querySelectorAll(".dropdown-menu a").forEach((item) => {
-    item.addEventListener("click", function (event) {
-        event.preventDefault();
-        let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1];
-        window.showGallerySection(sectionId);
-        let dropdownMenu = document.querySelector(".dropdown-menu");
-        if (dropdownMenu) dropdownMenu.style.display = "none";
-    });
-});
-</script>
