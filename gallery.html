@@ -1,3 +1,5 @@
+<h2>Gallery</h2>
+
 <!-- Dropdown to select gallery category -->
 <div class="dropdown">
   <button class="dropdown-toggle">Select Gallery</button>
@@ -7,11 +9,10 @@
   </div>
 </div>
 
-
-<!-- ALL PHOTOS SECTION -->
+<!-- All Photos Section -->
 <div id="all-photos" class="gallery-section">
   <h3>All Photos</h3>
-<div class="gallery-container">
+  <div class="gallery-container">
   <div class="gallery-card"><img src="All_images/aayi_photo.jpg" alt="Image 1"></div>
   <div class="gallery-card"><img src="All_images/wife_photo.jpg" alt="Image 2"></div>
   <div class="gallery-card"><img src="All_images/anand_photo.jpg" alt="Image 3"></div>
@@ -63,3 +64,18 @@
 </div>
  
 
+<script>
+// ✅ On gallery.html load dynamically, show All Photos by default
+window.showGallerySection("all-photos");
+
+// ✅ Re-bind dropdown click events (since this file is dynamically loaded)
+document.querySelectorAll(".dropdown-menu a").forEach((item) => {
+    item.addEventListener("click", function (event) {
+        event.preventDefault();
+        let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1];
+        window.showGallerySection(sectionId);
+        let dropdownMenu = document.querySelector(".dropdown-menu");
+        if (dropdownMenu) dropdownMenu.style.display = "none";
+    });
+});
+</script>
