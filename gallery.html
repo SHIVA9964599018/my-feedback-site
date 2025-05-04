@@ -1,6 +1,16 @@
-<h2>Gallery</h2>
+<!-- Dropdown to select gallery category -->
+<div class="dropdown">
+  <button class="dropdown-toggle">Select Gallery</button>
+  <div class="dropdown-menu">
+    <a href="#" onclick="showGallerySection('all-photos')">All Photos</a>
+    <a href="#" onclick="showGallerySection('marriage-photos')">Marriage Photos</a>
+  </div>
+</div>
 
-<h3>All Photos</h3>
+
+<!-- ALL PHOTOS SECTION -->
+<div id="all-photos" class="gallery-section">
+  <h3>All Photos</h3>
 <div class="gallery-container">
   <div class="gallery-card"><img src="All_images/aayi_photo.jpg" alt="Image 1"></div>
   <div class="gallery-card"><img src="All_images/wife_photo.jpg" alt="Image 2"></div>
@@ -35,9 +45,12 @@
   <div class="gallery-card"><img src="All_images/WhatsApp Image 2025-03-20 at 11.43.42 PM(2).jpeg" alt="Image 31"></div>
   <div class="gallery-card"><img src="All_images/WhatsApp Image 2025-03-20 at 11.43.42 PM(1).jpeg" alt="Image 32"></div>
 </div>
+</div>
 
-<h3>Marriage Photos</h3>
-<div class="gallery-container">
+<!-- MARRIAGE PHOTOS SECTION (Hidden initially) -->
+<div id="marriage-photos" class="gallery-section" style="display:none;">
+  <h3>Marriage Photos</h3>
+  <div class="gallery-container">
   <div class="gallery-card"><img src="image/family.jpg" alt="Marriage Image 1"></div>
   <div class="gallery-card"><img src="image/WhatsApp Image 2025-03-27 at 10.40.12 PM.jpeg" alt="Marriage Image 2"></div>
   <div class="gallery-card"><img src="image/WhatsApp Image 2025-03-27 at 10.40.11 PM.jpeg" alt="Marriage Image 3"></div>
@@ -47,6 +60,6 @@
   <div class="gallery-card"><img src="image/WhatsApp Image 2025-03-27 at 10.40.13 PM.jpeg" alt="Marriage Image 7"></div>
   <div class="gallery-card"><img src="image/WhatsApp Image 2025-03-27 at 10.40.16 PM - Copy.jpeg" alt="Marriage Image 8 (Duplicate)"></div>
 </div>
-
+</div>
  
 
