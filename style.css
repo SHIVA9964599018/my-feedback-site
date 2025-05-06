@@ -493,3 +493,19 @@ table img {
   font-size: 1.2rem;
   font-weight: bold;
 }
+.nutrition-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.nutrition-form label {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.nutrition-form button {
+    margin-top: 20px;
+}
