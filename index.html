@@ -211,6 +211,21 @@
   </div>
 </section>
 
+<section id="utilities" style="display:none; padding:20px;">
+  <h2>Add Dish Nutrition Info</h2>
+  <form id="nutrition-form">
+    <label>Dish Name: <input type="text" id="dish_name" required></label><br><br>
+    <label>Calories (per 100gm): <input type="number" id="calorie" required></label><br><br>
+    <label>Protein (per 100gm): <input type="number" id="protein" required></label><br><br>
+    <label>Carbs (per 100gm): <input type="number" id="carbs" required></label><br><br>
+    <label>Fibre (per 100gm): <input type="number" id="fibre" required></label><br><br>
+    <label>Fats (per 100gm): <input type="number" id="fats" required></label><br><br>
+    <button type="submit">Save Dish</button>
+  </form>
+  <p id="nutrition-message"></p>
+</section>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <!-- Load your script file -->

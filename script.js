@@ -465,3 +465,50 @@ function loadDynamic(file) {
 window.loadDynamic = loadDynamic;
 
 
+// ✅ Handle Utilities Dish Nutrition Form Submission
+document.addEventListener("DOMContentLoaded", function () {
+    const nutritionForm = document.getElementById("nutrition-form");
+
+    if (nutritionForm) {
+        nutritionForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            // Get form values
+            const dishName = document.getElementById("dish_name").value.trim();
+            const calorie = parseFloat(document.getElementById("calorie").value);
+            const protein = parseFloat(document.getElementById("protein").value);
+            const carbs = parseFloat(document.getElementById("carbs").value);
+            const fibre = parseFloat(document.getElementById("fibre").value);
+            const fats = parseFloat(document.getElementById("fats").value);
+
+            // Basic validation
+            if (!dishName || isNaN(calorie) || isNaN(protein) || isNaN(carbs) || isNaN(fibre) || isNaN(fats)) {
+                alert("Please enter all fields properly.");
+                return;
+            }
+
+            // Save to Supabase
+            const { data, error } = await supabaseClient
+                .from("food_items")
+                .insert([
+                    {
+                        dish_name: dishName,
+                        calorie_per_100gm: calorie,
+                        protein_per_100gm: protein,
+                        carbs_per_100gm: carbs,
+                        fibre_per_100gm: fibre,
+                        fats_per_100gm: fats
+                    }
+                ]);
+
+            const messageEl = document.getElementById("nutrition-message");
+            if (error) {
+                console.error("Error saving dish:", error.message);
+                messageEl.textContent = "Error saving dish.";
+            } else {
+                messageEl.textContent = "Dish saved successfully!";
+                nutritionForm.reset();
+            }
+        });
+    }
+});
