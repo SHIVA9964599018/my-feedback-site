@@ -216,32 +216,34 @@
 <section id="utilities" style="display:none; padding:20px;">
   <h2>Utilities</h2>
 
-  <!-- Small tabs inside Utilities -->
+  <!-- Dropdown/links inside utilities -->
   <div>
     <a href="#" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a> |
     <a href="#" onclick="showUtilitySubSection('utility-daily-calorie')">Daily Calorie</a>
   </div>
 
-  <!-- Add Dish Subsection -->
+  <!-- Add Dish Subsection (initially hidden) -->
   <div id="utility-add-dish" style="display:none; margin-top: 20px;">
     <h3>Add Dish Nutrition Info</h3>
     <form id="nutrition-form" class="nutrition-form">
-    <label>Dish Name: <input type="text" id="dish_name"  required></label>
-    <label>Calories (per 100gm): <input type="number" id="calorie" step="any"  required></label>
-    <label>Protein (per 100gm): <input type="number" id="protein" step="any"  required></label>
-    <label>Carbs (per 100gm): <input type="number" id="carbs" step="any"  required></label>
-    <label>Fibre (per 100gm): <input type="number" id="fibre" step="any"  required></label>
-    <label>Fats (per 100gm): <input type="number" id="fats"  step="any" required></label>
-    <button type="submit">Save Dish</button>
+      <label>Dish Name: <input type="text" id="dish_name" required></label>
+      <label>Calories (per 100gm): <input type="number" id="calorie" step="any" required></label>
+      <label>Protein (per 100gm): <input type="number" id="protein" step="any" required></label>
+      <label>Carbs (per 100gm): <input type="number" id="carbs" step="any" required></label>
+      <label>Fibre (per 100gm): <input type="number" id="fibre" step="any" required></label>
+      <label>Fats (per 100gm): <input type="number" id="fats" step="any" required></label>
+      <button type="submit">Save Dish</button>
     </form>
+    <p id="nutrition-message" style="margin-top: 20px;"></p>
   </div>
 
-  <!-- Daily Calorie Subsection -->
+  <!-- Daily Calorie Subsection (initially hidden) -->
   <div id="utility-daily-calorie" style="display:none; margin-top: 20px;">
     <h3>Daily Calorie Calculator</h3>
     <p>Coming soon...</p>
   </div>
 </section>
+
 
 
 
