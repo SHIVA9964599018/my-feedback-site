@@ -64,21 +64,18 @@ section.active {
   display: block;
 }
 
-/* Updated Dropdown styling */
 .dropdown {
   position: relative;
   display: inline-block;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .dropdown-toggle {
-  background-color: #2F4F7F;
   color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 18px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
 .dropdown-menu {
@@ -93,10 +90,6 @@ section.active {
   border-radius: 4px;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
 .dropdown-menu a {
   display: block;
   padding: 10px 15px;
@@ -108,6 +101,7 @@ section.active {
 .dropdown-menu a:hover {
   background-color: #4F6F9F;
 }
+
 
 .gallery-container {
   display: flex;
