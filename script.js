@@ -512,3 +512,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+window.showUtilitySubSection = function (subSectionId) {
+  // Hide all sub divs inside utilities
+  document.querySelectorAll("#utilities > div").forEach(div => {
+    div.style.display = "none";
+  });
+
+  // Show the selected sub-section
+  let target = document.getElementById(subSectionId);
+  if (target) {
+    target.style.display = "block";
+    console.log(`Showing Utility Sub-section: ${subSectionId}`);
+  } else {
+    console.error(`Utility Sub-section ${subSectionId} not found.`);
+  }
+};
