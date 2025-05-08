@@ -583,8 +583,8 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData("text");
 
-            // Split pasted data by tabs
-            const values = pasteData.split("\t");
+            // Split by tab OR multiple spaces
+            const values = pasteData.split(/\t|\s+/);
 
             // Fill input fields with pasted data
             values.forEach((value, idx) => {
