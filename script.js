@@ -583,8 +583,8 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData("text");
 
-            // Split by tab OR multiple spaces
-            const values = pasteData.split(/\t|\s+/);
+            // Split by tab OR comma OR multiple spaces
+            const values = pasteData.split(/\t|,|\s+/);
 
             // Fill input fields with pasted data
             values.forEach((value, idx) => {
@@ -595,4 +595,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
 
