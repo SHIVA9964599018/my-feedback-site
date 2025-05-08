@@ -20,16 +20,6 @@ body {
     white-space: nowrap;
   }
 
-  nav a,
-  .dropdown-toggle {
-    font-size: 16px;
-    padding: 8px 10px;
-  }
-
-  .dropdown-menu {
-    position: absolute;
-  }
-}
 
 nav {
   display: flex;
@@ -44,12 +34,13 @@ nav {
 
 nav a,
 .dropdown-toggle {
-  color: white;
-  text-decoration: none;
-  padding: 10px 8px;
-  font-size: 18px;
-  white-space: nowrap;
+    color: white;
+    text-decoration: none;
+    padding: 10px 8px;
+    font-size: 18px;
+    white-space: nowrap;
 }
+
 
 section {
   display: none;
@@ -67,15 +58,15 @@ section.active {
 .dropdown {
   position: relative;
   display: inline-block;
-  margin: 0;
 }
 
 .dropdown-toggle {
   color: white;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 10px 8px;
   font-size: 18px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .dropdown-menu {
@@ -90,6 +81,10 @@ section.active {
   border-radius: 4px;
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 .dropdown-menu a {
   display: block;
   padding: 10px 15px;
@@ -101,6 +96,7 @@ section.active {
 .dropdown-menu a:hover {
   background-color: #4F6F9F;
 }
+
 
 
 .gallery-container {
