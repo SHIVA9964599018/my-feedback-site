@@ -572,3 +572,27 @@ window.addEventListener("load", function ()  {
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const dishInputs = document.querySelectorAll("input");
+
+    dishInputs.forEach((input, index) => {
+        input.addEventListener("paste", function (e) {
+            // Only handle paste on Dish Name field (first input)
+            if (index !== 0) return;
+
+            e.preventDefault();
+            const pasteData = (e.clipboardData || window.clipboardData).getData("text");
+
+            // Split pasted data by tabs
+            const values = pasteData.split("\t");
+
+            // Fill input fields with pasted data
+            values.forEach((value, idx) => {
+                if (dishInputs[idx]) {
+                    dishInputs[idx].value = value.trim();
+                }
+            });
+        });
+    });
+});
+
