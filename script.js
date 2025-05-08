@@ -534,19 +534,20 @@ dropdownToggle.addEventListener("mouseenter", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
     let dropdown = document.querySelector(".dropdown");
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
     if (dropdownToggle && dropdownMenu) {
 
-        // ✅ On Click (for mobile)
+        // On Click
         dropdownToggle.addEventListener("click", function (event) {
             event.stopPropagation();
             dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         });
 
-        // ✅ On Hover (for desktop)
+        // On Hover (Desktop)
         dropdown.addEventListener("mouseenter", function () {
             dropdownMenu.style.display = "block";
         });
@@ -555,14 +556,14 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownMenu.style.display = "none";
         });
 
-        // ✅ On clicking outside
+        // Close when clicking outside
         document.addEventListener("click", function (event) {
             if (!dropdown.contains(event.target)) {
                 dropdownMenu.style.display = "none";
             }
         });
 
-        // ✅ On clicking submenu → close dropdown
+        // Close dropdown on sub item click
         dropdownMenu.querySelectorAll("a").forEach((item) => {
             item.addEventListener("click", function () {
                 dropdownMenu.style.display = "none";
@@ -570,6 +571,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-
-
