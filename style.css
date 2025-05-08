@@ -19,8 +19,7 @@ body {
     overflow-x: auto;
     white-space: nowrap;
   }
-}  /* ✅ THIS WAS MISSING */
-
+}
 
 nav {
   display: flex;
@@ -31,29 +30,27 @@ nav {
   padding: 10px;
   overflow-x: auto;
   white-space: nowrap;
-  position: relative; /* ✅ Add this */
-  z-index: 5000; /* ✅ Add this */
+  position: relative;
+  z-index: 5000;
 }
-
 
 nav a,
 .dropdown-toggle {
   color: white;
   text-decoration: none;
-  padding: 10px 8px;
+  padding: 10px 15px;
   font-size: 18px;
   white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
 }
-
-
 
 section {
   display: none;
   padding: 20px;
   position: relative;
-  z-index: 0;  /* ✅ Keep section always below navbar and dropdown */
+  z-index: 0;
 }
-
 
 section.active {
   display: block;
@@ -70,11 +67,6 @@ section.active {
 
 .dropdown-toggle {
   color: white;
-  text-decoration: none;
-  padding: 10px 8px;
-  font-size: 18px;
-  cursor: pointer;
-  display: inline-block;
 }
 
 .dropdown-menu {
@@ -84,13 +76,14 @@ section.active {
   top: 100%;
   left: 0;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 6000;  /* ✅ Slightly higher to ensure above navbar if needed */
+  z-index: 6000;
   min-width: 180px;
   border-radius: 4px;
 }
 
-
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu,
+.dropdown-toggle:hover + .dropdown-menu,
+.dropdown-menu:hover {
   display: block;
 }
 
@@ -105,8 +98,6 @@ section.active {
 .dropdown-menu a:hover {
   background-color: #4F6F9F;
 }
-
-
 
 .gallery-container {
   display: flex;
@@ -242,7 +233,6 @@ blockquote {
   background-color: lightgray;
 }
 
-
 .journey-table {
   border-collapse: collapse;
   width: 90%;
@@ -307,13 +297,6 @@ blockquote {
   width: 200px;
 }
 
-table img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
 #weight-loss {
   padding: 40px 20px;
   background-color: #f9f9f9;
@@ -330,49 +313,11 @@ table img {
   margin-bottom: 30px;
 }
 
-.journey-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: auto;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.journey-table thead {
-  background-color: #F4511E;
-  color: #fff;
-}
-
-.journey-table th, .journey-table td {
-  padding: 16px;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-.journey-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.journey-table img {
-  width: 80px;
-  height: auto;
-  border-radius: 6px;
-  transition: transform 0.3s ease;
-}
-
-.journey-table img:hover {
-  transform: scale(1.05);
-}
-
-
-
 #bike-summary {
   padding-left: 1px;
   padding-right: 20px;
   max-width: 900px;
-  margin: 0 auto; /* Optional: center the whole section on wider screens */
+  margin: 0 auto;
 }
 
 #bike-summary h2 {
@@ -409,18 +354,10 @@ table img {
   padding: 4px 6px;
   border-radius: 6px;
   cursor: pointer;
-  /* Removed inline-block to restore arrow symbol */
 }
 
 #bike-summary summary strong {
   color: #ffffff;
-}
-
-#bike-summary p {
-  font-size: 16px;
-  color: #333;
-  margin: 8px 0;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 #monthly-expenses-container,
@@ -441,7 +378,6 @@ table img {
   color: #000000;
   border-radius: 6px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
-  font-family: "Segoe UI", sans-serif;
 }
 
 .sub-summary {
@@ -452,10 +388,7 @@ table img {
   padding: 10px 15px;
   border-radius: 5px;
   margin: 10px 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
 
 .section-header {
   font-weight: bold;
@@ -466,7 +399,6 @@ table img {
   margin: 5px 0;
   border-radius: 5px;
   cursor: pointer;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #loading-overlay {
@@ -477,34 +409,34 @@ table img {
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   z-index: 9999;
-  display: none; /* 👈 Hide it initially */
+  display: none;
   justify-content: center;
   align-items: center;
-  font-family: sans-serif;
 }
 
 .loading-box {
   background: #fff;
   border: 1px solid #ccc;
   padding: 1.5rem 2rem;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   font-size: 1.2rem;
   font-weight: bold;
 }
+
 .nutrition-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
 }
 
 .nutrition-form label {
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
 }
 
 .nutrition-form button {
-    margin-top: 20px;
+  margin-top: 20px;
 }

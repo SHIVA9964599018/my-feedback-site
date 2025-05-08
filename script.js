@@ -528,3 +528,45 @@ window.showUtilitySubSection = function (subSectionId) {
     console.error(`Utility Sub-section ${subSectionId} not found.`);
   }
 };
+dropdownToggle.addEventListener("mouseenter", function () {
+    dropdownMenu.style.display = "block";
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    let dropdown = document.querySelector(".dropdown");
+    let dropdownToggle = document.querySelector(".dropdown-toggle");
+    let dropdownMenu = document.querySelector(".dropdown-menu");
+
+    if (dropdownToggle && dropdownMenu) {
+
+        // ✅ On Click (for mobile)
+        dropdownToggle.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+        });
+
+        // ✅ On Hover (for desktop)
+        dropdown.addEventListener("mouseenter", function () {
+            dropdownMenu.style.display = "block";
+        });
+
+        dropdown.addEventListener("mouseleave", function () {
+            dropdownMenu.style.display = "none";
+        });
+
+        // ✅ On clicking outside
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+
+        // ✅ On clicking submenu → close dropdown
+        dropdownMenu.querySelectorAll("a").forEach((item) => {
+            item.addEventListener("click", function () {
+                dropdownMenu.style.display = "none";
+            });
+        });
+    }
+});
