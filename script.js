@@ -539,15 +539,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let dropdownToggle = document.querySelector(".dropdown-toggle");
     let dropdownMenu = document.querySelector(".dropdown-menu");
 
-    if (dropdownToggle && dropdownMenu) {
+    if (dropdown && dropdownToggle && dropdownMenu) {
 
-        // On Click
+        // ✅ On Click (mobile)
         dropdownToggle.addEventListener("click", function (event) {
-            event.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation(); // do not bubble up
             dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
         });
 
-        // On Hover (Desktop)
+        // ✅ On Hover (desktop)
         dropdown.addEventListener("mouseenter", function () {
             dropdownMenu.style.display = "block";
         });
@@ -556,18 +557,20 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownMenu.style.display = "none";
         });
 
-        // Close when clicking outside
+        // ✅ On clicking outside anywhere on document
         document.addEventListener("click", function (event) {
             if (!dropdown.contains(event.target)) {
                 dropdownMenu.style.display = "none";
             }
         });
 
-        // Close dropdown on sub item click
+        // ✅ On clicking menu item → hide dropdown
         dropdownMenu.querySelectorAll("a").forEach((item) => {
             item.addEventListener("click", function () {
                 dropdownMenu.style.display = "none";
             });
         });
     }
+
 });
+
