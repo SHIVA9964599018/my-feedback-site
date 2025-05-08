@@ -19,7 +19,8 @@ body {
     overflow-x: auto;
     white-space: nowrap;
   }
-}
+}  /* ✅ THIS WAS MISSING */
+
 
 nav {
   display: flex;
@@ -34,12 +35,13 @@ nav {
 
 nav a,
 .dropdown-toggle {
-    color: white;
-    text-decoration: none;
-    padding: 10px 8px;
-    font-size: 18px;
-    white-space: nowrap;
+  color: white;
+  text-decoration: none;
+  padding: 10px 8px;
+  font-size: 18px;
+  white-space: nowrap;
 }
+
 
 
 section {
