@@ -575,25 +575,25 @@ window.addEventListener("load", function ()  {
 document.addEventListener("DOMContentLoaded", function () {
     const dishInputs = document.querySelectorAll("input");
 
-    dishInputs.forEach((input, index) => {
-        input.addEventListener("paste", function (e) {
-            // Only handle paste on Dish Name field (first input)
-            if (index !== 0) return;
+    // Listen only on Dish Name field
+    const dishNameInput = dishInputs[0];
 
-            e.preventDefault();
-            const pasteData = (e.clipboardData || window.clipboardData).getData("text");
+    dishNameInput.addEventListener("paste", function (e) {
+        e.preventDefault();
 
-            // Split by tab OR comma OR multiple spaces
-            const values = pasteData.split(/\t|,|\s+/);
+        const pasteData = (e.clipboardData || window.clipboardData).getData("text");
 
-            // Fill input fields with pasted data
+        // Split by tab OR comma OR multiple spaces
+        const values = pasteData.split(/\t|,|\s+/);
+
+        // Put values with slight delay so it does NOT paste into first input directly
+        setTimeout(() => {
             values.forEach((value, idx) => {
                 if (dishInputs[idx]) {
                     dishInputs[idx].value = value.trim();
                 }
             });
-        });
+        }, 0);
     });
 });
-
 
