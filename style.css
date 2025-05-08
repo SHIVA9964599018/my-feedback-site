@@ -19,7 +19,7 @@ body {
     overflow-x: auto;
     white-space: nowrap;
   }
-
+}
 
 nav {
   display: flex;
