@@ -14,22 +14,21 @@
   </div>
 </div>
 
-<nav>
+<<nav>
   <a href="#" onclick="showSection('home')">Home</a>
   <a href="#" onclick="showSection('feedback')">Feedback</a>
   <a href="#" onclick="showSection('about')">About</a>
-  <a href="#" onclick="showSection('bike-summary')">Bike Summary</a> 
- <a href="#" onclick="loadDynamic('gallery.html')">Gallery</a>
- <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
-<div class="dropdown">
-  <span class="dropdown-toggle">Utilities</span>
-  <div class="dropdown-menu">
-    <a href="#" onclick="showUtilitySubSection('utility-add-dish'); showSection('utilities')">Add Dish</a>
-    <a href="#" onclick="showUtilitySubSection('utility-daily-calorie'); showSection('utilities')">Daily Calorie</a>
+  <a href="#" onclick="showSection('bike-summary')">Bike Summary</a>
+  <a href="#" onclick="loadDynamic('gallery.html')">Gallery</a>
+  <a href="#" onclick="showSection('weight-loss')">My Weight Loss Journey</a>
+  
+  <div class="dropdown">
+    <a href="#" class="dropdown-toggle" onclick="toggleDropdown(event)">Utilities</a>
+    <div class="dropdown-menu">
+      <a href="#" onclick="showSection('utilities'); showUtilitySubSection('utility-add-dish')">Add Dish</a>
+      <a href="#" onclick="showSection('utilities'); showUtilitySubSection('utility-daily-calorie')">Daily Calorie</a>
+    </div>
   </div>
-</div>
-
-
 </nav>
 
 

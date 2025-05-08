@@ -3,24 +3,6 @@ body {
   margin: 0;
 }
 
-@media only screen and (max-width: 768px) {
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  nav {
-    width: 100%;
-    box-sizing: border-box;
-    justify-content: flex-start;
-    gap: 5px;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-}
-
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +10,6 @@ nav {
   align-items: center;
   background-color: #2F4F7F;
   padding: 10px;
-  overflow-x: auto;
   white-space: nowrap;
   position: relative;
   z-index: 5000;
@@ -38,11 +19,43 @@ nav a,
 .dropdown-toggle {
   color: white;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 10px 8px;
   font-size: 18px;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
   display: inline-block;
+}
+
+.dropdown-toggle {
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #2F4F7F;
+  top: calc(100% + 2px);
+  left: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 6000;
+  min-width: 180px;
+  border-radius: 4px;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #4F6F9F;
 }
 
 section {
@@ -56,47 +69,24 @@ section.active {
   display: block;
 }
 
-#gallery {
-  display: block;
-}
+@media (max-width: 768px) {
+  nav {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+  .dropdown:hover .dropdown-menu {
+    display: none;
+  }
 
-.dropdown-toggle {
-  color: white;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: #2F4F7F;
-  top: 100%;
-  left: 0;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 6000;
-  min-width: 180px;
-  border-radius: 4px;
-}
-
-.dropdown:hover .dropdown-menu,
-.dropdown-toggle:hover + .dropdown-menu,
-.dropdown-menu:hover {
-  display: block;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 10px 15px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.dropdown-menu a:hover {
-  background-color: #4F6F9F;
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    background-color: #2F4F7F;
+  }
 }
 
 .gallery-container {
@@ -313,51 +303,30 @@ blockquote {
   margin-bottom: 30px;
 }
 
-#bike-summary {
-  padding-left: 1px;
-  padding-right: 20px;
-  max-width: 900px;
-  margin: 0 auto;
+.journey-table thead {
+  background-color: #F4511E;
+  color: #fff;
 }
 
-#bike-summary h2 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 28px;
-  color: #2c3e50;
-  margin-bottom: 16px;
+.journey-table th, .journey-table td {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
-#bike-summary img {
-  display: block;
-  width: 100%;
-  max-width: 500px;
+.journey-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.journey-table img {
+  width: 80px;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-#bike-summary details {
-  margin-bottom: 4px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04);
-  display: block;
-  padding: 0px 5px;
-}
-
-#bike-summary summary {
-  font-size: 15px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #2F4F7F;
-  padding: 4px 6px;
   border-radius: 6px;
-  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-#bike-summary summary strong {
-  color: #ffffff;
+.journey-table img:hover {
+  transform: scale(1.05);
 }
 
 #monthly-expenses-container,
@@ -425,18 +394,18 @@ blockquote {
 }
 
 .nutrition-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
 }
 
 .nutrition-form label {
-  display: flex;
-  flex-direction: column;
-  min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
 }
 
 .nutrition-form button {
-  margin-top: 20px;
+    margin-top: 20px;
 }
