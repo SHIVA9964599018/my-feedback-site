@@ -533,7 +533,7 @@ dropdownToggle.addEventListener("mouseenter", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function ()  {
 
     let dropdown = document.querySelector(".dropdown");
     let dropdownToggle = document.querySelector(".dropdown-toggle");
