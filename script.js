@@ -528,9 +528,7 @@ window.showUtilitySubSection = function (subSectionId) {
     console.error(`Utility Sub-section ${subSectionId} not found.`);
   }
 };
-dropdownToggle.addEventListener("mouseenter", function () {
-    dropdownMenu.style.display = "block";
-});
+
 
 
 window.addEventListener("load", function ()  {
