@@ -575,25 +575,31 @@ window.addEventListener("load", function ()  {
 document.addEventListener("DOMContentLoaded", function () {
     const dishInputs = document.querySelectorAll("input");
 
-    // Listen only on Dish Name field
-    const dishNameInput = dishInputs[0];
+    const handleInput = (text) => {
+        const values = text.split(/\t|,|\s+/);
+        values.forEach((value, idx) => {
+            if (dishInputs[idx]) {
+                dishInputs[idx].value = value.trim();
+            }
+        });
+    };
 
-    dishNameInput.addEventListener("paste", function (e) {
+    // ✅ Handle paste
+    dishInputs[0].addEventListener("paste", function (e) {
         e.preventDefault();
-
         const pasteData = (e.clipboardData || window.clipboardData).getData("text");
+        handleInput(pasteData);
+    });
 
-        // Split by tab OR comma OR multiple spaces
-        const values = pasteData.split(/\t|,|\s+/);
-
-        // Put values with slight delay so it does NOT paste into first input directly
-        setTimeout(() => {
-            values.forEach((value, idx) => {
-                if (dishInputs[idx]) {
-                    dishInputs[idx].value = value.trim();
-                }
-            });
-        }, 0);
+    // ✅ Handle manual entry (on Enter key or comma/tab press)
+    dishInputs[0].addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === "," || e.key === "Tab") {
+            const currentValue = dishInputs[0].value;
+            if (currentValue.includes(",") || currentValue.includes(" ")) {
+                e.preventDefault(); // Stop default behavior
+                handleInput(currentValue);
+            }
+        }
     });
 });
 
