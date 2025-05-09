@@ -606,3 +606,55 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const calorieForm = document.getElementById("calorie-form");
+    const resultDiv = document.getElementById("calorie-result");
+
+    if (calorieForm) {
+        calorieForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const breakfast = document.getElementById("breakfast").value.trim();
+            const lunch = document.getElementById("lunch").value.trim();
+            const dinner = document.getElementById("dinner").value.trim();
+
+            const dishNames = [breakfast, lunch, dinner];
+
+            let total = {
+                calorie: 0,
+                protein: 0,
+                carbs: 0,
+                fibre: 0,
+                fats: 0
+            };
+
+            for (let name of dishNames) {
+                const { data, error } = await supabaseClient
+                    .from("food_items")
+                    .select("*")
+                    .ilike("dish_name", name); // case-insensitive search
+
+                if (error || !data || data.length === 0) {
+                    resultDiv.innerHTML = `Dish not found: ${name}`;
+                    return;
+                }
+
+                const dish = data[0];
+                total.calorie += dish.calorie_per_100gm;
+                total.protein += dish.protein_per_100gm;
+                total.carbs += dish.carbs_per_100gm;
+                total.fibre += dish.fibre_per_100gm;
+                total.fats += dish.fats_per_100gm;
+            }
+
+            resultDiv.innerHTML = `
+              <strong>Total for Today:</strong><br>
+              Calories: ${total.calorie.toFixed(2)} kcal<br>
+              Protein: ${total.protein.toFixed(2)} g<br>
+              Carbs: ${total.carbs.toFixed(2)} g<br>
+              Fibre: ${total.fibre.toFixed(2)} g<br>
+              Fats: ${total.fats.toFixed(2)} g
+            `;
+        });
+    }
+});
