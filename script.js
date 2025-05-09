@@ -573,43 +573,64 @@ window.addEventListener("load", function ()  {
 });
 
 
-// ✅ Global dish list
-let allDishes = [];
-
-// ✅ Load all dish names from Supabase
-async function loadDishesFromSupabase() {
-  const { data, error } = await supabaseClient
-    .from("food_items")
-    .select("dish_name")
-    .order("dish_name", { ascending: true });
-
-  if (!error && data) {
-    allDishes = data.map(d => d.dish_name);
-  } else {
-    console.error("Failed to fetch dishes:", error);
+// ✅ Fetch all dish names from Supabase
+async function getAllDishNames() {
+  const { data, error } = await supabaseClient.from("food_items").select("dish_name");
+  if (error || !data) {
+    console.error("Failed to fetch dish names:", error);
+    return [];
   }
+  return data.map((d) => d.dish_name);
 }
 
-// ✅ Add dropdown dish row
-window.addDishRow = function (meal) {
+// ✅ Autocomplete setup
+async function setupAutocomplete(input) {
+  const dishList = await getAllDishNames();
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("autocomplete-wrapper");
+  input.parentElement.appendChild(wrapper);
+
+  input.addEventListener("input", function () {
+    const val = input.value.trim().toLowerCase();
+    wrapper.innerHTML = "";
+    if (!val) return;
+
+    const matches = dishList.filter((d) => d.toLowerCase().includes(val));
+    matches.forEach((match) => {
+      const div = document.createElement("div");
+      div.textContent = match;
+      div.classList.add("suggestion-item");
+      div.addEventListener("click", () => {
+        input.value = match;
+        wrapper.innerHTML = "";
+      });
+      wrapper.appendChild(div);
+    });
+  });
+
+  document.addEventListener("click", function (e) {
+    if (!wrapper.contains(e.target) && e.target !== input) {
+      wrapper.innerHTML = "";
+    }
+  });
+}
+
+// ✅ Add new dish row for a meal
+window.addDishRow = async function (meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
-
-  const selectHTML = allDishes.map(
-    (dish) => `<option value="${dish}">${dish}</option>`
-  ).join("");
-
   row.innerHTML = `
-    <select class="dish-name">${selectHTML}</select>
+    <input type="text" placeholder="Dish Name" class="dish-name" />
     <input type="number" placeholder="Grams" class="dish-grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
-
   container.appendChild(row);
+  const input = row.querySelector(".dish-name");
+  setupAutocomplete(input);
 };
 
-// ✅ Fetch full dish info by name
+// ✅ Fetch nutrient values for a given dish
 async function getDishInfo(dishName) {
   const { data, error } = await supabaseClient
     .from("food_items")
@@ -620,16 +641,10 @@ async function getDishInfo(dishName) {
   return data[0];
 }
 
-// ✅ Calculate total nutrition
+// ✅ Calculate nutrition values
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
-  let totals = {
-    calories: 0,
-    protein: 0,
-    carbs: 0,
-    fibre: 0,
-    fats: 0,
-  };
+  let totals = { calories: 0, protein: 0, carbs: 0, fibre: 0, fats: 0 };
 
   for (const meal of meals) {
     const container = document.getElementById(`${meal}-container`);
@@ -652,7 +667,7 @@ window.calculateCalories = async function () {
     }
   }
 
-  const result = `
+  document.getElementById("calorie-result").innerHTML = `
     <strong>Total for Today:</strong><br>
     Calories: ${totals.calories.toFixed(2)} kcal<br>
     Protein: ${totals.protein.toFixed(2)} g<br>
@@ -660,11 +675,14 @@ window.calculateCalories = async function () {
     Fibre: ${totals.fibre.toFixed(2)} g<br>
     Fats: ${totals.fats.toFixed(2)} g
   `;
-
-  document.getElementById("calorie-result").innerHTML = result;
 };
 
-// ✅ Load dish list on page load
-window.addEventListener("DOMContentLoaded", async () => {
-  await loadDishesFromSupabase();
+// ✅ Bind Calculate button on DOM ready
+document.addEventListener("DOMContentLoaded", function () {
+  const calcBtn = document.getElementById("calculate-btn");
+  if (calcBtn) {
+    calcBtn.addEventListener("click", window.calculateCalories);
+  }
 });
+
+
