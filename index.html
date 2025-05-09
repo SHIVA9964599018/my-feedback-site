@@ -238,15 +238,35 @@
   </div>
 
 <div id="utility-daily-calorie" style="display:none;">
+  <div id="utility-daily-calorie" style="display:none;">
   <h3>Daily Calorie Calculator</h3>
-  <form id="calorie-form">
-    <label>Breakfast Dish: <input type="text" id="breakfast" required></label><br><br>
-    <label>Lunch Dish: <input type="text" id="lunch" required></label><br><br>
-    <label>Dinner Dish: <input type="text" id="dinner" required></label><br><br>
-    <button type="submit">Calculate</button>
-  </form>
+
+  <!-- Meal Sections -->
+  <div class="meal-section">
+    <h4>Breakfast</h4>
+    <div id="breakfast-container" class="meal-container"></div>
+    <button type="button" onclick="addDishRow('breakfast')">+ Add Breakfast Dish</button>
+  </div>
+
+  <div class="meal-section">
+    <h4>Lunch</h4>
+    <div id="lunch-container" class="meal-container"></div>
+    <button type="button" onclick="addDishRow('lunch')">+ Add Lunch Dish</button>
+  </div>
+
+  <div class="meal-section">
+    <h4>Dinner</h4>
+    <div id="dinner-container" class="meal-container"></div>
+    <button type="button" onclick="addDishRow('dinner')">+ Add Dinner Dish</button>
+  </div>
+
+  <!-- Submit -->
+  <button type="button" onclick="calculateCalories()">Calculate</button>
+
+  <!-- Result -->
   <div id="calorie-result" style="margin-top: 20px;"></div>
 </div>
+
 
 </section>
 

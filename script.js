@@ -606,55 +606,72 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const calorieForm = document.getElementById("calorie-form");
-    const resultDiv = document.getElementById("calorie-result");
 
-    if (calorieForm) {
-        calorieForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
+// Add a new dish input row to a meal
+function addDishRow(meal) {
+  const container = document.getElementById(`${meal}-container`);
+  const row = document.createElement("div");
+  row.className = "dish-row";
 
-            const breakfast = document.getElementById("breakfast").value.trim();
-            const lunch = document.getElementById("lunch").value.trim();
-            const dinner = document.getElementById("dinner").value.trim();
+  row.innerHTML = `
+    <input type="text" placeholder="Dish Name" class="dish-name" />
+    <input type="number" placeholder="Grams" class="dish-grams" />
+    <button type="button" onclick="this.parentElement.remove()">❌</button>
+  `;
 
-            const dishNames = [breakfast, lunch, dinner];
+  container.appendChild(row);
+}
 
-            let total = {
-                calorie: 0,
-                protein: 0,
-                carbs: 0,
-                fibre: 0,
-                fats: 0
-            };
+// Fetch dish data from Supabase
+async function getDishInfo(dishName) {
+  const { data, error } = await supabaseClient
+    .from("food_items")
+    .select("*")
+    .ilike("dish_name", dishName.trim());
 
-            for (let name of dishNames) {
-                const { data, error } = await supabaseClient
-                    .from("food_items")
-                    .select("*")
-                    .ilike("dish_name", name); // case-insensitive search
+  if (error || !data || data.length === 0) return null;
+  return data[0];
+}
 
-                if (error || !data || data.length === 0) {
-                    resultDiv.innerHTML = `Dish not found: ${name}`;
-                    return;
-                }
+// Main calorie calculation
+async function calculateCalories() {
+  const meals = ["breakfast", "lunch", "dinner"];
+  let totals = {
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fibre: 0,
+    fats: 0,
+  };
 
-                const dish = data[0];
-                total.calorie += dish.calorie_per_100gm;
-                total.protein += dish.protein_per_100gm;
-                total.carbs += dish.carbs_per_100gm;
-                total.fibre += dish.fibre_per_100gm;
-                total.fats += dish.fats_per_100gm;
-            }
+  for (const meal of meals) {
+    const container = document.getElementById(`${meal}-container`);
+    const rows = container.querySelectorAll(".dish-row");
 
-            resultDiv.innerHTML = `
-              <strong>Total for Today:</strong><br>
-              Calories: ${total.calorie.toFixed(2)} kcal<br>
-              Protein: ${total.protein.toFixed(2)} g<br>
-              Carbs: ${total.carbs.toFixed(2)} g<br>
-              Fibre: ${total.fibre.toFixed(2)} g<br>
-              Fats: ${total.fats.toFixed(2)} g
-            `;
-        });
+    for (const row of rows) {
+      const name = row.querySelector(".dish-name").value;
+      const grams = parseFloat(row.querySelector(".dish-grams").value);
+
+      if (!name || isNaN(grams)) continue;
+
+      const info = await getDishInfo(name);
+      if (!info) continue;
+
+      totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
+      totals.protein  += (info.protein_per_100gm || 0) * grams / 100;
+      totals.carbs    += (info.carbs_per_100gm || 0) * grams / 100;
+      totals.fibre    += (info.fibre_per_100gm || 0) * grams / 100;
+      totals.fats     += (info.fats_per_100gm || 0) * grams / 100;
     }
-});
+  }
+
+  const result = `
+    <strong>Total for Today:</strong><br>
+    Calories: ${totals.calories.toFixed(2)} kcal<br>
+    Protein: ${totals.protein.toFixed(2)} g<br>
+    Carbs: ${totals.carbs.toFixed(2)} g<br>
+    Fibre: ${totals.fibre.toFixed(2)} g<br>
+    Fats: ${totals.fats.toFixed(2)} g
+  `;
+  document.getElementById("calorie-result").innerHTML = result;
+}

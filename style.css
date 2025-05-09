@@ -409,3 +409,21 @@ blockquote {
 .nutrition-form button {
     margin-top: 20px;
 }
+.meal-section {
+  margin-bottom: 20px;
+}
+
+.meal-container {
+  margin-bottom: 10px;
+}
+
+.meal-container .dish-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.meal-container input {
+  padding: 5px;
+  min-width: 150px;
+}
