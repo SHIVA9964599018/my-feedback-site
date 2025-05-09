@@ -606,9 +606,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-// Add a new dish input row to a meal
-function addDishRow(meal) {
+// ✅ Add a new dish input row to a meal
+window.addDishRow = function (meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
@@ -620,10 +619,10 @@ function addDishRow(meal) {
   `;
 
   container.appendChild(row);
-}
+};
 
-// Fetch dish data from Supabase
-async function getDishInfo(dishName) {
+// ✅ Fetch dish data from Supabase
+window.getDishInfo = async function (dishName) {
   const { data, error } = await supabaseClient
     .from("food_items")
     .select("*")
@@ -631,10 +630,10 @@ async function getDishInfo(dishName) {
 
   if (error || !data || data.length === 0) return null;
   return data[0];
-}
+};
 
-// Main calorie calculation
-async function calculateCalories() {
+// ✅ Main calorie calculation
+window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = {
     calories: 0,
@@ -654,7 +653,7 @@ async function calculateCalories() {
 
       if (!name || isNaN(grams)) continue;
 
-      const info = await getDishInfo(name);
+      const info = await window.getDishInfo(name);
       if (!info) continue;
 
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
@@ -674,4 +673,4 @@ async function calculateCalories() {
     Fats: ${totals.fats.toFixed(2)} g
   `;
   document.getElementById("calorie-result").innerHTML = result;
-}
+};
