@@ -572,48 +572,36 @@ window.addEventListener("load", function ()  {
 
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const dishInputs = document.querySelectorAll("input");
 
-    // Function to split and distribute pasted/typed values
-    const handleInput = (text) => {
-        const values = text.split(/\t|,|\s+/); // support tab, comma, multiple spaces
-        values.forEach((value, idx) => {
-            if (dishInputs[idx]) {
-                dishInputs[idx].value = value.trim();
-            }
-        });
-    };
+// ✅ Global dish list
+let allDishes = [];
 
-    // ✅ Handle paste event — allow paste, then process with slight delay
-    dishInputs[0].addEventListener("paste", function (e) {
-        setTimeout(() => {
-            const currentValue = dishInputs[0].value;
-            handleInput(currentValue);
-        }, 0); // let the browser paste first, then we read and process
-    });
+// ✅ Load all dish names from Supabase
+async function loadDishesFromSupabase() {
+  const { data, error } = await supabaseClient
+    .from("food_items")
+    .select("dish_name")
+    .order("dish_name", { ascending: true });
 
-    // ✅ Handle manual typing with Enter, Comma, or Tab
-    dishInputs[0].addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === "," || e.key === "Tab") {
-            const currentValue = dishInputs[0].value;
-            if (currentValue.includes(",") || currentValue.includes(" ") || currentValue.includes("\t")) {
-                e.preventDefault(); // prevent jumping to next field
-                handleInput(currentValue);
-            }
-        }
-    });
-});
+  if (!error && data) {
+    allDishes = data.map(d => d.dish_name);
+  } else {
+    console.error("Failed to fetch dishes:", error);
+  }
+}
 
-
-// ✅ Add a new dish input row to a meal
+// ✅ Add dropdown dish row
 window.addDishRow = function (meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
 
+  const selectHTML = allDishes.map(
+    (dish) => `<option value="${dish}">${dish}</option>`
+  ).join("");
+
   row.innerHTML = `
-    <input type="text" placeholder="Dish Name" class="dish-name" />
+    <select class="dish-name">${selectHTML}</select>
     <input type="number" placeholder="Grams" class="dish-grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
@@ -621,8 +609,8 @@ window.addDishRow = function (meal) {
   container.appendChild(row);
 };
 
-// ✅ Fetch dish data from Supabase
-window.getDishInfo = async function (dishName) {
+// ✅ Fetch full dish info by name
+async function getDishInfo(dishName) {
   const { data, error } = await supabaseClient
     .from("food_items")
     .select("*")
@@ -630,9 +618,9 @@ window.getDishInfo = async function (dishName) {
 
   if (error || !data || data.length === 0) return null;
   return data[0];
-};
+}
 
-// ✅ Main calorie calculation
+// ✅ Calculate total nutrition
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = {
@@ -653,7 +641,7 @@ window.calculateCalories = async function () {
 
       if (!name || isNaN(grams)) continue;
 
-      const info = await window.getDishInfo(name);
+      const info = await getDishInfo(name);
       if (!info) continue;
 
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
@@ -672,5 +660,11 @@ window.calculateCalories = async function () {
     Fibre: ${totals.fibre.toFixed(2)} g<br>
     Fats: ${totals.fats.toFixed(2)} g
   `;
+
   document.getElementById("calorie-result").innerHTML = result;
 };
+
+// ✅ Load dish list on page load
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadDishesFromSupabase();
+});
