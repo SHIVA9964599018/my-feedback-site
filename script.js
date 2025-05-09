@@ -616,19 +616,23 @@ async function setupAutocomplete(input) {
 }
 
 // ✅ Add new dish row for a meal
-window.addDishRow = async function (meal) {
+window.addDishRow = function(meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
+
   row.innerHTML = `
-    <input type="text" placeholder="Dish Name" class="dish-name" />
+    <div class="autocomplete-container">
+      <input type="text" placeholder="Dish Name" class="dish-name" autocomplete="off" />
+      <div class="autocomplete-wrapper" style="display: none;"></div>
+    </div>
     <input type="number" placeholder="Grams" class="dish-grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
+
   container.appendChild(row);
-  const input = row.querySelector(".dish-name");
-  setupAutocomplete(input);
 };
+
 
 // ✅ Fetch nutrient values for a given dish
 async function getDishInfo(dishName) {
