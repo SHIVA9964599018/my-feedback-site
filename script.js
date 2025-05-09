@@ -692,7 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let dishNames = [];
 
-async function loadDishNames() {
+window.loadDishNames = async function () {
   const { data, error } = await supabaseClient.from("food_items").select("dish_name");
   if (!error && data) {
     dishNames = data.map(d => d.dish_name);
