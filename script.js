@@ -573,19 +573,18 @@ window.addEventListener("load", function ()  {
 });
 
 
-// ✅ Fetch all dish names from Supabase
-async function getAllDishNames() {
+let dishNames = [];
+
+// ✅ Fetch dish names once and cache
+window.loadDishNames = async function () {
   const { data, error } = await supabaseClient.from("food_items").select("dish_name");
-  if (error || !data) {
-    console.error("Failed to fetch dish names:", error);
-    return [];
+  if (!error && data) {
+    dishNames = data.map((d) => d.dish_name);
   }
-  return data.map((d) => d.dish_name);
-}
+};
 
 // ✅ Autocomplete setup
-async function setupAutocomplete(input) {
-  const dishList = await getAllDishNames();
+window.setupAutocomplete = function (input) {
   const wrapper = document.createElement("div");
   wrapper.classList.add("autocomplete-wrapper");
   input.parentElement.appendChild(wrapper);
@@ -595,7 +594,7 @@ async function setupAutocomplete(input) {
     wrapper.innerHTML = "";
     if (!val) return;
 
-    const matches = dishList.filter((d) => d.toLowerCase().includes(val));
+    const matches = dishNames.filter((d) => d.toLowerCase().includes(val));
     matches.forEach((match) => {
       const div = document.createElement("div");
       div.textContent = match;
@@ -613,29 +612,29 @@ async function setupAutocomplete(input) {
       wrapper.innerHTML = "";
     }
   });
-}
+};
 
 // ✅ Add new dish row for a meal
-window.addDishRow = function(meal) {
+window.addDishRow = function (meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
 
   row.innerHTML = `
-    <div class="autocomplete-container">
-      <input type="text" placeholder="Dish Name" class="dish-name" autocomplete="off" />
-      <div class="autocomplete-wrapper" style="display: none;"></div>
+    <div style="position: relative;">
+      <input type="text" class="dish-name" placeholder="Dish Name" autocomplete="off" />
     </div>
-    <input type="number" placeholder="Grams" class="dish-grams" />
+    <input type="number" class="dish-grams" placeholder="Grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
 
   container.appendChild(row);
+  const input = row.querySelector(".dish-name");
+  setupAutocomplete(input);
 };
 
-
-// ✅ Fetch nutrient values for a given dish
-async function getDishInfo(dishName) {
+// ✅ Fetch nutrient data from Supabase
+window.getDishInfo = async function (dishName) {
   const { data, error } = await supabaseClient
     .from("food_items")
     .select("*")
@@ -643,9 +642,9 @@ async function getDishInfo(dishName) {
 
   if (error || !data || data.length === 0) return null;
   return data[0];
-}
+};
 
-// ✅ Calculate nutrition values
+// ✅ Calculate totals
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = { calories: 0, protein: 0, carbs: 0, fibre: 0, fats: 0 };
@@ -657,17 +656,16 @@ window.calculateCalories = async function () {
     for (const row of rows) {
       const name = row.querySelector(".dish-name").value;
       const grams = parseFloat(row.querySelector(".dish-grams").value);
-
       if (!name || isNaN(grams)) continue;
 
       const info = await getDishInfo(name);
       if (!info) continue;
 
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
-      totals.protein  += (info.protein_per_100gm || 0) * grams / 100;
-      totals.carbs    += (info.carbs_per_100gm || 0) * grams / 100;
-      totals.fibre    += (info.fibre_per_100gm || 0) * grams / 100;
-      totals.fats     += (info.fats_per_100gm || 0) * grams / 100;
+      totals.protein += (info.protein_per_100gm || 0) * grams / 100;
+      totals.carbs += (info.carbs_per_100gm || 0) * grams / 100;
+      totals.fibre += (info.fibre_per_100gm || 0) * grams / 100;
+      totals.fats += (info.fats_per_100gm || 0) * grams / 100;
     }
   }
 
@@ -681,21 +679,8 @@ window.calculateCalories = async function () {
   `;
 };
 
-// ✅ Bind Calculate button on DOM ready
-document.addEventListener("DOMContentLoaded", function () {
-  const calcBtn = document.getElementById("calculate-btn");
-  if (calcBtn) {
-    calcBtn.addEventListener("click", window.calculateCalories);
-  }
+// ✅ On DOM Load
+document.addEventListener("DOMContentLoaded", async function () {
+  await loadDishNames(); // Preload dish names
+  document.getElementById("calculate-btn")?.addEventListener("click", calculateCalories);
 });
-
-
-let dishNames = [];
-
-window.loadDishNames = async function () {
-  const { data, error } = await supabaseClient.from("food_items").select("dish_name");
-  if (!error && data) {
-    dishNames = data.map(d => d.dish_name);
-  }
-}
-document.addEventListener("DOMContentLoaded", loadDishNames);
