@@ -574,8 +574,6 @@ window.addEventListener("load", function ()  {
 
 });
 
-
-
 // ✅ Global Dish Cache
 let dishNames = [];
 
@@ -640,26 +638,27 @@ async function getDishInfo(name) {
   return null;
 }
 
-// ✅ Calculate Totals
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = { calories: 0, protein: 0, carbs: 0, fibre: 0, fats: 0 };
 
-  for (let meal of meals) {
-    const rows = document.querySelectorAll(`#${meal}-container .dish-row`);
-    for (let row of rows) {
+  for (const meal of meals) {
+    const container = document.getElementById(`${meal}-container`);
+    const rows = container.querySelectorAll(".dish-row");
+
+    for (const row of rows) {
       const name = row.querySelector(".dish-name").value;
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (!name || isNaN(grams)) continue;
 
-      const info = await getDishInfo(name);
+      const info = await window.getDishInfo(name);
       if (!info) continue;
 
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
-      totals.protein  += (info.protein_per_100gm || 0) * grams / 100;
-      totals.carbs    += (info.carbs_per_100gm || 0) * grams / 100;
-      totals.fibre    += (info.fibre_per_100gm || 0) * grams / 100;
-      totals.fats     += (info.fats_per_100gm || 0) * grams / 100;
+      totals.protein += (info.protein_per_100gm || 0) * grams / 100;
+      totals.carbs += (info.carbs_per_100gm || 0) * grams / 100;
+      totals.fibre += (info.fibre_per_100gm || 0) * grams / 100;
+      totals.fats += (info.fats_per_100gm || 0) * grams / 100;
     }
   }
 
@@ -671,7 +670,14 @@ window.calculateCalories = async function () {
     Fibre: ${totals.fibre.toFixed(2)} g<br>
     Fats: ${totals.fats.toFixed(2)} g
   `;
+
+  // ✅ Save the calculated totals
+  await window.saveDailySummary(totals);
+
+  // ✅ Optionally load summary history
+  await window.loadDailySummaries();
 };
+
 
 // ✅ Table Sorting for Food Facts
 window.enableTableSorting = function () {
