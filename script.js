@@ -741,3 +741,79 @@ window.addEventListener("DOMContentLoaded", () => {
   if (btn) btn.addEventListener("click", calculateCalories);
 });
 
+
+// ✅ Save the calculated daily summary
+window.saveDailySummary = async function (totals) {
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+  const { data, error } = await supabaseClient
+    .from("daily_summaries")
+    .upsert(
+      [
+        {
+          date: today,
+          calories: totals.calories,
+          protein: totals.protein,
+          carbs: totals.carbs,
+          fibre: totals.fibre,
+          fats: totals.fats,
+        },
+      ],
+      { onConflict: ["date"] } // Update if entry for today exists
+    );
+
+  if (error) {
+    console.error("Error saving daily summary:", error.message);
+  } else {
+    console.log("Daily summary saved successfully:", data);
+  }
+};
+
+// ✅ Load and show summary history
+window.loadDailySummaries = async function () {
+  const { data, error } = await supabaseClient
+    .from("daily_summaries")
+    .select("*")
+    .order("date", { ascending: false });
+
+  if (error) {
+    console.error("Error loading summary history:", error.message);
+    return;
+  }
+
+  const historyContainer = document.getElementById("calorie-history");
+  if (!historyContainer) return;
+
+  historyContainer.innerHTML = "<h3>Calorie History</h3>";
+
+  const table = document.createElement("table");
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Calories</th>
+        <th>Protein</th>
+        <th>Carbs</th>
+        <th>Fibre</th>
+        <th>Fats</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${data
+        .map(
+          (row) => `
+        <tr>
+          <td>${row.date}</td>
+          <td>${row.calories.toFixed(1)}</td>
+          <td>${row.protein.toFixed(1)}</td>
+          <td>${row.carbs.toFixed(1)}</td>
+          <td>${row.fibre.toFixed(1)}</td>
+          <td>${row.fats.toFixed(1)}</td>
+        </tr>
+      `
+        )
+        .join("")}
+    </tbody>
+  `;
+  historyContainer.appendChild(table);
+};
