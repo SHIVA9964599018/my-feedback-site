@@ -575,53 +575,52 @@ window.addEventListener("load", function ()  {
 });
 
 
+
+// ✅ Global Dish Cache
 let dishNames = [];
 
-// ✅ Fetch dish names once and cache
-window.loadDishNames = async function () {
+// ✅ Load Dish Names Once
+async function loadDishNames() {
   const { data, error } = await supabaseClient.from("food_items").select("dish_name");
-  if (!error && data) {
-    dishNames = data.map((d) => d.dish_name);
-  }
-};
+  if (!error && data) dishNames = data.map(d => d.dish_name);
+}
 
-// ✅ Autocomplete setup
-window.setupAutocomplete = function (input) {
+// ✅ Setup Autocomplete
+function setupAutocomplete(input) {
   const wrapper = document.createElement("div");
   wrapper.classList.add("autocomplete-wrapper");
   input.parentElement.appendChild(wrapper);
 
-  input.addEventListener("input", function () {
+  input.addEventListener("input", () => {
     const val = input.value.trim().toLowerCase();
     wrapper.innerHTML = "";
     if (!val) return;
 
-    const matches = dishNames.filter((d) => d.toLowerCase().includes(val));
-    matches.forEach((match) => {
+    const matches = dishNames.filter(d => d.toLowerCase().includes(val));
+    matches.forEach(match => {
       const div = document.createElement("div");
       div.textContent = match;
       div.classList.add("suggestion-item");
-      div.addEventListener("click", () => {
+      div.onclick = () => {
         input.value = match;
         wrapper.innerHTML = "";
-      });
+      };
       wrapper.appendChild(div);
     });
   });
 
-  document.addEventListener("click", function (e) {
+  document.addEventListener("click", e => {
     if (!wrapper.contains(e.target) && e.target !== input) {
       wrapper.innerHTML = "";
     }
   });
-};
+}
 
-// ✅ Add new dish row for a meal
+// ✅ Add Dish Row
 window.addDishRow = function (meal) {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
-
   row.innerHTML = `
     <div style="position: relative;">
       <input type="text" class="dish-name" placeholder="Dish Name" autocomplete="off" />
@@ -629,33 +628,26 @@ window.addDishRow = function (meal) {
     <input type="number" class="dish-grams" placeholder="Grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
-
   container.appendChild(row);
   const input = row.querySelector(".dish-name");
   setupAutocomplete(input);
 };
 
-// ✅ Fetch nutrient data from Supabase
-window.getDishInfo = async function (dishName) {
-  const { data, error } = await supabaseClient
-    .from("food_items")
-    .select("*")
-    .ilike("dish_name", dishName.trim());
+// ✅ Fetch Dish Info from Supabase
+async function getDishInfo(name) {
+  const { data, error } = await supabaseClient.from("food_items").select("*").ilike("dish_name", name.trim());
+  if (!error && data && data.length) return data[0];
+  return null;
+}
 
-  if (error || !data || data.length === 0) return null;
-  return data[0];
-};
-
-// ✅ Calculate totals
+// ✅ Calculate Totals
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = { calories: 0, protein: 0, carbs: 0, fibre: 0, fats: 0 };
 
-  for (const meal of meals) {
-    const container = document.getElementById(`${meal}-container`);
-    const rows = container.querySelectorAll(".dish-row");
-
-    for (const row of rows) {
+  for (let meal of meals) {
+    const rows = document.querySelectorAll(`#${meal}-container .dish-row`);
+    for (let row of rows) {
       const name = row.querySelector(".dish-name").value;
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (!name || isNaN(grams)) continue;
@@ -664,10 +656,10 @@ window.calculateCalories = async function () {
       if (!info) continue;
 
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
-      totals.protein += (info.protein_per_100gm || 0) * grams / 100;
-      totals.carbs += (info.carbs_per_100gm || 0) * grams / 100;
-      totals.fibre += (info.fibre_per_100gm || 0) * grams / 100;
-      totals.fats += (info.fats_per_100gm || 0) * grams / 100;
+      totals.protein  += (info.protein_per_100gm || 0) * grams / 100;
+      totals.carbs    += (info.carbs_per_100gm || 0) * grams / 100;
+      totals.fibre    += (info.fibre_per_100gm || 0) * grams / 100;
+      totals.fats     += (info.fats_per_100gm || 0) * grams / 100;
     }
   }
 
@@ -681,38 +673,7 @@ window.calculateCalories = async function () {
   `;
 };
 
-// ✅ On DOM Load
-window.loadFoodFacts = async function () {
-  const { data, error } = await supabaseClient.from("food_items").select("*");
-
-  if (error || !data) {
-    console.error("Failed to load food facts:", error);
-    return;
-  }
-
-  const tbody = document.querySelector("#food-facts-table tbody");
-  tbody.innerHTML = "";
-
-  data.forEach(dish => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${dish.dish_name}</td>
-      <td>${dish.calorie_per_100gm || 0}</td>
-      <td>${dish.protein_per_100gm || 0}</td>
-      <td>${dish.carbs_per_100gm || 0}</td>
-      <td>${dish.fibre_per_100gm || 0}</td>
-      <td>${dish.fats_per_100gm || 0}</td>
-    `;
-    tbody.appendChild(row);
-  });
-
-  // ✅ Call sorting after table is filled
-  enableTableSorting();
-};
-
-
-
-// ✅ Enable sortable table headers
+// ✅ Table Sorting for Food Facts
 window.enableTableSorting = function () {
   const table = document.getElementById("food-facts-table");
   const headers = table.querySelectorAll("th");
@@ -725,26 +686,46 @@ window.enableTableSorting = function () {
       const rows = Array.from(tbody.querySelectorAll("tr"));
 
       rows.sort((a, b) => {
-        const aText = a.children[index].textContent.trim();
-        const bText = b.children[index].textContent.trim();
-
-        // Detect number vs string
-        const aVal = parseFloat(aText);
-        const bVal = parseFloat(bText);
-
-        if (!isNaN(aVal) && !isNaN(bVal)) {
-          return isAsc ? bVal - aVal : aVal - bVal;
-        } else {
-          return isAsc ? bText.localeCompare(aText) : aText.localeCompare(bText);
-        }
+        const aVal = parseFloat(a.children[index].textContent) || a.children[index].textContent;
+        const bVal = parseFloat(b.children[index].textContent) || b.children[index].textContent;
+        return isAsc ? (bVal > aVal ? 1 : -1) : (aVal > bVal ? 1 : -1);
       });
 
-      // Clear previous sort state
       headers.forEach(h => h.classList.remove("asc", "desc"));
       header.classList.add(isAsc ? "desc" : "asc");
-
-      // Re-append sorted rows
       rows.forEach(row => tbody.appendChild(row));
     });
   });
 };
+
+// ✅ Load Food Facts Table
+window.loadFoodFacts = async function () {
+  const { data, error } = await supabaseClient.from("food_items").select("*");
+  const tbody = document.querySelector("#food-facts-table tbody");
+  tbody.innerHTML = "";
+
+  if (!error && data) {
+    data.forEach(dish => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${dish.dish_name}</td>
+        <td>${dish.calorie_per_100gm || 0}</td>
+        <td>${dish.protein_per_100gm || 0}</td>
+        <td>${dish.carbs_per_100gm || 0}</td>
+        <td>${dish.fibre_per_100gm || 0}</td>
+        <td>${dish.fats_per_100gm || 0}</td>
+      `;
+      tbody.appendChild(row);
+    });
+    enableTableSorting();
+  }
+};
+
+// ✅ DOM Ready
+window.addEventListener("DOMContentLoaded", () => {
+  loadDishNames();
+
+  const btn = document.getElementById("calculate-btn");
+  if (btn) btn.addEventListener("click", calculateCalories);
+});
+
