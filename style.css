@@ -474,11 +474,12 @@ blockquote {
 }
 
 #food-facts-table {
-  width: 100%;
-  border-collapse: collapse;
+  width: auto;
+  table-layout: fixed;  /* forces cells to obey width */
   font-size: 16px;
   font-family: 'Segoe UI', sans-serif;
-  table-layout: auto;
+  border-collapse: collapse;
+  margin-left: 20px; /* optional alignment tweak */
 }
 
 #food-facts-table th,
@@ -507,20 +508,29 @@ blockquote {
   background-color: #eaf6ff;
 }
 
-/* Dish Name gets default width but can grow */
+/* Dish Name column — allow to grow and wrap */
 #food-facts-table th:nth-child(1),
 #food-facts-table td:nth-child(1) {
-  width: 200px;            /* Fixed starting width */
-  white-space: normal;     /* Allow text to wrap */
-  word-wrap: break-word;   /* Break long words */
-  word-break: break-word;  /* Break inside words if needed */
+  min-width: 180px;
+  max-width: 300px;
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
-
-/* Other columns stay fixed */
+/* All other columns — fixed narrow width */
 #food-facts-table th:not(:first-child),
 #food-facts-table td:not(:first-child) {
-  width: 20px;
-  text-align: left;
+  width: 70px;
+  text-align: center;
 }
+
+
+
+
+
+
+
+
+
 
