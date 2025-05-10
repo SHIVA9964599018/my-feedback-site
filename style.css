@@ -489,8 +489,11 @@ blockquote {
   padding: 5px 6px;
   text-align: left;
   border: 1px solid #ccc;
-  white-space: nowrap;
+  white-space: normal;     /* ⬅ allow wrapping */
+  word-break: break-word;  /* ⬅ break long words */
+  max-width: 150px;        /* ⬅ limit width per cell */
 }
+
 
 #food-facts-table th {
   background-color: #2c3e50;
