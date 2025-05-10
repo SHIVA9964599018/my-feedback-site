@@ -684,3 +684,29 @@ document.addEventListener("DOMContentLoaded", async function () {
   await loadDishNames(); // Preload dish names
   document.getElementById("calculate-btn")?.addEventListener("click", calculateCalories);
 });
+
+window.loadFoodFacts = async function () {
+  const { data, error } = await supabaseClient.from("food_items").select("*");
+
+  const tbody = document.querySelector("#food-facts-table tbody");
+  tbody.innerHTML = "";
+
+  if (error) {
+    console.error("Error fetching food facts:", error.message);
+    tbody.innerHTML = `<tr><td colspan="6">Failed to load data</td></tr>`;
+    return;
+  }
+
+  data.forEach((dish) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${dish.dish_name || "-"}</td>
+      <td>${dish.calorie_per_100gm || 0}</td>
+      <td>${dish.protein_per_100gm || 0}</td>
+      <td>${dish.carbs_per_100gm || 0}</td>
+      <td>${dish.fibre_per_100gm || 0}</td>
+      <td>${dish.fats_per_100gm || 0}</td>
+    `;
+    tbody.appendChild(row);
+  });
+};

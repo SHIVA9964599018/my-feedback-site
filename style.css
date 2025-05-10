@@ -473,3 +473,40 @@ blockquote {
   padding: 4px 10px;
 }
 
+/* Table container for spacing */
+#utility-food-facts {
+  margin-top: 20px;
+}
+
+/* Food facts table styling */
+#food-facts-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+#food-facts-table th,
+#food-facts-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+#food-facts-table th {
+  background-color: #2F4F7F;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#food-facts-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#food-facts-table tr:hover {
+  background-color: #e3f2fd;
+}
