@@ -710,3 +710,5 @@ window.loadFoodFacts = async function () {
     tbody.appendChild(row);
   });
 };
+
+
