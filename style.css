@@ -523,3 +523,12 @@ blockquote {
   font-weight: 600;
   letter-spacing: 0.3px;
 }
+#food-facts-table th.asc::after {
+  content: " ▲";
+  font-size: 11px;
+}
+
+#food-facts-table th.desc::after {
+  content: " ▼";
+  font-size: 11px;
+}

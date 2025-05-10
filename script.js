@@ -682,27 +682,21 @@ window.calculateCalories = async function () {
 };
 
 // ✅ On DOM Load
-document.addEventListener("DOMContentLoaded", async function () {
-  await loadDishNames(); // Preload dish names
-  document.getElementById("calculate-btn")?.addEventListener("click", calculateCalories);
-});
-
 window.loadFoodFacts = async function () {
   const { data, error } = await supabaseClient.from("food_items").select("*");
+
+  if (error || !data) {
+    console.error("Failed to load food facts:", error);
+    return;
+  }
 
   const tbody = document.querySelector("#food-facts-table tbody");
   tbody.innerHTML = "";
 
-  if (error) {
-    console.error("Error fetching food facts:", error.message);
-    tbody.innerHTML = `<tr><td colspan="6">Failed to load data</td></tr>`;
-    return;
-  }
-
-  data.forEach((dish) => {
+  data.forEach(dish => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${dish.dish_name || "-"}</td>
+      <td>${dish.dish_name}</td>
       <td>${dish.calorie_per_100gm || 0}</td>
       <td>${dish.protein_per_100gm || 0}</td>
       <td>${dish.carbs_per_100gm || 0}</td>
@@ -711,6 +705,46 @@ window.loadFoodFacts = async function () {
     `;
     tbody.appendChild(row);
   });
+
+  // ✅ Call sorting after table is filled
+  enableTableSorting();
 };
 
 
+
+// ✅ Enable sortable table headers
+window.enableTableSorting = function () {
+  const table = document.getElementById("food-facts-table");
+  const headers = table.querySelectorAll("th");
+  const tbody = table.querySelector("tbody");
+
+  headers.forEach((header, index) => {
+    header.style.cursor = "pointer";
+    header.addEventListener("click", () => {
+      const isAsc = header.classList.contains("asc");
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+
+      rows.sort((a, b) => {
+        const aText = a.children[index].textContent.trim();
+        const bText = b.children[index].textContent.trim();
+
+        // Detect number vs string
+        const aVal = parseFloat(aText);
+        const bVal = parseFloat(bText);
+
+        if (!isNaN(aVal) && !isNaN(bVal)) {
+          return isAsc ? bVal - aVal : aVal - bVal;
+        } else {
+          return isAsc ? bText.localeCompare(aText) : aText.localeCompare(bText);
+        }
+      });
+
+      // Clear previous sort state
+      headers.forEach(h => h.classList.remove("asc", "desc"));
+      header.classList.add(isAsc ? "desc" : "asc");
+
+      // Re-append sorted rows
+      rows.forEach(row => tbody.appendChild(row));
+    });
+  });
+};
