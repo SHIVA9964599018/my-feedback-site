@@ -174,15 +174,6 @@ window.showGalleryDropdown = function (show) {
 
 
 
-// ✅ Debugging: Ensure subtabs correctly trigger `showGallerySection`
-document.querySelectorAll(".dropdown-menu a").forEach((item) => {
-    item.addEventListener("click", function (event) {
-        event.preventDefault();
-        let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract section name
-        console.log(`Subtab clicked, navigating to: ${sectionId}`);
-        window.showGallerySection(sectionId);
-    });
-}); 
 
 function bindLightboxClickHandlers() {
     window.images = Array.from(document.querySelectorAll(".gallery-card img"));
@@ -204,34 +195,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    let dropdownToggle = document.querySelector(".dropdown-toggle");
-    let dropdownMenu = document.querySelector(".dropdown-menu");
+document.addEventListener("DOMContentLoaded", () => {
+  let dropdownToggle = document.querySelector(".dropdown-toggle");
+  let dropdownMenu = document.querySelector(".dropdown-menu");
 
-    if (dropdownToggle && dropdownMenu) {
-        // ✅ Show dropdown on click
-        dropdownToggle.addEventListener("click", function (event) {
-            event.preventDefault();
-            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-        });
+  if (dropdownToggle && dropdownMenu) {
+    // ✅ Toggle dropdown on click
+    dropdownToggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    });
 
-        // ✅ Close dropdown when clicking outside
-        document.addEventListener("click", function (event) {
-            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = "none";
-            }
-        });
+    // ✅ Hide dropdown on outside click
+    document.addEventListener("click", function (event) {
+      if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = "none";
+      }
+    });
 
-        // ✅ Ensure clicking a subtab hides the dropdown
-        document.querySelectorAll(".dropdown-menu a").forEach((item) => {
-            item.addEventListener("click", function (event) {
-                event.preventDefault();
-                let sectionId = item.getAttribute("onclick").match(/'([^']+)'/)[1]; // Extract section ID
-                window.showGallerySection(sectionId);
-                dropdownMenu.style.display = "none"; // Hide dropdown after selecting
-            });
-        });
-    }
+    // ✅ Handle submenu clicks using data attributes
+    dropdownMenu.querySelectorAll("a").forEach((item) => {
+      item.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const subId = item.getAttribute("data-sub");
+        const loadType = item.getAttribute("data-load");
+
+        if (subId) {
+          showSection("utilities");
+          showUtilitySubSection(subId);
+
+          if (loadType === "food-facts") {
+            loadFoodFacts(); // Only run if required
+          }
+        }
+
+        dropdownMenu.style.display = "none"; // Close menu after click
+      });
+    });
+  }
 });
 
 
