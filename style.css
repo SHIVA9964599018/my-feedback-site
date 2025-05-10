@@ -472,63 +472,41 @@ blockquote {
 .dish-row button {
   padding: 4px 10px;
 }
-
-/* Table container for spacing */
 #utility-food-facts {
-  margin-top: 20px;
-}
-
-/* All Food Facts Table - Cleaner & Compact Styling */
-#food-facts-table-container {
-  max-width: 750px;
-  margin: 20px auto;
-  border-radius: 6px;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 #food-facts-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
-}
-
-#food-facts-table thead {
-  background-color: #2c3e50;
-  color: #ffffff;
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 #food-facts-table th,
 #food-facts-table td {
-  padding: 6px 10px;
+  padding: 10px 12px;
   text-align: left;
-}
-
-#food-facts-table tbody tr:nth-child(even) {
-  background-color: #f4f6f8;
-}
-
-#food-facts-table tbody tr:hover {
-  background-color: #ecf0f1;
-}
-
-#food-facts-table th:first-child,
-#food-facts-table td:first-child {
-  width: 35%;
+  border: 1px solid #ccc;
+  white-space: nowrap;
 }
 
 #food-facts-table th {
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-#food-facts-table th.asc::after {
-  content: " ▲";
-  font-size: 11px;
+  background-color: #2c3e50;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
 }
 
-#food-facts-table th.desc::after {
-  content: " ▼";
-  font-size: 11px;
+#food-facts-table td {
+  background-color: #f9f9f9;
+}
+
+#food-facts-table tr:nth-child(even) td {
+  background-color: #f1f1f1;
+}
+
+#food-facts-table tr:hover td {
+  background-color: #eaf6ff;
 }
