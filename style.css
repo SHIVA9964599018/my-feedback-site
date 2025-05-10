@@ -520,6 +520,7 @@ blockquote {
 /* Other columns stay fixed */
 #food-facts-table th:not(:first-child),
 #food-facts-table td:not(:first-child) {
-  width: 90px;
-  text-align: center;
+  width: 20px;
+  text-align: left;
 }
+
