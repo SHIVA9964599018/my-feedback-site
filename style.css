@@ -474,7 +474,7 @@ blockquote {
 }
 #utility-food-facts {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0; /* removes centering */
 }
 
 #food-facts-table {
