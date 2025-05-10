@@ -633,11 +633,16 @@ window.addDishRow = function (meal) {
 
 // ✅ Fetch Dish Info from Supabase
 
-window.getDishInfo = function (name) {
-  const { data, error } = await supabaseClient.from("food_items").select("*").ilike("dish_name", name.trim());
+window.getDishInfo = async function (name) {
+  const { data, error } = await supabaseClient
+    .from("food_items")
+    .select("*")
+    .ilike("dish_name", name.trim());
+
   if (!error && data && data.length) return data[0];
   return null;
-}
+};
+
 
 window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
