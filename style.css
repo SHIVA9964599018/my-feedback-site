@@ -510,3 +510,8 @@ blockquote {
 #food-facts-table tr:hover td {
   background-color: #eaf6ff;
 }
+#food-facts-table-container {
+  display: block;
+  margin-top: 20px;
+  padding-left: 20px; /* optional for spacing from edge */
+}
