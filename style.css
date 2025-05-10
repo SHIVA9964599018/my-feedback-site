@@ -472,16 +472,20 @@ blockquote {
 .dish-row button {
   padding: 4px 10px;
 }
-#utility-food-facts {
-  max-width: 800px;
-  margin: 0; /* removes centering */
-}
-
 #food-facts-table {
-  width: 10%;
+  width: 100%;
   border-collapse: collapse;
   font-size: 16px;
   font-family: 'Segoe UI', sans-serif;
+  table-layout: fixed; /* ensures fixed layout */
+}
+
+#food-facts-table th,
+#food-facts-table td {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  white-space: nowrap;
 }
 
 #food-facts-table th {
@@ -489,20 +493,11 @@ blockquote {
   color: white;
   font-weight: bold;
   font-size: 18px;
-  white-space: nowrap;     /* Prevent wrapping in headers */
-  padding: 6px 10px;
 }
 
 #food-facts-table td {
   background-color: #f9f9f9;
-  font-size: 16px;
-  padding: 6px 10px;
-  max-width: 160px;         /* Restrict width for content */
-  white-space: normal;      /* Allow text to wrap */
-  word-break: break-word;   /* Break long words */
 }
-
-
 
 #food-facts-table tr:nth-child(even) td {
   background-color: #f1f1f1;
@@ -511,8 +506,18 @@ blockquote {
 #food-facts-table tr:hover td {
   background-color: #eaf6ff;
 }
-#food-facts-table-container {
-  display: block;
-  margin-top: 20px;
-  padding-left: 20px; /* optional for spacing from edge */
+
+/* Column width rules */
+#food-facts-table th:nth-child(1),
+#food-facts-table td:nth-child(1) {
+  width: auto; /* Dish Name column - flexible */
+  white-space: normal;
+  word-break: break-word;
 }
+
+#food-facts-table th:not(:first-child),
+#food-facts-table td:not(:first-child) {
+  width: 90px; /* fixed width for others */
+  text-align: center;
+}
+
