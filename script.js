@@ -652,6 +652,9 @@ window.calculateCalories = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   let totals = { calories: 0, protein: 0, carbs: 0, fibre: 0, fats: 0 };
 
+  let today = new Date().toISOString().split("T")[0];
+  let dishEntries = [];
+
   for (const meal of meals) {
     const container = document.getElementById(`${meal}-container`);
     const rows = container.querySelectorAll(".dish-row");
@@ -664,19 +667,23 @@ window.calculateCalories = async function () {
       const info = await window.getDishInfo(name);
       if (!info) continue;
 
-      // 🧮 Accumulate totals
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
       totals.protein += (info.protein_per_100gm || 0) * grams / 100;
       totals.carbs += (info.carbs_per_100gm || 0) * grams / 100;
       totals.fibre += (info.fibre_per_100gm || 0) * grams / 100;
       totals.fats += (info.fats_per_100gm || 0) * grams / 100;
 
-      // ✅ Save each dish to Supabase
-      await window.saveDishDetailsPerDay(meal, name, grams, info);
+      // Prepare dish entry for saving
+      dishEntries.push({
+        date: today,
+        meal_type: meal,
+        dish_name: name,
+        quantity_grams: grams
+      });
     }
   }
 
-  // Show totals
+  // ✅ Show result
   document.getElementById("calorie-result").innerHTML = `
     <strong>Total for Today:</strong><br>
     Calories: ${totals.calories.toFixed(2)} kcal<br>
@@ -686,12 +693,16 @@ window.calculateCalories = async function () {
     Fats: ${totals.fats.toFixed(2)} g
   `;
 
-  // ✅ Save the calculated totals
+  // ✅ Save daily summary and dish rows
   await window.saveDailySummary(totals);
+  await window.saveDishRowsToDB(dishEntries);
 
-  // ✅ Optionally load summary history
-  await window.loadDailySummaries();
+  // ✅ Optionally reload summary history (if you show past days)
+  if (typeof window.loadDailySummaries === "function") {
+    await window.loadDailySummaries();
+  }
 };
+
 
 
 
