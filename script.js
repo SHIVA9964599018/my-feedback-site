@@ -660,14 +660,19 @@ window.calculateCalories = async function () {
       const info = await window.getDishInfo(name);
       if (!info) continue;
 
+      // 🧮 Accumulate totals
       totals.calories += (info.calorie_per_100gm || 0) * grams / 100;
       totals.protein += (info.protein_per_100gm || 0) * grams / 100;
       totals.carbs += (info.carbs_per_100gm || 0) * grams / 100;
       totals.fibre += (info.fibre_per_100gm || 0) * grams / 100;
       totals.fats += (info.fats_per_100gm || 0) * grams / 100;
+
+      // ✅ Save each dish to Supabase
+      await window.saveDishDetailsPerDay(meal, name, grams, info);
     }
   }
 
+  // Show totals
   document.getElementById("calorie-result").innerHTML = `
     <strong>Total for Today:</strong><br>
     Calories: ${totals.calories.toFixed(2)} kcal<br>
@@ -683,6 +688,7 @@ window.calculateCalories = async function () {
   // ✅ Optionally load summary history
   await window.loadDailySummaries();
 };
+
 
 
 // ✅ Table Sorting for Food Facts
@@ -816,4 +822,30 @@ window.loadDailySummaries = async function () {
     </tbody>
   `;
   historyContainer.appendChild(table);
+};
+
+window.saveDishDetailsPerDay = async function (mealType, dishName, grams, info) {
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+  const { data, error } = await supabaseClient
+    .from("daily_dishes")
+    .insert([
+      {
+        date: today,
+        meal_type: mealType,
+        dish_name: dishName,
+        grams: grams,
+        calories: (info.calorie_per_100gm || 0) * grams / 100,
+        protein: (info.protein_per_100gm || 0) * grams / 100,
+        carbs: (info.carbs_per_100gm || 0) * grams / 100,
+        fibre: (info.fibre_per_100gm || 0) * grams / 100,
+        fats: (info.fats_per_100gm || 0) * grams / 100
+      }
+    ]);
+
+  if (error) {
+    console.error(`❌ Error saving dish (${dishName}) to Supabase:`, error.message);
+  } else {
+    console.log(`✅ Saved dish: ${dishName}`, data);
+  }
 };
