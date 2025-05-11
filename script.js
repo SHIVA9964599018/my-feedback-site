@@ -583,52 +583,56 @@ async function loadDishNames() {
   if (!error && data) dishNames = data.map(d => d.dish_name);
 }
 
+
+
 // ✅ Setup Autocomplete
-function setupAutocomplete(input) {
+window.setupAutocomplete = function (input) {
   const wrapper = document.createElement("div");
   wrapper.classList.add("autocomplete-wrapper");
   input.parentElement.appendChild(wrapper);
 
-  input.addEventListener("input", () => {
+  input.addEventListener("input", function () {
     const val = input.value.trim().toLowerCase();
     wrapper.innerHTML = "";
     if (!val) return;
 
-    const matches = dishNames.filter(d => d.toLowerCase().includes(val));
+    const matches = window.dishNames.filter(d => d.toLowerCase().includes(val));
     matches.forEach(match => {
       const div = document.createElement("div");
       div.textContent = match;
       div.classList.add("suggestion-item");
-      div.onclick = () => {
+      div.addEventListener("click", () => {
         input.value = match;
         wrapper.innerHTML = "";
-      };
+      });
       wrapper.appendChild(div);
     });
   });
 
-  document.addEventListener("click", e => {
+  document.addEventListener("click", function (e) {
     if (!wrapper.contains(e.target) && e.target !== input) {
       wrapper.innerHTML = "";
     }
   });
-}
+};
+
 
 // ✅ Add Dish Row
-window.addDishRow = function (meal) {
+window.addDishRow = function (meal, dishName = "", grams = "") {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
+
   row.innerHTML = `
     <div style="position: relative;">
-      <input type="text" class="dish-name" placeholder="Dish Name" autocomplete="off" />
+      <input type="text" class="dish-name" value="${dishName}" placeholder="Dish Name" autocomplete="off" />
     </div>
-    <input type="number" class="dish-grams" placeholder="Grams" />
+    <input type="number" class="dish-grams" value="${grams}" placeholder="Grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
+
   container.appendChild(row);
-  const input = row.querySelector(".dish-name");
-  setupAutocomplete(input);
+  window.setupAutocomplete(row.querySelector(".dish-name"));
 };
 
 // ✅ Fetch Dish Info from Supabase
@@ -847,5 +851,62 @@ window.saveDishDetailsPerDay = async function (mealType, dishName, grams, info) 
     console.error(`❌ Error saving dish (${dishName}) to Supabase:`, error.message);
   } else {
     console.log(`✅ Saved dish: ${dishName}`, data);
+  }
+};
+
+
+
+// ✅ Load dishes from Supabase for today
+window.loadDailyDishes = async function () {
+  const today = new Date().toISOString().split("T")[0];
+
+  const { data, error } = await supabaseClient
+    .from("daily_dishes")
+    .select("*")
+    .eq("date", today)
+    .order("meal");
+
+  if (error || !data) {
+    console.error("Error loading daily dishes:", error);
+    return;
+  }
+
+  const meals = ["breakfast", "lunch", "dinner"];
+  meals.forEach(meal => {
+    const container = document.getElementById(`${meal}-container`);
+    container.innerHTML = "";
+
+    data.filter(d => d.meal === meal).forEach(dish => {
+      window.addDishRow(meal, dish.dish_name, dish.grams);
+    });
+  });
+};
+
+// ✅ Save dish rows for today (e.g., after Calculate)
+window.saveDishRowsToDB = async function () {
+  const today = new Date().toISOString().split("T")[0];
+  const meals = ["breakfast", "lunch", "dinner"];
+  const rowsToSave = [];
+
+  meals.forEach(meal => {
+    const container = document.getElementById(`${meal}-container`);
+    const rows = container.querySelectorAll(".dish-row");
+
+    rows.forEach(row => {
+      const name = row.querySelector(".dish-name").value.trim();
+      const grams = parseFloat(row.querySelector(".dish-grams").value);
+      if (name && !isNaN(grams)) {
+        rowsToSave.push({ date: today, meal, dish_name: name, grams });
+      }
+    });
+  });
+
+  if (rowsToSave.length > 0) {
+    const { error } = await supabaseClient
+      .from("daily_dishes")
+      .upsert(rowsToSave, { onConflict: ["date", "meal", "dish_name"] });
+
+    if (error) console.error("Failed to save dishes:", error.message);
+    else console.log("✅ Dishes saved successfully");
   }
 };
