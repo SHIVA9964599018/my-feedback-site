@@ -579,9 +579,18 @@ let dishNames = [];
 
 // ✅ Load Dish Names Once
 async function loadDishNames() {
-  const { data, error } = await supabaseClient.from("food_items").select("dish_name");
-  if (!error && data) dishNames = data.map(d => d.dish_name);
+  const { data, error } = await supabaseClient
+    .from("food_items")
+    .select("dish_name");
+
+  if (!error && data) {
+    window.dishNames = data.map(d => d.dish_name); // ✅ assign to window
+  } else {
+    console.error("Failed to load dish names", error);
+    window.dishNames = []; // fallback
+  }
 }
+
 
 
 
@@ -596,7 +605,9 @@ window.setupAutocomplete = function (input) {
     wrapper.innerHTML = "";
     if (!val) return;
 
-    const matches = window.dishNames.filter(d => d.toLowerCase().includes(val));
+const matches = Array.isArray(window.dishNames)
+  ? window.dishNames.filter(d => d.toLowerCase().includes(val))
+  : [];
     matches.forEach(match => {
       const div = document.createElement("div");
       div.textContent = match;
