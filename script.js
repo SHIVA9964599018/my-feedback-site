@@ -942,7 +942,7 @@ window.saveDishRowsToDB = async function () {
 
       // 3. Fetch nutrition info from Supabase
       const { data: nutritionInfo, error } = await supabaseClient
-        .from("nutrition_facts")
+        .from("food_items")
         .select("*")
         .ilike("dish_name", name);
 
