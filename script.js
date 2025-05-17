@@ -526,10 +526,16 @@ window.showUtilitySubSection = function (subSectionId) {
   if (target) {
     target.style.display = "block";
     console.log(`Showing Utility Sub-section: ${subSectionId}`);
+
+    // ✅ Load today's dishes if calorie calculator is shown
+    if (subSectionId === "utility-daily-calorie") {
+      window.loadDailyDishes();
+    }
   } else {
     console.error(`Utility Sub-section ${subSectionId} not found.`);
   }
 };
+
 
 
 
@@ -878,7 +884,6 @@ window.saveDishDetailsPerDay = async function (mealType, dishName, grams, info) 
 
 
 
-// ✅ Load dishes from Supabase for today
 window.loadDailyDishes = async function () {
   const today = new Date().toISOString().split("T")[0];
 
@@ -899,9 +904,9 @@ window.loadDailyDishes = async function () {
     container.innerHTML = "";
 
     data
-      .filter(d => d.meal_type === meal) // ✅ Correct column used here
+      .filter(d => d.meal_type === meal)
       .forEach(dish => {
-        window.addDishRow(meal_type, dish.dish_name, dish.grams); // ✅ works if addDishRow accepts 3 args
+        window.addDishRow(meal, dish.dish_name, dish.grams); // ✅ Fixed
       });
   });
 };
