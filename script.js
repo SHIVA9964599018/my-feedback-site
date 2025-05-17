@@ -630,13 +630,13 @@ const matches = Array.isArray(window.dishNames)
 
 // ✅ Add Dish Row
 window.addDishRow = function (mealType, name = "", grams = "") {
-  const container = document.getElementById(`${meal}-container`);
+  const container = document.getElementById(`${mealType}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
 
   row.innerHTML = `
     <div style="position: relative;">
-      <input type="text" class="dish-name" value="${dishName}" placeholder="Dish Name" autocomplete="off" />
+      <input type="text" class="dish-name" value="${name}" placeholder="Dish Name" autocomplete="off" />
     </div>
     <input type="number" class="dish-grams" value="${grams}" placeholder="Grams" />
     <button type="button" onclick="this.parentElement.remove()">❌</button>
