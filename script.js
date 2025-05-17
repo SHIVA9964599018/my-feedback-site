@@ -917,60 +917,70 @@ window.loadDailyDishes = async function () {
 window.saveDishRowsToDB = async function () {
   const today = new Date().toISOString().split("T")[0];
   const meals = ["breakfast", "lunch", "dinner"];
-  const rowsToSave = [];
+  const rowsToInsert = [];
 
-  // Step 1: Delete today's existing rows
+  // 1. Delete previous entries for today
   const { error: deleteError } = await supabaseClient
     .from("daily_dishes")
     .delete()
     .eq("date", today);
 
   if (deleteError) {
-    console.error("❌ Failed to delete old entries:", deleteError.message);
+    console.error("❌ Failed to delete previous entries:", deleteError.message);
     return;
   }
 
-  // Step 2: Rebuild today's rows from inputs
-  meals.forEach(meal => {
+  // 2. Loop through each meal section
+  for (const meal of meals) {
     const container = document.getElementById(`${meal}-container`);
     const rows = container.querySelectorAll(".dish-row");
 
-    rows.forEach(row => {
+    for (const row of rows) {
       const name = row.querySelector(".dish-name").value.trim();
       const grams = parseFloat(row.querySelector(".dish-grams").value);
-      if (name && !isNaN(grams)) {
-        const info = NUTRITION_DATA[name.toLowerCase()];
-        if (!info) {
-          console.warn(`⚠️ Nutrition info missing for: ${name}`);
-          return;
-        }
+      if (!name || isNaN(grams)) continue;
 
-        rowsToSave.push({
-          date: today,
-          meal_type: meal,
-          dish_name: name,
-          grams: grams,
-          calories: (info.calorie_per_100gm || 0) * grams / 100,
-          protein: (info.protein_per_100gm || 0) * grams / 100,
-          carbs: (info.carbs_per_100gm || 0) * grams / 100,
-          fibre: (info.fibre_per_100gm || 0) * grams / 100,
-          fats: (info.fats_per_100gm || 0) * grams / 100
-        });
+      // 3. Fetch nutrition info from Supabase
+      const { data: nutritionInfo, error } = await supabaseClient
+        .from("nutrition_facts")
+        .select("*")
+        .ilike("dish_name", name);
+
+      if (error || !nutritionInfo || nutritionInfo.length === 0) {
+        console.warn(`⚠️ Nutrition data not found for '${name}'`);
+        continue;
       }
-    });
-  });
 
-  // Step 3: Insert fresh data
-  if (rowsToSave.length > 0) {
+      const info = nutritionInfo[0]; // Found match in table
+
+      // 4. Calculate nutrients based on grams
+      const factor = grams / 100;
+      rowsToInsert.push({
+        date: today,
+        meal_type: meal,
+        dish_name: name,
+        grams,
+        calories: (info.calories || 0) * factor,
+        protein: (info.protein || 0) * factor,
+        carbs: (info.carbs || 0) * factor,
+        fibre: (info.fibre || 0) * factor,
+        fats: (info.fats || 0) * factor
+      });
+    }
+  }
+
+  // 5. Insert to daily_dishes
+  if (rowsToInsert.length > 0) {
     const { error: insertError } = await supabaseClient
       .from("daily_dishes")
-      .insert(rowsToSave);
+      .insert(rowsToInsert);
 
     if (insertError) {
-      console.error("❌ Failed to insert dishes:", insertError.message);
+      console.error("❌ Failed to insert new dishes:", insertError.message);
     } else {
-      console.log("✅ Dishes inserted successfully with nutrition data");
+      console.log("✅ All dishes inserted with calculated nutrition");
     }
   }
 };
+
 
