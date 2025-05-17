@@ -901,7 +901,7 @@ window.loadDailyDishes = async function () {
     data
       .filter(d => d.meal_type === meal) // ✅ Correct column used here
       .forEach(dish => {
-        window.addDishRow(meal, dish.dish_name, dish.grams); // ✅ works if addDishRow accepts 3 args
+        window.addDishRow(meal_type, dish.dish_name, dish.grams); // ✅ works if addDishRow accepts 3 args
       });
   });
 };
