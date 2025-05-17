@@ -918,7 +918,12 @@ window.saveDishRowsToDB = async function () {
       const name = row.querySelector(".dish-name").value.trim();
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (name && !isNaN(grams)) {
-        rowsToSave.push({ date: today, meal, dish_name: name, grams });
+        rowsToSave.push({
+          date: today,
+          meal_type: meal, // ✅ Corrected from 'meal' to 'meal_type'
+          dish_name: name,
+          grams: grams
+        });
       }
     });
   });
@@ -926,9 +931,14 @@ window.saveDishRowsToDB = async function () {
   if (rowsToSave.length > 0) {
     const { error } = await supabaseClient
       .from("daily_dishes")
-      .upsert(rowsToSave, { onConflict: ["date", "meal", "dish_name"] });
+      .upsert(rowsToSave, {
+        onConflict: ["date", "meal_type", "dish_name"] // ✅ Corrected here too
+      });
 
-    if (error) console.error("Failed to save dishes:", error.message);
-    else console.log("✅ Dishes saved successfully");
+    if (error) {
+      console.error("❌ Failed to save dishes:", error.message);
+    } else {
+      console.log("✅ Dishes saved successfully");
+    }
   }
 };
