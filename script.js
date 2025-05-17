@@ -919,7 +919,7 @@ window.saveDishRowsToDB = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   const rowsToInsert = [];
 
-  // 1. Delete previous entries for today
+  // 1. Delete previous entries
   const { error: deleteError } = await supabaseClient
     .from("daily_dishes")
     .delete()
@@ -930,7 +930,7 @@ window.saveDishRowsToDB = async function () {
     return;
   }
 
-  // 2. Loop through each meal section
+  // 2. Process all meals
   for (const meal of meals) {
     const container = document.getElementById(`${meal}-container`);
     const rows = container.querySelectorAll(".dish-row");
@@ -940,26 +940,30 @@ window.saveDishRowsToDB = async function () {
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (!name || isNaN(grams)) continue;
 
-      // 3. Fetch nutrition info from Supabase
+      // 🔍 Fetch nutrition info from food_items table
       const { data: nutritionInfo, error } = await supabaseClient
         .from("food_items")
         .select("*")
         .ilike("dish_name", name);
 
-      if (error || !nutritionInfo || nutritionInfo.length === 0) {
-        console.warn(`⚠️ Nutrition data not found for '${name}'`);
+      if (error) {
+        console.error(`❌ Error fetching nutrition for "${name}":`, error.message);
         continue;
       }
 
-      const info = nutritionInfo[0]; // Found match in table
+      if (!nutritionInfo || nutritionInfo.length === 0) {
+        console.warn(`⚠️ No match in food_items for "${name}"`);
+        continue;
+      }
 
-      // 4. Calculate nutrients based on grams
+      const info = nutritionInfo[0];
       const factor = grams / 100;
+
       rowsToInsert.push({
         date: today,
         meal_type: meal,
         dish_name: name,
-        grams,
+        grams: grams,
         calories: (info.calories || 0) * factor,
         protein: (info.protein || 0) * factor,
         carbs: (info.carbs || 0) * factor,
@@ -969,18 +973,19 @@ window.saveDishRowsToDB = async function () {
     }
   }
 
-  // 5. Insert to daily_dishes
+  // 3. Insert all calculated rows
   if (rowsToInsert.length > 0) {
     const { error: insertError } = await supabaseClient
       .from("daily_dishes")
       .insert(rowsToInsert);
 
     if (insertError) {
-      console.error("❌ Failed to insert new dishes:", insertError.message);
+      console.error("❌ Failed to insert data:", insertError.message);
     } else {
-      console.log("✅ All dishes inserted with calculated nutrition");
+      console.log("✅ Dishes inserted successfully with calculated macros");
     }
   }
 };
+
 
 
