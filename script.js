@@ -919,6 +919,18 @@ window.saveDishRowsToDB = async function () {
   const meals = ["breakfast", "lunch", "dinner"];
   const rowsToSave = [];
 
+  // Step 1: Delete today's existing rows
+  const { error: deleteError } = await supabaseClient
+    .from("daily_dishes")
+    .delete()
+    .eq("date", today);
+
+  if (deleteError) {
+    console.error("❌ Failed to delete old entries:", deleteError.message);
+    return;
+  }
+
+  // Step 2: Rebuild today's rows from inputs
   meals.forEach(meal => {
     const container = document.getElementById(`${meal}-container`);
     const rows = container.querySelectorAll(".dish-row");
@@ -927,27 +939,38 @@ window.saveDishRowsToDB = async function () {
       const name = row.querySelector(".dish-name").value.trim();
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (name && !isNaN(grams)) {
+        const info = NUTRITION_DATA[name.toLowerCase()];
+        if (!info) {
+          console.warn(`⚠️ Nutrition info missing for: ${name}`);
+          return;
+        }
+
         rowsToSave.push({
           date: today,
-          meal_type: meal, // ✅ Corrected from 'meal' to 'meal_type'
+          meal_type: meal,
           dish_name: name,
-          grams: grams
+          grams: grams,
+          calories: (info.calorie_per_100gm || 0) * grams / 100,
+          protein: (info.protein_per_100gm || 0) * grams / 100,
+          carbs: (info.carbs_per_100gm || 0) * grams / 100,
+          fibre: (info.fibre_per_100gm || 0) * grams / 100,
+          fats: (info.fats_per_100gm || 0) * grams / 100
         });
       }
     });
   });
 
+  // Step 3: Insert fresh data
   if (rowsToSave.length > 0) {
-    const { error } = await supabaseClient
+    const { error: insertError } = await supabaseClient
       .from("daily_dishes")
-      .upsert(rowsToSave, {
-        onConflict: ["date", "meal_type", "dish_name"] // ✅ Corrected here too
-      });
+      .insert(rowsToSave);
 
-    if (error) {
-      console.error("❌ Failed to save dishes:", error.message);
+    if (insertError) {
+      console.error("❌ Failed to insert dishes:", insertError.message);
     } else {
-      console.log("✅ Dishes saved successfully");
+      console.log("✅ Dishes inserted successfully with nutrition data");
     }
   }
 };
+
