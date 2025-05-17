@@ -886,7 +886,7 @@ window.loadDailyDishes = async function () {
     .from("daily_dishes")
     .select("*")
     .eq("date", today)
-    .order("meal");
+    .order("meal_type");
 
   if (error || !data) {
     console.error("Error loading daily dishes:", error);
