@@ -629,7 +629,7 @@ const matches = Array.isArray(window.dishNames)
 
 
 // ✅ Add Dish Row
-window.addDishRow = function (meal, dishName = "", grams = "") {
+window.addDishRow = function (mealType, name = "", grams = "") {
   const container = document.getElementById(`${meal}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
@@ -898,11 +898,15 @@ window.loadDailyDishes = async function () {
     const container = document.getElementById(`${meal}-container`);
     container.innerHTML = "";
 
-    data.filter(d => d.meal === meal).forEach(dish => {
-      window.addDishRow(meal, dish.dish_name, dish.grams);
-    });
+    data
+      .filter(d => d.meal_type === meal) // ✅ Correct column used here
+      .forEach(dish => {
+        window.addDishRow(meal, dish.dish_name, dish.grams); // ✅ works if addDishRow accepts 3 args
+      });
   });
 };
+
+
 
 // ✅ Save dish rows for today (e.g., after Calculate)
 window.saveDishRowsToDB = async function () {
