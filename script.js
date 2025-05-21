@@ -964,11 +964,11 @@ window.saveDishRowsToDB = async function () {
 	console.log("🍽️ Grams:", grams);
 	console.log("🔍 Fetched Info:", info);
 	console.log("⚙️ Calculated Macros:", {
-	calories: (info.calorie_per_100g || 0) * factor,
-	protein: (info.protein_per_100g || 0) * factor,
-	carbs: (info.carbs_per_100g || 0) * factor,
-	fibre: (info.fibre_per_100g || 0) * factor,
-	fats: (info.fats_per_100g || 0) * factor
+	calories: (info.calorie_per_100gm || 0) * factor,
+	protein: (info.protein_per_100gm || 0) * factor,
+	carbs: (info.carbs_per_100gm || 0) * factor,
+	fibre: (info.fibre_per_100gm || 0) * factor,
+	fats: (info.fats_per_100gm || 0) * factor
 	});
 
 
