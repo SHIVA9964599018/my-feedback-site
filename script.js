@@ -959,17 +959,18 @@ window.saveDishRowsToDB = async function () {
       const info = nutritionInfo[0];
       const factor = grams / 100;
 
-      rowsToInsert.push({
-        date: today,
-        meal_type: meal,
-        dish_name: name,
-        grams: grams,
-        calories: (info.calories || 0) * factor,
-        protein: (info.protein || 0) * factor,
-        carbs: (info.carbs || 0) * factor,
-        fibre: (info.fibre || 0) * factor,
-        fats: (info.fats || 0) * factor
-      });
+	 rowsToInsert.push({
+	  date: today,
+	  meal_type: meal,
+	  dish_name: name,
+	  grams: grams,
+	  calories: (info.calorie_per_100g || 0) * factor,
+	  protein: (info.protein_per_100g || 0) * factor,
+	  carbs: (info.carbs_per_100g || 0) * factor,
+	  fibre: (info.fibre_per_100g || 0) * factor,
+	  fats: (info.fats_per_100g || 0) * factor
+	});
+
     }
   }
 
