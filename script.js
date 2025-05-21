@@ -956,7 +956,8 @@ window.saveDishRowsToDB = async function () {
         continue;
       }
 
-
+      const info = nutritionInfo[0];
+      const factor = grams / 100;
 	rowsToInsert.push({
 	  date: today,
 	  meal_type: meal,
