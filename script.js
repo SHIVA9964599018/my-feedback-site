@@ -958,7 +958,8 @@ window.saveDishRowsToDB = async function () {
 
       const info = nutritionInfo[0];
       const factor = grams / 100;
-	  
+	  console.log("📦 grams:", grams);
+	  console.log("📦 factor:", factor);
 	console.log("📦 Dish:", name);
 	console.log("🍽️ Grams:", grams);
 	console.log("🔍 Fetched Info:", info);
