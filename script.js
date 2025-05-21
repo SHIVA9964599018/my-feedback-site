@@ -956,33 +956,19 @@ window.saveDishRowsToDB = async function () {
         continue;
       }
 
-      const info = nutritionInfo[0];
-      const factor = grams / 100;
-	  console.log("📦 grams:", grams);
-	  console.log("📦 factor:", factor);
-	console.log("📦 Dish:", name);
-	console.log("🍽️ Grams:", grams);
-	console.log("🔍 Fetched Info:", info);
-	console.log("⚙️ Calculated Macros:", {
-	calories: (info.calorie_per_100gm || 0) * factor,
-	protein: (info.protein_per_100gm || 0) * factor,
-	carbs: (info.carbs_per_100gm || 0) * factor,
-	fibre: (info.fibre_per_100gm || 0) * factor,
-	fats: (info.fats_per_100gm || 0) * factor
-	});
 
-
-	 rowsToInsert.push({
+	rowsToInsert.push({
 	  date: today,
 	  meal_type: meal,
 	  dish_name: name,
 	  grams: grams,
-	  calories: (info.calorie_per_100gm || 0) * factor,
-	  protein: (info.protein_per_100gm || 0) * factor,
-	  carbs: (info.carbs_per_100gm || 0) * factor,
-	  fibre: (info.fibre_per_100gm || 0) * factor,
-	  fats: (info.fats_per_100gm || 0) * factor
+	  calories: Math.round((info.calorie_per_100gm || 0) * factor * 10) / 10,
+	  protein:  Math.round((info.protein_per_100gm || 0) * factor * 10) / 10,
+	  carbs:    Math.round((info.carbs_per_100gm || 0) * factor * 10) / 10,
+	  fibre:    Math.round((info.fibre_per_100gm || 0) * factor * 10) / 10,
+	  fats:     Math.round((info.fats_per_100gm || 0) * factor * 10) / 10
 	});
+
 
     }
   }
