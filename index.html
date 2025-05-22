@@ -236,48 +236,52 @@
     <p id="nutrition-message" style="margin-top: 20px;"></p>
   </div>
 
-<!-- Sub-section 2: Calorie Calculator -->
-<div id="utility-daily-calorie" style="display:none;">
-  <h3>Daily Calorie Calculator</h3>
+<!-- Sub-section 2: Calorie Calculator with Summary Side-by-Side -->
+<div id="utility-daily-calorie" style="display: flex; gap: 30px; align-items: flex-start; display: none;">
 
-  <!-- Breakfast -->
-  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-    <h4 style="margin: 0;">Breakfast</h4>
-    <button type="button" onclick="addDishRow('breakfast')">+ Add</button>
+  <!-- LEFT SIDE: Input Form Section -->
+  <div style="flex: 1;">
+    <h3>Daily Calorie Calculator</h3>
+
+    <!-- Breakfast -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <h4 style="margin: 0;">Breakfast</h4>
+      <button type="button" onclick="addDishRow('breakfast')">+ Add</button>
+    </div>
+    <div id="breakfast-container" class="meal-container"></div>
+
+    <!-- Lunch -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
+      <h4 style="margin: 0;">Lunch</h4>
+      <button type="button" onclick="addDishRow('lunch')">+ Add</button>
+    </div>
+    <div id="lunch-container" class="meal-container"></div>
+
+    <!-- Dinner -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
+      <h4 style="margin: 0;">Dinner</h4>
+      <button type="button" onclick="addDishRow('dinner')">+ Add</button>
+    </div>
+    <div id="dinner-container" class="meal-container"></div>
+
+    <!-- Calculate Button and Total Summary -->
+    <button type="button" id="calculate-btn" style="margin-top: 20px;">Calculate</button>
+    <div id="calorie-result" style="margin-top: 20px;"></div>
   </div>
-  <div id="breakfast-container" class="meal-container"></div>
 
-  <!-- Lunch -->
-  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
-    <h4 style="margin: 0;">Lunch</h4>
-    <button type="button" onclick="addDishRow('lunch')">+ Add</button>
-  </div>
-  <div id="lunch-container" class="meal-container"></div>
-
-  <!-- Dinner -->
-  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
-    <h4 style="margin: 0;">Dinner</h4>
-    <button type="button" onclick="addDishRow('dinner')">+ Add</button>
-  </div>
-  <div id="dinner-container" class="meal-container"></div>
-
-  <button type="button" id="calculate-btn" style="margin-top: 20px;">Calculate</button>
-  <div id="calorie-result" style="margin-top: 20px;"></div>
-
-  <!-- 📊 Saved Dish Summary Table -->
-  <div id="dish-summary-table" style="margin-top: 40px;">
+  <!-- RIGHT SIDE: Saved Summary Table -->
+  <div id="dish-summary-table" style="flex: 1;">
     <h3>Saved Dish Summary (From Supabase)</h3>
     <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size: 14px; width: 100%;">
       <thead>
         <tr style="background-color: #f0f0f0;">
-          <th>Meal</th>
           <th>Dish Name</th>
-          <th>Quantity (g)</th>
+          <th>Qty (g)</th>
           <th>Calories</th>
-          <th>Protein (g)</th>
-          <th>Carbs (g)</th>
-          <th>Fibre (g)</th>
-          <th>Fats (g)</th>
+          <th>Protein</th>
+          <th>Carbs</th>
+          <th>Fibre</th>
+          <th>Fats</th>
         </tr>
       </thead>
       <tbody id="dish-summary-body">
