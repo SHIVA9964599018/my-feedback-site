@@ -1030,7 +1030,6 @@ window.loadDishSummaryTable = async function () {
     tbody.appendChild(row);
 
     // Accumulate totals
-    totalGrams += dish.grams || 0;
     totalCalories += dish.calories || 0;
     totalProtein += dish.protein || 0;
     totalCarbs += dish.carbs || 0;
@@ -1045,7 +1044,6 @@ window.loadDishSummaryTable = async function () {
 
   totalRow.innerHTML = `
     <td colspan="2">Total</td>
-    <td>${totalGrams.toFixed(1)}</td>
     <td>${totalCalories.toFixed(1)}</td>
     <td>${totalProtein.toFixed(1)}</td>
     <td>${totalCarbs.toFixed(1)}</td>
