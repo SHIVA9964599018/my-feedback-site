@@ -236,7 +236,7 @@
     <p id="nutrition-message" style="margin-top: 20px;"></p>
   </div>
 
-  <!-- Sub-section 2: Calorie Calculator -->
+<!-- Sub-section 2: Calorie Calculator -->
 <div id="utility-daily-calorie" style="display:none;">
   <h3>Daily Calorie Calculator</h3>
 
@@ -263,7 +263,30 @@
 
   <button type="button" id="calculate-btn" style="margin-top: 20px;">Calculate</button>
   <div id="calorie-result" style="margin-top: 20px;"></div>
+
+  <!-- 📊 Saved Dish Summary Table -->
+  <div id="dish-summary-table" style="margin-top: 40px;">
+    <h3>Saved Dish Summary (From Supabase)</h3>
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size: 14px; width: 100%;">
+      <thead>
+        <tr style="background-color: #f0f0f0;">
+          <th>Meal</th>
+          <th>Dish Name</th>
+          <th>Quantity (g)</th>
+          <th>Calories</th>
+          <th>Protein (g)</th>
+          <th>Carbs (g)</th>
+          <th>Fibre (g)</th>
+          <th>Fats (g)</th>
+        </tr>
+      </thead>
+      <tbody id="dish-summary-body">
+        <!-- JS will populate this -->
+      </tbody>
+    </table>
+  </div>
 </div>
+
 
  
 
@@ -295,7 +318,7 @@
 <div id="calorie-history-container" style="margin-top: 1rem;">
   <!-- History will be loaded here -->
 </div> 
--->
+
 
 
 
