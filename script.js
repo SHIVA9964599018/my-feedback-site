@@ -1012,7 +1012,6 @@ window.loadDishSummaryTable = async function () {
   dishes.forEach(dish => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${dish.meal_type}</td>
       <td>${dish.dish_name}</td>
       <td>${dish.grams}</td>
       <td>${(dish.calories || 0).toFixed(1)}</td>
