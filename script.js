@@ -1007,13 +1007,20 @@ window.loadDishSummaryTable = async function () {
   }
 
   const tbody = document.getElementById("dish-summary-body");
-  tbody.innerHTML = ""; // clear previous
+  tbody.innerHTML = ""; // Clear previous rows
+
+  let totalGrams = 0,
+      totalCalories = 0,
+      totalProtein = 0,
+      totalCarbs = 0,
+      totalFibre = 0,
+      totalFats = 0;
 
   dishes.forEach(dish => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${dish.dish_name}</td>
-      <td>${dish.grams}</td>
+      <td>${(dish.grams || 0).toFixed(1)}</td>
       <td>${(dish.calories || 0).toFixed(1)}</td>
       <td>${(dish.protein || 0).toFixed(1)}</td>
       <td>${(dish.carbs || 0).toFixed(1)}</td>
@@ -1021,7 +1028,32 @@ window.loadDishSummaryTable = async function () {
       <td>${(dish.fats || 0).toFixed(1)}</td>
     `;
     tbody.appendChild(row);
+
+    // Accumulate totals
+    totalGrams += dish.grams || 0;
+    totalCalories += dish.calories || 0;
+    totalProtein += dish.protein || 0;
+    totalCarbs += dish.carbs || 0;
+    totalFibre += dish.fibre || 0;
+    totalFats += dish.fats || 0;
   });
+
+  // Create and style the total row
+  const totalRow = document.createElement("tr");
+  totalRow.style.backgroundColor = "#f0f0f0";
+  totalRow.style.fontWeight = "bold";
+
+  totalRow.innerHTML = `
+    <td colspan="2">Total</td>
+    <td>${totalGrams.toFixed(1)}</td>
+    <td>${totalCalories.toFixed(1)}</td>
+    <td>${totalProtein.toFixed(1)}</td>
+    <td>${totalCarbs.toFixed(1)}</td>
+    <td>${totalFibre.toFixed(1)}</td>
+    <td>${totalFats.toFixed(1)}</td>
+  `;
+
+  tbody.appendChild(totalRow);
 };
 
 
