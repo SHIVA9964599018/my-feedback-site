@@ -987,6 +987,7 @@ window.saveDishRowsToDB = async function () {
       console.error("❌ Failed to insert data:", insertError.message);
     } else {
       console.log("✅ Dishes inserted successfully with calculated macros");
+	  await window.loadDishSummaryTable(); // 👈 Add this here
     }
   }
 };
@@ -1023,3 +1024,9 @@ window.loadDishSummaryTable = async function () {
     tbody.appendChild(row);
   });
 };
+
+
+document.getElementById("calculate-btn").addEventListener("click", async () => {
+  await window.saveDishRowsToDB();       // save dish data
+  await window.loadDishSummaryTable();   // load saved summary beside form
+});
