@@ -992,4 +992,34 @@ window.saveDishRowsToDB = async function () {
 };
 
 
+window.loadDishSummaryTable = async function () {
+  const today = new Date().toISOString().split("T")[0];
 
+  const { data: dishes, error } = await supabaseClient
+    .from("daily_dishes")
+    .select("*")
+    .eq("date", today);
+
+  if (error) {
+    console.error("❌ Error fetching dish summary:", error.message);
+    return;
+  }
+
+  const tbody = document.getElementById("dish-summary-body");
+  tbody.innerHTML = ""; // clear previous
+
+  dishes.forEach(dish => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${dish.meal_type}</td>
+      <td>${dish.dish_name}</td>
+      <td>${dish.grams}</td>
+      <td>${(dish.calories || 0).toFixed(1)}</td>
+      <td>${(dish.protein || 0).toFixed(1)}</td>
+      <td>${(dish.carbs || 0).toFixed(1)}</td>
+      <td>${(dish.fibre || 0).toFixed(1)}</td>
+      <td>${(dish.fats || 0).toFixed(1)}</td>
+    `;
+    tbody.appendChild(row);
+  });
+};
