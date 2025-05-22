@@ -1029,5 +1029,5 @@ window.loadDishSummaryTable = async function () {
 document.getElementById("calculate-btn").addEventListener("click", async () => {
   await window.saveDishRowsToDB();       // save dish data
   await window.loadDishSummaryTable();   // load saved summary beside form
-  document.getElementById("utility-daily-calorie-wrapper").style.display = "block"; 
+  document.getElementById("utility-daily-calorie").style.display = "block"; 
 });
