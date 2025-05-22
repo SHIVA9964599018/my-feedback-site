@@ -236,58 +236,61 @@
     <p id="nutrition-message" style="margin-top: 20px;"></p>
   </div>
 
-<!-- Sub-section 2: Calorie Calculator with Summary Side-by-Side -->
-<div id="utility-daily-calorie" style="display: flex; gap: 30px; align-items: flex-start; display: none;">
+<!-- Sub-section 2: Calorie Calculator with Side-by-Side Layout -->
+<div id="utility-daily-calorie-wrapper" style="display: none;">
+  <div style="display: flex; gap: 40px; align-items: flex-start;">
 
-  <!-- LEFT SIDE: Input Form Section -->
-  <div style="flex: 1;">
-    <h3>Daily Calorie Calculator</h3>
+    <!-- LEFT: Dish Entry Form -->
+    <div style="flex: 1;">
+      <h3>Daily Calorie Calculator</h3>
 
-    <!-- Breakfast -->
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-      <h4 style="margin: 0;">Breakfast</h4>
-      <button type="button" onclick="addDishRow('breakfast')">+ Add</button>
+      <!-- Breakfast -->
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <h4 style="margin: 0;">Breakfast</h4>
+        <button type="button" onclick="addDishRow('breakfast')">+ Add</button>
+      </div>
+      <div id="breakfast-container" class="meal-container"></div>
+
+      <!-- Lunch -->
+      <div style="display: flex; align-items: center; gap: 10px; margin: 20px 0 10px;">
+        <h4 style="margin: 0;">Lunch</h4>
+        <button type="button" onclick="addDishRow('lunch')">+ Add</button>
+      </div>
+      <div id="lunch-container" class="meal-container"></div>
+
+      <!-- Dinner -->
+      <div style="display: flex; align-items: center; gap: 10px; margin: 20px 0 10px;">
+        <h4 style="margin: 0;">Dinner</h4>
+        <button type="button" onclick="addDishRow('dinner')">+ Add</button>
+      </div>
+      <div id="dinner-container" class="meal-container"></div>
+
+      <!-- Button + Total -->
+      <button type="button" id="calculate-btn" style="margin-top: 20px;">Calculate</button>
+      <div id="calorie-result" style="margin-top: 20px;"></div>
     </div>
-    <div id="breakfast-container" class="meal-container"></div>
 
-    <!-- Lunch -->
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
-      <h4 style="margin: 0;">Lunch</h4>
-      <button type="button" onclick="addDishRow('lunch')">+ Add</button>
+    <!-- RIGHT: Summary Table -->
+    <div style="flex: 1;">
+      <h3>Saved Dish Summary (From Supabase)</h3>
+      <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size: 14px; width: 100%;">
+        <thead style="background-color: #f0f0f0;">
+          <tr>
+            <th>Dish Name</th>
+            <th>Qty (g)</th>
+            <th>Calories</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+            <th>Fibre</th>
+            <th>Fats</th>
+          </tr>
+        </thead>
+        <tbody id="dish-summary-body">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
     </div>
-    <div id="lunch-container" class="meal-container"></div>
 
-    <!-- Dinner -->
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; margin-top: 20px;">
-      <h4 style="margin: 0;">Dinner</h4>
-      <button type="button" onclick="addDishRow('dinner')">+ Add</button>
-    </div>
-    <div id="dinner-container" class="meal-container"></div>
-
-    <!-- Calculate Button and Total Summary -->
-    <button type="button" id="calculate-btn" style="margin-top: 20px;">Calculate</button>
-    <div id="calorie-result" style="margin-top: 20px;"></div>
-  </div>
-
-  <!-- RIGHT SIDE: Saved Summary Table -->
-  <div id="dish-summary-table" style="flex: 1;">
-    <h3>Saved Dish Summary (From Supabase)</h3>
-    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size: 14px; width: 100%;">
-      <thead>
-        <tr style="background-color: #f0f0f0;">
-          <th>Dish Name</th>
-          <th>Qty (g)</th>
-          <th>Calories</th>
-          <th>Protein</th>
-          <th>Carbs</th>
-          <th>Fibre</th>
-          <th>Fats</th>
-        </tr>
-      </thead>
-      <tbody id="dish-summary-body">
-        <!-- JS will populate this -->
-      </tbody>
-    </table>
   </div>
 </div>
 
