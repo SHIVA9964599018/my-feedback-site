@@ -67,21 +67,25 @@ window.showSection = function (sectionId) {
     section.style.display = "none";
   });
 
-  // Show the selected section
-  let targetSection = document.getElementById(sectionId);
+  // Show the parent "utilities" section if it's a utility sub-section
+  if (sectionId.startsWith("utility-")) {
+    const utilitiesSection = document.getElementById("utilities");
+    if (utilitiesSection) {
+      utilitiesSection.style.display = "block";
+    }
+  }
+
+  // Now show the actual requested sub-section
+  const targetSection = document.getElementById(sectionId);
   if (targetSection) {
     targetSection.style.display = "block";
     console.log(`Showing: ${targetSection.id}`);
 
-    // Extra handling for gallery
     if (sectionId === "gallery") {
-      let dropdownMenu = document.querySelector(".dropdown-menu");
-      if (dropdownMenu) {
-        dropdownMenu.style.display = "block";
-      }
+      const dropdownMenu = document.querySelector(".dropdown-menu");
+      if (dropdownMenu) dropdownMenu.style.display = "block";
     }
 
-    // Load bike data only when bike-summary is shown
     if (sectionId === "bike-summary") {
       loadBikeSummary();
     }
@@ -89,6 +93,7 @@ window.showSection = function (sectionId) {
     console.error(`Error: Section ${sectionId} not found.`);
   }
 };
+
 
 
 
