@@ -1091,27 +1091,24 @@ window.handleCalorieLogin = async function () {
   try {
     const { data, error } = await supabaseClient
       .from('app_users')
-      .select('id, username')
+      .select('*')
       .eq('username', username)
       .eq('password', password)
       .single();
+
+    console.log("Supabase login result:", { data, error });
 
     if (error || !data) {
       alert("Invalid username or password.");
       return;
     }
 
+    // Success!
     loggedInUsername = data.username;
-    loggedInUserId = data.id;
-
-    alert(`Welcome, ${loggedInUsername}!`);
 
     document.getElementById("loginModal").style.display = "none";
     window.showSection('utility-daily-calorie');
     window.showUsernameOnTop(loggedInUsername);
-
-    // ✅ This line must exist
-    await window.loadDailyDishes();
 
   } catch (err) {
     console.error("Login error:", err);
