@@ -893,11 +893,13 @@ window.loadDailyDishes = async function () {
 	console.log('loadDailyDishes is called');
   const today = new Date().toISOString().split("T")[0];
 
-  const { data, error } = await supabaseClient
-    .from("daily_dishes")
-    .select("*")
-    .eq("date", today)
-    .order("meal_type");
+	const { data, error } = await supabaseClient
+	  .from("daily_dishes")
+	  .select("*")
+	  .eq("date", today)
+	  .eq("user_id", loggedInUsername)  // ✅ Filter by current user
+	  .order("meal_type");
+
 
   if (error || !data) {
     console.error("Error loading daily dishes:", error);
