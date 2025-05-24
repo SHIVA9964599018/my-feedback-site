@@ -1061,45 +1061,25 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
   document.getElementById("utility-daily-calorie").style.display = "block"; 
 });
 
+let awaitingDailyCalorieAccess = false; // Global flag
+
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownMenu = document.querySelector(".dropdown-menu");
 
   dropdownMenu.addEventListener("click", function (event) {
     const target = event.target;
     if (target.dataset.sub === "utility-daily-calorie") {
-      event.preventDefault();
+      event.preventDefault(); // Stop default showSection
 
-      // Show login prompt instead of showing the section directly
+      // Show login form instead
       document.getElementById("login-box").style.display = "block";
+      awaitingDailyCalorieAccess = true; // set flag
     }
   });
 });
 
-window.verifyLogin = async function () {
-  const username = document.getElementById("login-username").value.trim();
-  const password = document.getElementById("login-password").value.trim();
 
-  const { data, error } = await supabaseClient
-    .from("app_users")
-    .select("*")
-    .eq("username", username)
-    .eq("password", password)  // later: use hashed comparison
-    .single();
-
-  if (error || !data) {
-    document.getElementById("login-error").innerText = "Invalid username or password.";
-    return;
-  }
-
-  // ✅ Login success — store user id globally
-  window.loggedInUserId = data.id;
-  document.getElementById("login-box").style.display = "none";
-
-  // Now show the calorie section
-  document.getElementById("utility-daily-calorie").style.display = "block";
-};
-
-window.verifyLogin = async function () {
+window.submitLoginForDailyCalorie = async function () {
   const username = document.getElementById("login-username").value.trim();
   const password = document.getElementById("login-password").value.trim();
 
@@ -1115,10 +1095,13 @@ window.verifyLogin = async function () {
     return;
   }
 
-  // ✅ Store user ID for later use
+  // ✅ Success
   window.loggedInUserId = data.id;
-
-  // Hide login box and show calorie section
   document.getElementById("login-box").style.display = "none";
-  showSection("utility-daily-calorie"); // your existing logic
+  document.getElementById("login-error").innerText = "";
+
+  if (awaitingDailyCalorieAccess) {
+    awaitingDailyCalorieAccess = false;
+    showSection("utility-daily-calorie");
+  }
 };
