@@ -1073,22 +1073,39 @@ window.promptCalorieLogin = function () {
 };
 
 // Called when user clicks "Login" button in modal
-window.handleCalorieLogin = function () {
+window.handleCalorieLogin = async function () {
   const username = document.getElementById("usernameInput").value;
   const password = document.getElementById("passwordInput").value;
 
-  if (username && password) {
-    loggedInUsername = username;
+  if (!username || !password) {
+    alert("Please enter both username and password.");
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: username,
+      password: password
+    });
+
+    if (error) {
+      alert("Invalid credentials. " + error.message);
+      return;
+    }
+
+    loggedInUsername = data.user.email;
 
     document.getElementById("loginModal").style.display = "none";
     window.showSection('utility-daily-calorie');
-    window.showUsernameOnTop(username);
-  } else {
-    alert("Please enter both username and password.");
+    window.showUsernameOnTop(loggedInUsername);
+
+  } catch (err) {
+    console.error("Login error:", err);
+    alert("Login failed. Please try again.");
   }
 };
 
-// Display username on top of Daily Calorie section
+// Show username on top
 window.showUsernameOnTop = function (username) {
   let existing = document.getElementById("loggedInUser");
   if (!existing) {
