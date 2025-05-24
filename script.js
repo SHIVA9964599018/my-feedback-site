@@ -1081,22 +1081,22 @@ window.handleCalorieLogin = async function () {
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('app_users')
       .select('*')
       .eq('username', username)
       .eq('password', password)
-      .single(); // Expecting only one match
+      .single();
 
-    console.log("Supabase response:", { data, error });
+    console.log("Supabase login result:", { data, error });
 
     if (error || !data) {
       alert("Invalid username or password.");
       return;
     }
 
+    // Success!
     loggedInUsername = data.username;
-
     document.getElementById("loginModal").style.display = "none";
     window.showSection('utility-daily-calorie');
     window.showUsernameOnTop(loggedInUsername);
@@ -1106,6 +1106,7 @@ window.handleCalorieLogin = async function () {
     alert("Login failed. Please try again.");
   }
 };
+
 
 
 window.showUsernameOnTop = function (username) {
