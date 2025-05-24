@@ -1088,12 +1088,13 @@ window.handleCalorieLogin = async function () {
       .eq('password', password)
       .single(); // Expecting only one match
 
+    console.log("Supabase response:", { data, error });
+
     if (error || !data) {
       alert("Invalid username or password.");
       return;
     }
 
-    // Login success
     loggedInUsername = data.username;
 
     document.getElementById("loginModal").style.display = "none";
@@ -1105,6 +1106,7 @@ window.handleCalorieLogin = async function () {
     alert("Login failed. Please try again.");
   }
 };
+
 
 window.showUsernameOnTop = function (username) {
   let existing = document.getElementById("loggedInUser");
