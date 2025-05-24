@@ -890,6 +890,7 @@ window.saveDishDetailsPerDay = async function (mealType, dishName, grams, info) 
 
 
 window.loadDailyDishes = async function () {
+	console.log('loadDailyDishes is called');
   const today = new Date().toISOString().split("T")[0];
 
   const { data, error } = await supabaseClient
