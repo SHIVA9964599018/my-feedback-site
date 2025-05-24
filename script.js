@@ -1109,6 +1109,7 @@ window.handleCalorieLogin = async function () {
     document.getElementById("loginModal").style.display = "none";
     window.showSection('utility-daily-calorie');
     window.showUsernameOnTop(loggedInUsername);
+	window.loadDailyDishes();
 
   } catch (err) {
     console.error("Login error:", err);
