@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
 window.showSection = function (sectionId) {
   console.log(`Switching to Section: ${sectionId}`);
 
-  // Hide all sections
-  document.querySelectorAll("section").forEach((section) => {
+  // Hide all sections and utility divs
+  document.querySelectorAll("section, div[id^='utility-']").forEach((section) => {
     section.style.display = "none";
   });
 
