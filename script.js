@@ -1063,7 +1063,6 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
 
 let loggedInUsername = null;
 
-// Called when user clicks "Daily Calorie" tab
 window.promptCalorieLogin = function () {
   if (loggedInUsername) {
     window.showSection('utility-daily-calorie');
@@ -1072,10 +1071,9 @@ window.promptCalorieLogin = function () {
   }
 };
 
-// Called when user clicks "Login" button in modal
 window.handleCalorieLogin = async function () {
-  const username = document.getElementById("usernameInput").value;
-  const password = document.getElementById("passwordInput").value;
+  const username = document.getElementById("usernameInput").value.trim();
+  const password = document.getElementById("passwordInput").value.trim();
 
   if (!username || !password) {
     alert("Please enter both username and password.");
@@ -1083,17 +1081,20 @@ window.handleCalorieLogin = async function () {
   }
 
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: username,
-      password: password
-    });
+    const { data, error } = await supabase
+      .from('app_users')
+      .select('*')
+      .eq('username', username)
+      .eq('password', password)
+      .single(); // Expecting only one match
 
-    if (error) {
-      alert("Invalid credentials. " + error.message);
+    if (error || !data) {
+      alert("Invalid username or password.");
       return;
     }
 
-    loggedInUsername = data.user.email;
+    // Login success
+    loggedInUsername = data.username;
 
     document.getElementById("loginModal").style.display = "none";
     window.showSection('utility-daily-calorie');
@@ -1105,7 +1106,6 @@ window.handleCalorieLogin = async function () {
   }
 };
 
-// Show username on top
 window.showUsernameOnTop = function (username) {
   let existing = document.getElementById("loggedInUser");
   if (!existing) {
@@ -1118,5 +1118,7 @@ window.showUsernameOnTop = function (username) {
     existing.innerHTML = `<strong>Welcome, ${username}</strong><br><br>`;
   }
 };
+
+
 
 
