@@ -1061,23 +1061,28 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
   document.getElementById("utility-daily-calorie").style.display = "block"; 
 });
 
-let awaitingDailyCalorieAccess = false; // Global flag
-
 document.addEventListener("DOMContentLoaded", function () {
-  const dropdownMenu = document.querySelector(".dropdown-menu");
+  const dropdownItems = document.querySelectorAll(".dropdown-menu a");
 
-  dropdownMenu.addEventListener("click", function (event) {
-    const target = event.target;
-    if (target.dataset.sub === "utility-daily-calorie") {
-      event.preventDefault(); // Stop default showSection
+  dropdownItems.forEach(item => {
+    item.addEventListener("click", function (e) {
+      e.preventDefault();
 
-      // Show login form instead
-      document.getElementById("login-box").style.display = "block";
-      awaitingDailyCalorieAccess = true; // set flag
-    }
+      const subSection = item.getAttribute("data-sub");
+      const loadSection = item.getAttribute("data-load");
+
+      if (subSection === "utility-daily-calorie") {
+        document.getElementById("login-box").style.display = "block";
+        window.awaitingSection = subSection; // ✅ Save the section name
+        return;
+      }
+
+      // Normal behavior
+      if (subSection) showSection(subSection);
+      if (loadSection) loadDynamic(`${loadSection}.html`);
+    });
   });
 });
-
 
 window.submitLoginForDailyCalorie = async function () {
   const username = document.getElementById("login-username").value.trim();
@@ -1095,13 +1100,15 @@ window.submitLoginForDailyCalorie = async function () {
     return;
   }
 
-  // ✅ Success
+  // ✅ Login successful
   window.loggedInUserId = data.id;
   document.getElementById("login-box").style.display = "none";
   document.getElementById("login-error").innerText = "";
 
-  if (awaitingDailyCalorieAccess) {
-    awaitingDailyCalorieAccess = false;
-    showSection("utility-daily-calorie");
+  // ✅ Now show the section after login
+  if (window.awaitingSection) {
+    showSection(window.awaitingSection);
+    window.awaitingSection = null;
   }
 };
+
