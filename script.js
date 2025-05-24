@@ -1061,54 +1061,45 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
   document.getElementById("utility-daily-calorie").style.display = "block"; 
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const dropdownItems = document.querySelectorAll(".dropdown-menu a");
+let loggedInUsername = null;
 
-  dropdownItems.forEach(item => {
-    item.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const subSection = item.getAttribute("data-sub");
-      const loadSection = item.getAttribute("data-load");
-
-      if (subSection === "utility-daily-calorie") {
-        document.getElementById("login-box").style.display = "block";
-        window.awaitingSection = subSection; // ✅ Save the section name
-        return;
-      }
-
-      // Normal behavior
-      if (subSection) showSection(subSection);
-      if (loadSection) loadDynamic(`${loadSection}.html`);
-    });
-  });
-});
-
-window.submitLoginForDailyCalorie = async function () {
-  const username = document.getElementById("login-username").value.trim();
-  const password = document.getElementById("login-password").value.trim();
-
-  const { data, error } = await supabaseClient
-    .from("app_users")
-    .select("*")
-    .eq("username", username)
-    .eq("password", password)
-    .single();
-
-  if (error || !data) {
-    document.getElementById("login-error").innerText = "Invalid username or password.";
-    return;
-  }
-
-  // ✅ Login successful
-  window.loggedInUserId = data.id;
-  document.getElementById("login-box").style.display = "none";
-  document.getElementById("login-error").innerText = "";
-
-  // ✅ Now show the section after login
-  if (window.awaitingSection) {
-    showSection(window.awaitingSection);
-    window.awaitingSection = null;
+// Called when user clicks "Daily Calorie" tab
+window.promptCalorieLogin = function () {
+  if (loggedInUsername) {
+    window.showSection('utility-daily-calorie');
+  } else {
+    document.getElementById('loginModal').style.display = 'block';
   }
 };
+
+// Called when user clicks "Login" button in modal
+window.handleCalorieLogin = function () {
+  const username = document.getElementById("usernameInput").value;
+  const password = document.getElementById("passwordInput").value;
+
+  if (username && password) {
+    loggedInUsername = username;
+
+    document.getElementById("loginModal").style.display = "none";
+    window.showSection('utility-daily-calorie');
+    window.showUsernameOnTop(username);
+  } else {
+    alert("Please enter both username and password.");
+  }
+};
+
+// Display username on top of Daily Calorie section
+window.showUsernameOnTop = function (username) {
+  let existing = document.getElementById("loggedInUser");
+  if (!existing) {
+    const userInfo = document.createElement("div");
+    userInfo.id = "loggedInUser";
+    userInfo.innerHTML = `<strong>Welcome, ${username}</strong><br><br>`;
+    const calorieSection = document.getElementById("utility-daily-calorie");
+    calorieSection.insertBefore(userInfo, calorieSection.firstChild);
+  } else {
+    existing.innerHTML = `<strong>Welcome, ${username}</strong><br><br>`;
+  }
+};
+
 
