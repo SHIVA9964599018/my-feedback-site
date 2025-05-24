@@ -966,7 +966,7 @@ window.saveDishRowsToDB = async function () {
 
 
 	 rowsToInsert.push({
-
+	  user_id: loggedInUserId, 
 	  date: today,
 	  meal_type: meal,
 	  dish_name: name,
