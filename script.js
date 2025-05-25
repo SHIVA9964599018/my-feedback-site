@@ -1075,7 +1075,16 @@ window.loadDishSummaryTable = async function () {
 };
 
 
+let loggedInUsername = null;
 
+window.promptCalorieLogin = function () {
+  if (loggedInUsername) {
+    window.showSection('utility-daily-calorie'); // ✅ show section
+    window.loadDailyDishes();                    // ✅ load user-specific dishes
+  } else {
+    document.getElementById('loginModal').style.display = 'block';
+  }
+};
 window.handleCalorieLogin = async function () {
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value.trim();
