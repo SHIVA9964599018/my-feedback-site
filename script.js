@@ -931,10 +931,11 @@ window.saveDishRowsToDB = async function () {
   const rowsToInsert = [];
 
   // 1. Delete previous entries
-  const { error: deleteError } = await supabaseClient
-    .from("daily_dishes")
-    .delete()
-    .eq("date", today);
+const { error: deleteError } = await supabaseClient
+  .from("daily_dishes")
+  .delete()
+  .eq("date", today)
+  .eq("user_id", loggedInUsername); // ✅ Only this user's dishes
 
   if (deleteError) {
     console.error("❌ Failed to delete previous entries:", deleteError.message);
@@ -1005,27 +1006,39 @@ window.saveDishRowsToDB = async function () {
 
 
 window.loadDishSummaryTable = async function () {
-  const today = new Date().toISOString().split("T")[0];
+  // ✅ Get today's date in IST
+  function getTodayInIST() {
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istDate = new Date(now.getTime() + istOffset);
+    return istDate.toISOString().split("T")[0];
+  }
 
+  const today = getTodayInIST();
+
+  // ✅ Require login
+  if (!loggedInUsername) {
+    console.warn("No user logged in. Cannot load summary.");
+    return;
+  }
+
+  // ✅ Load only this user's data for today
   const { data: dishes, error } = await supabaseClient
     .from("daily_dishes")
     .select("*")
-    .eq("date", today);
+    .eq("date", today)
+    .eq("user_id", loggedInUsername);  // ✅ This is the fix
 
   if (error) {
     console.error("❌ Error fetching dish summary:", error.message);
     return;
   }
 
+  // ✅ Render the table...
   const tbody = document.getElementById("dish-summary-body");
-  tbody.innerHTML = ""; // Clear previous rows
+  tbody.innerHTML = "";
 
-  let totalGrams = 0,
-      totalCalories = 0,
-      totalProtein = 0,
-      totalCarbs = 0,
-      totalFibre = 0,
-      totalFats = 0;
+  let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
 
   dishes.forEach(dish => {
     const row = document.createElement("tr");
@@ -1040,7 +1053,6 @@ window.loadDishSummaryTable = async function () {
     `;
     tbody.appendChild(row);
 
-    // Accumulate totals
     totalCalories += dish.calories || 0;
     totalProtein += dish.protein || 0;
     totalCarbs += dish.carbs || 0;
@@ -1048,11 +1060,9 @@ window.loadDishSummaryTable = async function () {
     totalFats += dish.fats || 0;
   });
 
-  // Create and style the total row
   const totalRow = document.createElement("tr");
   totalRow.style.backgroundColor = "#f0f0f0";
   totalRow.style.fontWeight = "bold";
-
   totalRow.innerHTML = `
     <td colspan="2">Total</td>
     <td>${totalCalories.toFixed(1)}</td>
@@ -1061,27 +1071,9 @@ window.loadDishSummaryTable = async function () {
     <td>${totalFibre.toFixed(1)}</td>
     <td>${totalFats.toFixed(1)}</td>
   `;
-
   tbody.appendChild(totalRow);
 };
 
-
-document.getElementById("calculate-btn").addEventListener("click", async () => {
-  await window.saveDishRowsToDB();       // save dish data
-  await window.loadDishSummaryTable();   // load saved summary beside form
-  document.getElementById("utility-daily-calorie").style.display = "block"; 
-});
-
-let loggedInUsername = null;
-
-window.promptCalorieLogin = function () {
-  if (loggedInUsername) {
-    window.showSection('utility-daily-calorie'); // ✅ show section
-    window.loadDailyDishes();                    // ✅ load user-specific dishes
-  } else {
-    document.getElementById('loginModal').style.display = 'block';
-  }
-};
 
 
 window.handleCalorieLogin = async function () {
