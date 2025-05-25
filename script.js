@@ -646,16 +646,19 @@ window.addDishRow = function (mealType, name = "", grams = "") {
   row.className = "dish-row";
 
   row.innerHTML = `
-    <div style="position: relative;">
-      <input type="text" class="dish-name" value="${name}" placeholder="Dish Name" autocomplete="off" />
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="position: relative;">
+        <input type="text" class="dish-name" value="${name}" placeholder="Dish Name" autocomplete="off" />
+      </div>
+      <input type="number" class="dish-grams" style="width: 80px;" value="${grams}" placeholder="Grams" />
+      <button type="button" onclick="this.parentElement.parentElement.remove()">❌</button>
     </div>
-    <input type="number" class="dish-grams" value="${grams}" placeholder="Grams" />
-    <button type="button" onclick="this.parentElement.remove()">❌</button>
   `;
 
   container.appendChild(row);
   window.setupAutocomplete(row.querySelector(".dish-name"));
 };
+
 
 // ✅ Fetch Dish Info from Supabase
 
