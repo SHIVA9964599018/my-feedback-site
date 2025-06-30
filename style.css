@@ -331,13 +331,14 @@ blockquote {
 
 details {
   font-family: 'Segoe UI', sans-serif; /* Or any preferred font */
-  font-size: 15px;
+  font-size: 30px;
   margin-bottom: 1em;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   background-color: #f9f9f9;
-}
+  width: 30%; 
+  }
 
 summary {
   cursor: pointer;
