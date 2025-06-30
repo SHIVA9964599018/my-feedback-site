@@ -353,12 +353,12 @@ details[open] summary {
 #bike-summary-data,
 #monthly-expense-data,
 #weekly-expense-data {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 #bike-summary-data p,
 #weekly-expense-data p {
-  margin: 6px 0;
+  margin: 3px 0;
 }
 
 
