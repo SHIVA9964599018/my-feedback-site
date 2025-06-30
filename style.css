@@ -363,6 +363,11 @@ details[open] summary {
   margin: 6px 0;
 }
 
+details strong {
+  font-size: inherit;
+  font-weight: bold; /* keeps it bold */
+}
+
 
 .sub-summary {
   font-size: 1.2rem;
