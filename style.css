@@ -337,6 +337,7 @@ details {
   padding: 1px;
   background-color: #f9f9f9;
   width: 30%; 
+  color: blue;
   }
 
 summary {
@@ -354,11 +355,12 @@ details[open] summary {
 #monthly-expense-data,
 #weekly-expense-data {
   margin-top: 5px;
+  font-size: 15px;
 }
 
 #bike-summary-data p,
 #weekly-expense-data p {
-  margin: 3px 0;
+  margin: 6px 0;
 }
 
 
