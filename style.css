@@ -366,6 +366,7 @@ details[open] summary {
 details strong {
   font-size: inherit;
   font-weight: bold; /* keeps it bold */
+  color:blue;
 }
 
 
