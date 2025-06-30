@@ -342,7 +342,7 @@ details {
 
 summary {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   color: #333;
 }
@@ -355,7 +355,7 @@ details[open] summary {
 #monthly-expense-data,
 #weekly-expense-data {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 #bike-summary-data p,
