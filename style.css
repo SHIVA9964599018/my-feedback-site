@@ -332,7 +332,6 @@ blockquote {
 details {
   font-family: 'Segoe UI', sans-serif; /* Or any preferred font */
   font-size: 15px;
-  margin-bottom: 1em;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1px;
